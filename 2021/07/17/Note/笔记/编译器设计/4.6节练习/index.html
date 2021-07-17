@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="4.6节练习4.6.1描述下列文法的所有可行前缀  练习4.2.2-1的文法 S-&gt;0S1|01 ！ 练习4.2.1的文法 S-&gt;SS+|SS*|a ！ 练习4.2.2-3的文法 S-&gt;S(S)S|ε  解答 S -&gt; 0 S 1 | 0 1  构造增广文法   12S&amp;#x27; -&gt; SS -&gt; 0 S 1 | 0 1 构造LR(0)自动机   123456">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhuhui&#39;s yard">
+<meta property="og:url" content="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/%E7%BC%96%E8%AF%91%E5%99%A8%E8%AE%BE%E8%AE%A1/4.6%E8%8A%82%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:site_name" content="zhuhui&#39;s yard">
+<meta property="og:description" content="4.6节练习4.6.1描述下列文法的所有可行前缀  练习4.2.2-1的文法 S-&gt;0S1|01 ！ 练习4.2.1的文法 S-&gt;SS+|SS*|a ！ 练习4.2.2-3的文法 S-&gt;S(S)S|ε  解答 S -&gt; 0 S 1 | 0 1  构造增广文法   12S&amp;#x27; -&gt; SS -&gt; 0 S 1 | 0 1 构造LR(0)自动机   123456">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-17T13:04:47.158Z">
+<meta property="article:modified_time" content="2021-06-19T02:26:15.347Z">
+<meta property="article:author" content="朱辉">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/%E7%BC%96%E8%AF%91%E5%99%A8%E8%AE%BE%E8%AE%A1/4.6%E8%8A%82%E7%BB%83%E4%B9%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | zhuhui's yard</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">zhuhui's yard</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/%E7%BC%96%E8%AF%91%E5%99%A8%E8%AE%BE%E8%AE%A1/4.6%E8%8A%82%E7%BB%83%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="朱辉">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhuhui's yard">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-17 21:04:47" itemprop="dateCreated datePublished" datetime="2021-07-17T21:04:47+08:00">2021-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-19 10:26:15" itemprop="dateModified" datetime="2021-06-19T10:26:15+08:00">2021-06-19</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="4-6节练习"><a href="#4-6节练习" class="headerlink" title="4.6节练习"></a>4.6节练习</h1><h3 id="4-6-1"><a href="#4-6-1" class="headerlink" title="4.6.1"></a>4.6.1</h3><p>描述下列文法的所有可行前缀</p>
+<ol>
+<li>练习4.2.2-1的文法 <code>S-&gt;0S1|01</code></li>
+<li>！ 练习4.2.1的文法 <code>S-&gt;SS+|SS*|a</code></li>
+<li>！ 练习4.2.2-3的文法 <code>S-&gt;S(S)S|ε</code></li>
+</ol>
+<h4 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h4><ol>
+<li><p><code>S -&gt; 0 S 1 | 0 1</code></p>
+<ul>
+<li><p>构造增广文法</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S&#x27; -&gt; S</span><br><span class="line">S -&gt; 0 S 1 | 0 1</span><br></pre></td></tr></table></figure></li>
+<li><p>构造LR(0)自动机</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">digraph A&#123;</span><br><span class="line">    label = &quot;LR(0)自动机&quot;</span><br><span class="line">    node[shape = &quot;record&quot;]</span><br><span class="line">    node1[label = &quot;&#123;0|S&#x27; → ·S\nS → ·0S1\nS → ·01&#125;&quot;]</span><br><span class="line">    node2[label = &quot;&#123;1|S&#x27; → S·&#125;&quot;]</span><br><span class="line">    node3[label = &quot;&#123;2|S → 0·S1\nS → 0·1\nS → ·0S1\nS → ·01&#125;&quot;]</span><br><span class="line">    node4[label = &quot;&#123;3|S → 0S·1\n&#125;&quot;]</span><br><span class="line">    node5[label = &quot;&#123;4|S → 01·&#125;&quot;]</span><br><span class="line">    node6[label = &quot;&#123;5|S → 0S1·&#125;&quot;]</span><br><span class="line">    node7[label = &quot;accept&quot;,shape = &quot;plaintext&quot;]</span><br><span class="line">    node1 -&gt; node2[label = &quot;S&quot;]</span><br><span class="line">    node1 -&gt; node3[label = &quot;0&quot;]</span><br><span class="line">    node3 -&gt; node4[label = &quot;S&quot;]</span><br><span class="line">    node3 -&gt; node5[label = &quot;1&quot;]</span><br><span class="line">    node3 -&gt; node3[label = &quot;0&quot;]</span><br><span class="line">    node4 -&gt; node6[label = &quot;1&quot;]</span><br><span class="line">    node2 -&gt; node7[label = &quot;$&quot;]</span><br><span class="line">    &#123;rank = same;node1,node3&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>所有可行前缀</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">S|0+(S|1|S1)?</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>S -&gt; SS+|SS*|a</code></p>
+<ul>
+<li>构造增广文法  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S&#x27; -&gt; S</span><br><span class="line">S -&gt; SS+|SS*|a</span><br></pre></td></tr></table></figure></li>
+<li>构造LR(0)自动机  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">digraph A&#123;</span><br><span class="line">    label = &quot;LR(0)自动机&quot;</span><br><span class="line">    node[shape = &quot;record&quot;]</span><br><span class="line">    node1[label = &quot;&#123;0|S&#x27; → ·S\nS → ·SS+\nS → ·SS*\nS → ·a&#125;&quot;]</span><br><span class="line">    node2[label = &quot;&#123;1|S&#x27; → S·\nS → S·S+\nS → S·S*\nS → ·SS+\nS → ·SS*\nS → ·a&#125;&quot;]</span><br><span class="line">    node3[label = &quot;&#123;2|S → a·&#125;&quot;]</span><br><span class="line">    node4[label = &quot;&#123;3|S → SS·+\nS → SS·*\nS → S·S+\nS → S·S*\nS → ·SS+\nS → ·SS*\nS → ·a&#125;&quot;]</span><br><span class="line">    node5[label = &quot;&#123;4|S → SS+·&#125;&quot;]</span><br><span class="line">    node6[label = &quot;&#123;5|S → SS*·&#125;&quot;]</span><br><span class="line">    node7[shape = &quot;plaintext&quot;,label = &quot;accept&quot;]</span><br><span class="line">    node1 -&gt; node2[label = &quot;S&quot;]</span><br><span class="line">    node1 -&gt; node3[label = &quot;a&quot;]</span><br><span class="line">    node2 -&gt; node4[label = &quot;S&quot;]</span><br><span class="line">    node2 -&gt; node3[label = &quot;a&quot;]</span><br><span class="line">    node4 -&gt; node5[label = &quot;+&quot;]</span><br><span class="line">    node4 -&gt; node6[label = &quot;*&quot;]</span><br><span class="line">    node4 -&gt; node4[label = &quot;S&quot;]</span><br><span class="line">    node4 -&gt; node3[label = &quot;a&quot;]</span><br><span class="line">    node2 -&gt; node7</span><br><span class="line">    &#123;rank = same;node1,node2,node4&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>所有可行前缀  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">S&#123;1,∞&#125;|S*a|S&#123;2,∞&#125;(+|*)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>S -&gt; S(S)|ε</code></p>
+<ul>
+<li>构造增广文法  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S&#x27; -&gt; S</span><br><span class="line">S -&gt; S(S)|ε</span><br></pre></td></tr></table></figure></li>
+<li>构造LL(0)自动机  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">digraph A&#123;</span><br><span class="line">    label = &quot;LL(0)自动机&quot;</span><br><span class="line">    node[shape = &quot;record&quot;]</span><br><span class="line">    node0[label = &quot;&#123;0|S&#x27; → ·S\nS → ·S(S)\nS → ·&#125;&quot;]</span><br><span class="line">    node1[label = &quot;&#123;1|S&#x27; → S·\nS → S·(S)\n&#125;&quot;]</span><br><span class="line">    node2[label = &quot;&#123;2|S → S(·S)\nS → ·S(S)\nS → ·&#125;&quot;]</span><br><span class="line">    node3[label = &quot;&#123;3|S → S(S·)\nS → S·(S)&#125;&quot;]</span><br><span class="line">    node4[label = &quot;&#123;4|S → S(S)·&#125;&quot;]</span><br><span class="line">    node5[label = &quot;accept&quot;,shape = &quot;plaintext&quot;]</span><br><span class="line">    node0 -&gt; node1[label = &quot;S&quot;]</span><br><span class="line">    node1 -&gt; node2[label = &quot;(&quot;]</span><br><span class="line">    node2 -&gt; node3[label = &quot;S&quot;]</span><br><span class="line">    node3 -&gt; node2[label = &quot;(&quot;]</span><br><span class="line">    node3 -&gt; node4[label = &quot;)&quot;]</span><br><span class="line">    node1 -&gt; node5[label = &quot;$&quot;]</span><br><span class="line">    &#123;rank = same;node0,node2,node3&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>所有可行前缀  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">S|( S( )+( S|S) )?</span><br></pre></td></tr></table></figure>
+<h3 id="4-6-2"><a href="#4-6-2" class="headerlink" title="4.6.2"></a>4.6.2</h3>为练习4.2.1中的（增广）文法构造SLR项集。计算这些项集的GOTO函数。给出这个函数的语法分析表。这个文法是SLR文法吗？<h4 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h4></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>构造增广文法  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S&#x27; -&gt; S</span><br><span class="line">S -&gt; SS+|SS*|a</span><br></pre></td></tr></table></figure></li>
+<li>构造LL(0)自动机  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">digraph A&#123;</span><br><span class="line">    label = &quot;LL(0)自动机&quot;</span><br><span class="line">    node[shape = &quot;record&quot;]</span><br><span class="line">    node0[label = &quot;&#123;0|S&#x27; → ·S\nS → ·SS+\nS → ·SS*\nS → ·a&#125;&quot;]</span><br><span class="line">    node1[label = &quot;&#123;1|S&#x27; → S·\nS → S·S+\nS → S·S*\nS → ·SS+\nS → ·SS*\nS → ·a&#125;&quot;]</span><br><span class="line">    node2[label = &quot;&#123;2|S → a·&#125;&quot;]</span><br><span class="line">    node3[label = &quot;&#123;3|S → SS·+\nS → SS·*\nS → S·S+\nS → S·S*\nS → ·SS+\nS → ·SS*\nS → ·a&#125;&quot;]</span><br><span class="line">    node4[label = &quot;&#123;4|S → SS+·&#125;&quot;]</span><br><span class="line">    node5[label = &quot;&#123;5|S → SS*·&#125;&quot;]</span><br><span class="line">    node6[label = &quot;accept&quot;,shape = &quot;plaintext&quot;]</span><br><span class="line">    node0 -&gt; node1[label = &quot;S&quot;]</span><br><span class="line">    node0 -&gt; node2[label = &quot;a&quot;]</span><br><span class="line">    node1 -&gt; node3[label = &quot;S&quot;]</span><br><span class="line">    node1 -&gt; node2[label = &quot;a&quot;]</span><br><span class="line">    node3 -&gt; node4[label = &quot;+&quot;]</span><br><span class="line">    node3 -&gt; node5[label = &quot;*&quot;]</span><br><span class="line">    node3 -&gt; node3[label = &quot;S&quot;]</span><br><span class="line">    node3 -&gt; node2[label = &quot;a&quot;]</span><br><span class="line">    node1 -&gt; node6[label = &quot;$&quot;]</span><br><span class="line">    &#123;rank = same;node0,node1,node3&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>文法编号以及FOLLOW集合  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(1)    S&#x27; -&gt; S</span><br><span class="line">(2)    S -&gt; SS+</span><br><span class="line">(3)    S -&gt; SS*</span><br><span class="line">(4)    S -&gt; a</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>非终结符</th>
+<th>FIRST集合</th>
+<th>FOLLOW集合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S’</td>
+<td><code>&#123;a&#125;</code></td>
+<td><code>&#123;$&#125;</code></td>
+</tr>
+<tr>
+<td>S</td>
+<td><code>&#123;a&#125;</code></td>
+<td><code>&#123;$,+,*a&#125;</code></td>
+</tr>
+</tbody></table>
+</li>
+<li>构造语法分析表  <table>
+      <thead>
+          <tr>
+              <th rowspan = "2">状态</th>
+              <th colspan = "4" align = "center">ACTION</th>
+              <th colspan = "2" align = "center">GOTO</th>
+          </tr>
+          <tr>
+              <th>a</th>
+              <th>+</th>
+              <th>*</th>
+              <th>$</th>
+              <th>S'</th>
+              <th>S</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>0</td>
+              <td>s2</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>1</td>
+          </tr>
+          <tr>
+              <td>1</td>
+              <td>s2</td>
+              <td></td>
+              <td></td>
+              <td>acc</td>
+              <td></td>
+              <td>3</td>
+          </tr>
+          <tr>
+              <td>2</td>
+              <td>r4</td>
+              <td>r4</td>
+              <td>r4</td>
+              <td>r4</td>
+              <td></td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>3</td>
+              <td>s2</td>
+              <td>s4</td>
+              <td>s5</td>
+              <td></td>
+              <td></td>
+              <td>3</td>
+          </tr>
+          <tr>
+              <td>4</td>
+              <td>r2</td>
+              <td>r2</td>
+              <td>r2</td>
+              <td>r2</td>
+              <td></td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>5</td>
+              <td>r3</td>
+              <td>r3</td>
+              <td>r3</td>
+              <td>r3</td>
+              <td></td>
+              <td></td>
+          </tr>
+      </tbody>
+  </table></li>
+<li>易得此文法是SLR文法<h3 id="4-6-3"><a href="#4-6-3" class="headerlink" title="4.6.3"></a>4.6.3</h3>利用练习4.6.2得到的语法分析表，给出处理输入<code>aa*a+</code>时的各个动作。<h4 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h4></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>栈</th>
+<th>符号</th>
+<th>输入</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(1)</td>
+<td>0</td>
+<td></td>
+<td><code>aa*a+$</code></td>
+<td>移入</td>
+</tr>
+<tr>
+<td>(2)</td>
+<td>0 2</td>
+<td><code>a</code></td>
+<td><code>a*a+$</code></td>
+<td>根据<code>S -&gt; a</code>进行规约</td>
+</tr>
+<tr>
+<td>(3)</td>
+<td>0 1</td>
+<td><code>S</code></td>
+<td><code>a*a+$</code></td>
+<td>移入</td>
+</tr>
+<tr>
+<td>(4)</td>
+<td>0 1 2</td>
+<td><code>Sa</code></td>
+<td><code>*a+$</code></td>
+<td>根据<code>S -&gt; a</code>进行规约</td>
+</tr>
+<tr>
+<td>(5)</td>
+<td>0 1 3</td>
+<td><code>SS</code></td>
+<td><code>*a+$</code></td>
+<td>移入</td>
+</tr>
+<tr>
+<td>(6)</td>
+<td>0 1 3 5</td>
+<td><code>SS*</code></td>
+<td><code>a+$</code></td>
+<td>根据<code>S -&gt; SS*</code>进行规约</td>
+</tr>
+<tr>
+<td>(7)</td>
+<td>0 1</td>
+<td><code>S</code></td>
+<td><code>a+$</code></td>
+<td>移入</td>
+</tr>
+<tr>
+<td>(8)</td>
+<td>0 1 2</td>
+<td><code>Sa</code></td>
+<td><code>+$</code></td>
+<td>根据<code>S -&gt; a</code>进行规约</td>
+</tr>
+<tr>
+<td>(9)</td>
+<td>0 1 3</td>
+<td><code>SS</code></td>
+<td><code>+$</code></td>
+<td>移入</td>
+</tr>
+<tr>
+<td>(10)</td>
+<td>0 1 3 4</td>
+<td><code>SS+</code></td>
+<td><code>$</code></td>
+<td>根据<code>S -&gt; SS+</code>进行规约</td>
+</tr>
+<tr>
+<td>(11)</td>
+<td>0 1</td>
+<td><code>S</code></td>
+<td><code>$</code></td>
+<td>接受</td>
+</tr>
+</tbody></table>
+<h3 id="4-6-4"><a href="#4-6-4" class="headerlink" title="4.6.4"></a>4.6.4</h3><p>对于练习4.2.2-1~4.2.2-7中的各个（增广）文法：</p>
+<ol>
+<li><p>构造SLR项集和他们的GOTO函数</p>
+</li>
+<li><p>指出你的项集中的所有动作冲突</p>
+</li>
+<li><p>如果存在SLR语法分析表，构造出这个语法分析表</p>
+<h3 id="4-6-5"><a href="#4-6-5" class="headerlink" title="4.6.5"></a>4.6.5</h3><p>说明下面的文法</p>
+<p> S-&gt;AaAb|BbBa<br> A-&gt;ε<br> B-&gt;ε</p>
+</li>
+</ol>
+<p>是LL(1)的，但不是SLR(1)的。</p>
+<h4 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h4><ul>
+<li><p>是LL(1)的</p>
+<ul>
+<li>消除ε产生式  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">S -&gt; ab|ba</span><br></pre></td></tr></table></figure></li>
+<li>消除左递归、提取左公因子  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">无左递归</span><br><span class="line">无左公因子</span><br></pre></td></tr></table></figure></li>
+<li>求FIRST和FOLLOW集合<table>
+<thead>
+<tr>
+<th>非终结符</th>
+<th>FIRST集合</th>
+<th>FOLLOW集合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S</td>
+<td><code>&#123;a,b&#125;</code></td>
+<td><code>&#123;$&#125;</code></td>
+</tr>
+<tr>
+<td>易得<code>FIRST(ab) = &#123;a&#125;</code>和<code>FIRST(ba) = &#123;b&#125;不相交，且二者都不包含ε</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>所以此文法是LL(1)的</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li><p>不是SLR(1)</p>
+<ul>
+<li>构造增广文法  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">S&#x27; -&gt; S</span><br><span class="line">S -&gt; AaAb|BbBa</span><br><span class="line">A -&gt; ε</span><br><span class="line">B -&gt; ε</span><br></pre></td></tr></table></figure></li>
+<li>构造LR(0)自动机  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">I_0</span><br><span class="line">S&#x27; -&gt; ·S</span><br><span class="line">S -&gt; ·AaAb</span><br><span class="line">S -&gt; ·BbBa</span><br><span class="line">A -&gt; ·</span><br><span class="line">B -&gt; ·</span><br><span class="line"></span><br><span class="line">FOLLOW(A) = &#123;a,b&#125; = FOLLOW(B),所以在ACTION(0,a)和ACTION(0,b)都会存在规约/规约冲突</span><br><span class="line">所以不是SLR(1)文法</span><br></pre></td></tr></table></figure>
+<h3 id="4-6-6"><a href="#4-6-6" class="headerlink" title="4.6.6"></a>4.6.6</h3>说明下面的文法</li>
+</ul>
+<p>  S-&gt;SA|A<br>  A-&gt;a</p>
+</li>
+</ul>
+<p>是SLR(1)的，但不是LL(1)的</p>
+<h4 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h4><ul>
+<li><p>是SLR(1)的</p>
+<ul>
+<li><p>构造增广文法</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">S&#x27; -&gt; S    (1)</span><br><span class="line">S -&gt; SA    (2)</span><br><span class="line">S -&gt; A     (3)</span><br><span class="line">A -&gt; a     (4)</span><br></pre></td></tr></table></figure></li>
+<li><p>构造LR(0)自动机</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">digraph A&#123;</span><br><span class="line">    label = &quot;LR(0)自动机&quot;</span><br><span class="line">    node[shape = &quot;record&quot;]</span><br><span class="line">    node0[label = &quot;&#123;0|S&#x27; → ·S\nS → ·SA\nS → ·A\nA → ·a&#125;&quot;]</span><br><span class="line">    node1[label = &quot;&#123;1|S&#x27; → S·\nS → S·A\nA → ·a&#125;&quot;]</span><br><span class="line">    node2[label = &quot;&#123;2|S → A·&#125;&quot;]</span><br><span class="line">    node3[label = &quot;&#123;3|A → a·&#125;&quot;]</span><br><span class="line">    node4[label = &quot;&#123;4|S → SA·&#125;&quot;]</span><br><span class="line">    node5[label = &quot;accept&quot;,shape = &quot;plaintext&quot;]</span><br><span class="line">    node0 -&gt; node1[label = &quot;S&quot;]</span><br><span class="line">    node0 -&gt; node2[label = &quot;A&quot;]</span><br><span class="line">    node0 -&gt; node3[label = &quot;a&quot;]</span><br><span class="line">    node1 -&gt; node4[label = &quot;A&quot;]</span><br><span class="line">    node1 -&gt; node3[label = &quot;a&quot;]</span><br><span class="line">    node1 -&gt; node5[label = &quot;$&quot;]</span><br><span class="line">    &#123;rank = same;node0,node1&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>构造语法分析表</p>
+<table>
+<thead>
+<tr>
+<th>非终结符</th>
+<th>FIRST集合</th>
+<th>FOLLOW集合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S’</td>
+<td><code>&#123;a&#125;</code></td>
+<td><code>&#123;$&#125;</code></td>
+</tr>
+<tr>
+<td>S</td>
+<td><code>&#123;a&#125;</code></td>
+<td><code>&#123;a,$&#125;</code></td>
+</tr>
+<tr>
+<td>A</td>
+<td><code>&#123;a&#125;</code></td>
+<td><code>&#123;a,$&#125;</code></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>a</th>
+<th>$</th>
+<th>S’</th>
+<th>S</th>
+<th>A</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>s3</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>s3</td>
+<td>r1</td>
+<td></td>
+<td></td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>r3</td>
+<td>r3</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>r4</td>
+<td>r4</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>r2</td>
+<td>r2</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>综上可得，此文法是LSR(1)的</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li><p>不是LL(1)的</p>
+<ul>
+<li><p>消除左递归</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">S -&gt; AB</span><br><span class="line">B -&gt; AB|ε</span><br><span class="line">A -&gt; a</span><br></pre></td></tr></table></figure></li>
+<li><p>提取左公因子</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">无左公因子</span><br></pre></td></tr></table></figure></li>
+<li><p>计算FIRST集合和FOLLOW集合</p>
+<table>
+<thead>
+<tr>
+<th>非终结符</th>
+<th>FIRST集合</th>
+<th>FOLLOW集合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S</td>
+<td><code>&#123;a&#125;</code></td>
+<td><code>&#123;$&#125;</code></td>
+</tr>
+<tr>
+<td>B</td>
+<td><code>&#123;a,ε&#125;</code></td>
+<td><code>&#123;$&#125;</code></td>
+</tr>
+<tr>
+<td>A</td>
+<td><code>&#123;a&#125;</code></td>
+<td><code>&#123;a,$&#125;</code></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>构造预测分析表</p>
+<table>
+<thead>
+<tr>
+<th>非终结符\输入符号</th>
+<th>a</th>
+<th>$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S</td>
+<td><code>S -&gt; AB</code></td>
+<td></td>
+</tr>
+<tr>
+<td>B</td>
+<td><code>B -&gt; AB</code></td>
+<td><code>B -&gt; ε</code></td>
+</tr>
+<tr>
+<td>A</td>
+<td><code>A -&gt; a</code></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>  变化后的文法是LL(1)的,但是原文法有左递归，所以不是LL(1)的</p>
+<h3 id="4-6-7"><a href="#4-6-7" class="headerlink" title="4.6.7!!"></a>4.6.7!!</h3></li>
+</ul>
+</li>
+</ul>
+<p>考虑按照下面的方式定义的文法族 G_n：</p>
+<pre><code>S -&gt; A_i b_i         其中1&lt;=i&lt;=n
+A_i-&gt; a_j A_j | a_j    其中1&lt;=i,j&lt;=n 且i&lt;&gt;n
+</code></pre>
+<p>说明：</p>
+<ol>
+<li>G_n有 2n^2-n 个产生式</li>
+<li>G_n有 2^n+n^2+n 个 LR(0) 项集</li>
+<li>G_n是 SLR(1) 的</li>
+</ol>
+<p>关于LR语法分析器的大小，这个分析结果说明了什么？</p>
+<h3 id="4-6-8"><a href="#4-6-8" class="headerlink" title="4.6.8!"></a>4.6.8!</h3><p>我们说单个项可以看做一个 NFA 的状态，而有效项的集合就是一个 DFA 的状态。对于练习4.2.1的文法 S-&gt;SS+|SS*|a</p>
+<ol>
+<li>根据“将项看作一个NFA的状态”部分中的规则，画出这个文法的有效的转换图（NFA）</li>
+<li>将子集构造算法（算法3.20）应用于在（1）部分构造得到的NFA。得到的DFA和这个文法的LR(0)项集比有什么关系</li>
+<li>！！ 说明在任何情况下，将子集构造算法应用于一个文法的有效项的NFA所得到的就是该文法的 LR(0) 项集</li>
+</ol>
+<h3 id="4-6-9"><a href="#4-6-9" class="headerlink" title="4.6.9!"></a>4.6.9!</h3><p>下面是一个二义性的文法</p>
+<pre><code>S-&gt;AS|b
+A-&gt;SA|a
+</code></pre>
+<p>构造出这个文法的规范LR(0)项集族。如果我们试图为这个文法构造出一个LR语法分析表，必然会存在某些冲突动作。都有哪些冲突动作？假设我们使用这个语法分析表，并且在出现冲突时不确定地选择一个动作。给出输入abab时所有可能的动作序列</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>朱辉
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/%E7%BC%96%E8%AF%91%E5%99%A8%E8%AE%BE%E8%AE%A1/4.6%E8%8A%82%E7%BB%83%E4%B9%A0/" title="">http://example.com/2021/07/17/Note/笔记/编译器设计/4.6节练习/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/17/Note/%E7%AC%94%E8%AE%B0/%E7%BC%96%E8%AF%91%E5%99%A8%E8%AE%BE%E8%AE%A1/4.7%E8%8A%82%E7%BB%83%E4%B9%A0/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/17/Note/%E7%AC%94%E8%AE%B0/%E7%BC%96%E8%AF%91%E5%99%A8%E8%AE%BE%E8%AE%A1/4.5%E8%8A%82%E7%BB%83%E4%B9%A0/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#4-6%E8%8A%82%E7%BB%83%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">4.6节练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-1"><span class="nav-number">1.0.1.</span> <span class="nav-text">4.6.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-2"><span class="nav-number">1.0.2.</span> <span class="nav-text">4.6.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94-1"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-3"><span class="nav-number">1.0.3.</span> <span class="nav-text">4.6.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94-2"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-4"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.6.4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-5"><span class="nav-number">1.0.5.</span> <span class="nav-text">4.6.5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94-3"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-6"><span class="nav-number">1.0.6.</span> <span class="nav-text">4.6.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94-4"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">解答</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-7"><span class="nav-number">1.0.7.</span> <span class="nav-text">4.6.7!!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-8"><span class="nav-number">1.0.8.</span> <span class="nav-text">4.6.8!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-9"><span class="nav-number">1.0.9.</span> <span class="nav-text">4.6.9!</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="朱辉"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">朱辉</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-7-16 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">朱辉</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">286k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:20</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

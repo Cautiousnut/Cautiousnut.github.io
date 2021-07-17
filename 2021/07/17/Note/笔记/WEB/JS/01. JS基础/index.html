@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1. JS基础1.1. 语法1.1.1. 基础 JS中的一切都是区分大小写的，并且使用Unicode字符集 标识符规则 第一个字符必须是一个字母、下划线或者$美元符号 其他字符可以是字母、下划线、美元符号或者数字1.1.2. 语句   是执行行为的语法结构和命令 语句规则 使用;进行分割，通常每条语句独占一行，提高代码的可读性。 如果一条语句独占一行，那么分号可以省略，但是并不推荐此种写法，因为容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhuhui&#39;s yard">
+<meta property="og:url" content="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/WEB/JS/01.%20JS%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="zhuhui&#39;s yard">
+<meta property="og:description" content="1. JS基础1.1. 语法1.1.1. 基础 JS中的一切都是区分大小写的，并且使用Unicode字符集 标识符规则 第一个字符必须是一个字母、下划线或者$美元符号 其他字符可以是字母、下划线、美元符号或者数字1.1.2. 语句   是执行行为的语法结构和命令 语句规则 使用;进行分割，通常每条语句独占一行，提高代码的可读性。 如果一条语句独占一行，那么分号可以省略，但是并不推荐此种写法，因为容">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-17T13:04:46.940Z">
+<meta property="article:modified_time" content="2021-07-09T13:00:41.630Z">
+<meta property="article:author" content="朱辉">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/WEB/JS/01.%20JS%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | zhuhui's yard</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">zhuhui's yard</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/WEB/JS/01.%20JS%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="朱辉">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhuhui's yard">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-17 21:04:46" itemprop="dateCreated datePublished" datetime="2021-07-17T21:04:46+08:00">2021-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-09 21:00:41" itemprop="dateModified" datetime="2021-07-09T21:00:41+08:00">2021-07-09</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-JS基础"><a href="#1-JS基础" class="headerlink" title="1. JS基础"></a>1. JS基础</h1><h2 id="1-1-语法"><a href="#1-1-语法" class="headerlink" title="1.1. 语法"></a>1.1. 语法</h2><h3 id="1-1-1-基础"><a href="#1-1-1-基础" class="headerlink" title="1.1.1. 基础"></a>1.1.1. 基础</h3><ul>
+<li>JS中的一切都是区分大小写的，并且使用Unicode字符集</li>
+<li>标识符规则<ul>
+<li>第一个字符必须是一个字母、下划线或者<code>$</code>美元符号</li>
+<li>其他字符可以是字母、下划线、美元符号或者数字<h3 id="1-1-2-语句"><a href="#1-1-2-语句" class="headerlink" title="1.1.2. 语句"></a>1.1.2. 语句</h3></li>
+</ul>
+</li>
+<li>是执行行为的语法结构和命令</li>
+<li>语句规则<ul>
+<li>使用<code>;</code>进行分割，通常每条语句独占一行，提高代码的可读性。</li>
+<li>如果一条语句独占一行，那么分号可以省略，但是并不推荐此种写法，因为容易出错，同时加上分号也有助于提高代码性能。</li>
+<li>JS通常会将换行解释为分号，但是也存在无法确定是否真的需要插入的情况</li>
+</ul>
+</li>
+<li>实例<ul>
+<li>换行但不是分号  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">     alert(1+</span><br><span class="line">2+</span><br><span class="line">3);</span><br><span class="line">  //此时每一行是不完整的表达式，不需要分号</span><br></pre></td></tr></table></figure></li>
+<li>无法确定是否真的需要插入  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">      alert(&quot;There will be an error&quot;)</span><br><span class="line">[1,2].forEach(alert);</span><br><span class="line">//JS不会在[...]之前自动添加分号，所以此时会报错</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-3-注释"><a href="#1-1-3-注释" class="headerlink" title="1.1.3. 注释"></a>1.1.3. 注释</h3></li>
+</ul>
+</li>
+<li>单行注释<ul>
+<li><code>\\</code></li>
+</ul>
+</li>
+<li>多行注释<ul>
+<li><code>\*...*\</code></li>
+</ul>
+</li>
+<li>注意<ul>
+<li>不支持嵌套注释<h2 id="1-2-现代模式"><a href="#1-2-现代模式" class="headerlink" title="1.2. 现代模式"></a>1.2. 现代模式</h2></li>
+</ul>
+</li>
+<li>也称为严格模式</li>
+<li>JS新的规范修改了一些特性，为了保证旧的功能能够使用，大部分的修改默认不生效，需要一个指令<code>&quot;use strict&quot;</code>来激活这些特性</li>
+<li>严格模式使用<code>&quot;use strict&quot;</code>启用<ul>
+<li>此命令必须放在脚本的最顶部，其上只能有注释，否则无法正常启用严格模式</li>
+<li>此命令可以被放在函数体的开头，只在该函数中启用严格模式</li>
+<li>严格模式一旦启用，无法取消</li>
+<li>现代JS支持<code>classes</code>和<code>modules</code>高级语言结构，他们会自动启用严格模式。因此，如果代码写在了高级语言结构中，就不需要显式的启用严格模式<h2 id="1-3-变量"><a href="#1-3-变量" class="headerlink" title="1.3. 变量"></a>1.3. 变量</h2><h3 id="1-3-1-声明变量"><a href="#1-3-1-声明变量" class="headerlink" title="1.3.1. 声明变量"></a>1.3.1. 声明变量</h3></li>
+</ul>
+</li>
+<li>三种方式<ul>
+<li>使用关键字<code>var</code>，用于声明局部变量和全局变量。</li>
+<li>直接赋值。在函数外使用此方法会产生一个全局变量。严格模式下会报错，因此不建议使用</li>
+<li>使用关键字<code>let</code>，用于声明块作用域的局部变量。</li>
+</ul>
+</li>
+<li><code>let</code>和<code>var</code>的区别<ul>
+<li><code>var</code>声明的变量没有块级作用域，只有全局作用域和函数级作用域。</li>
+<li><code>var</code>声明的变量允许重新声明而不会报错。</li>
+<li><code>var</code>声明的变量在函数开头和全局作用域开头就会被声明，称为变量提升，但是赋值操作不会提升。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="literal">false</span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
+
+此时输出<code>undefined</code>,变量的声明被提前(忽略块作用域)，但是赋值操作不会被提前。赋值之前都是<code>undefined</code>。</li>
+<li><code>let</code>也会提升，但是在变量声明在之前引用会报错，因此相当于不提升。</li>
+<li><a target="_blank" rel="noopener" href="https://zh.javascript.info/var">var和let的区别</a><h3 id="1-3-2-变量性质"><a href="#1-3-2-变量性质" class="headerlink" title="1.3.2. 变量性质"></a>1.3.2. 变量性质</h3></li>
+</ul>
+</li>
+<li>JS中的变量是松散类型的，可以保存任何类型的数据，每个变量仅仅是一个用于保存值的占位符。变量相当于一个箱子，内部可以装任何类型的数据。</li>
+<li>一个变量只能声明一次，否则会报错。变量最好先声明再使用。</li>
+<li>用<code>var</code>或者<code>let</code>声明的语句如果没有初始化，则其值为<code>undefined</code>。</li>
+<li><code>let</code>声明的变量具有块作用域，和<code>var</code>不同</li>
+<li>变量命名<ul>
+<li>遵循标识符的规则</li>
+<li>变量名称必须仅包含字母、数字、美元符号<code>$</code>和<code>_</code></li>
+<li>首字符必须是非数字字符</li>
+<li>变量名称可以使用任何语言字符，包括中文，但是不推荐</li>
+</ul>
+</li>
+<li>全局变量<ul>
+<li><code>JS</code>中使用<code>var</code>和<code>function</code>声明的全局变量是顶层对象的属性。网页中默认顶层对象为<code>window</code>对象，因此可以使用<code>window.a</code>的语法来设置和访问全局变量。</li>
+<li><code>let</code>、<code>const</code>、<code>class</code>不适用上述规则，其声明的全局变量不是顶层对象的属性，而是属于全局作用域<code>scope</code>的<code>script</code>。</li>
+</ul>
+</li>
+<li>实例<ul>
+<li>变量的声明和赋值  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="string">&#x27;abc&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">1</span>,c = <span class="string">&#x27;a&#x27;</span>,d = <span class="literal">null</span>;</span><br><span class="line"><span class="comment">//可以在一行中声明多个变量</span></span><br></pre></td></tr></table></figure></li>
+<li>使用中文变量名称  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> 朱辉 = <span class="string">&#x27;zhuhui&#x27;</span>;</span><br><span class="line"><span class="comment">//不推荐使用此方式</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-4-常量"><a href="#1-4-常量" class="headerlink" title="1.4. 常量"></a>1.4. 常量</h2></li>
+</ul>
+</li>
+<li>声明  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PI = <span class="number">3.14</span>;</span><br><span class="line"><span class="comment">//不能使用let</span></span><br></pre></td></tr></table></figure></li>
+<li>特点<ul>
+<li>常量标识符命名规则和变量相同。全大写命名常用于常量在程序执行之前就确定的情况，其他情况使用常规命名。</li>
+<li>常量不可以通过重新赋值改变其值，也不可以重新声明。重新赋值会报错</li>
+<li>常量的作用域规则同样是块级作用域，与<code>let</code>相同</li>
+<li>常量必须在声明的时候赋值，之后无法修改  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">      <span class="keyword">const</span> a;</span><br><span class="line">a = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"><span class="comment">//此时会报错</span></span><br></pre></td></tr></table></figure></li>
+<li>同一作用域中，常量名、变量名、函数名不能相同，否则会报错  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> f = <span class="number">10</span>;</span><br></pre></td></tr></table></figure></li>
+<li>未赋值的常量不会被赋予默认值  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">      <span class="keyword">const</span> a;</span><br><span class="line">alert(a);</span><br><span class="line"><span class="comment">//此时会报错</span></span><br></pre></td></tr></table></figure></li>
+<li>对象或者数组被定义为常量，其值不受保护，可以自由改变，此操作没有意义  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">      <span class="keyword">const</span> person = &#123;</span><br><span class="line">	<span class="attr">name</span>:<span class="string">&#x27;zhuhui&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line">person.name = <span class="string">&#x27;aaa&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(person.name);</span><br><span class="line"><span class="comment">//此时不会报错，数组同样</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-5-数据类型"><a href="#1-5-数据类型" class="headerlink" title="1.5. 数据类型"></a>1.5. 数据类型</h2><h3 id="1-5-1-概览"><a href="#1-5-1-概览" class="headerlink" title="1.5.1. 概览"></a>1.5.1. 概览</h3></li>
+</ul>
+</li>
+<li>七种基本数据类型<ul>
+<li>布尔值<code>Boolean</code>：有两个值<code>true</code>和<code>false</code></li>
+<li><code>null</code>：表明<code>null</code>值的特殊关键字，注意是小写</li>
+<li><code>undefined</code>：表明变量未赋值的特殊关键字，也是小写</li>
+<li>数字<code>Number</code>：整数或者浮点数</li>
+<li>任意精度的整数<code>BigInt</code>：可以安全的存储和操作大整数</li>
+<li>字符串<code>String</code>：一串表示文本值的字符序列</li>
+<li>代表<code>Symbol</code>：一种实例是唯一的并且不可改变的数据类型</li>
+</ul>
+</li>
+<li>一种引用类型<ul>
+<li>对象<code>Object</code></li>
+</ul>
+</li>
+<li>动态类型<ul>
+<li><code>JS</code>是一种动态类型的语言，在声明变量的时候不用指定数据的类型，数据类型会在代码执行时根据需要自定确定和转换。可以在任何时刻将任何类型的值存入某一变量中。<h2 id="1-6-字面量（Literals）"><a href="#1-6-字面量（Literals）" class="headerlink" title="1.6. 字面量（Literals）"></a>1.6. 字面量（Literals）</h2><h3 id="1-6-1-概述"><a href="#1-6-1-概述" class="headerlink" title="1.6.1. 概述"></a>1.6.1. 概述</h3></li>
+</ul>
+</li>
+<li>字面量是由语法表达式定义的常量，或者是由一定字词组成的语词表达式定义的常量。</li>
+<li>注意字面量是脚本中按照字面意思给出的固定的值，是常量，不是变量，在程序运行过程中不可更改。</li>
+<li>是直接写在代码中的，常用作变量的赋值的常量<h3 id="1-6-2-数组字面量"><a href="#1-6-2-数组字面量" class="headerlink" title="1.6.2. 数组字面量"></a>1.6.2. 数组字面量</h3></li>
+<li>是在<code>[]</code>中包含的零个或者多个表达式的列表，每个表达式代表数组的一个元素。数组字面量同时也是数组对象。</li>
+<li>当使用数组字面量创建数组时，数组会以指定的值作为其元素进行初始化，数组长度即为元素的个数。</li>
+<li>如果在全局脚本里使用字面量创建数组，<code>JS</code>会在每次对包含该数组字面量的表达式求值时解释该数组。在函数中使用的字面量会在函数每次执行时被重新创建。</li>
+<li>使用数组字面量创建数组  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"><span class="comment">//创建数组，长度为3</span></span><br></pre></td></tr></table></figure></li>
+<li>多余逗号的处理  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//两个逗号连起来并且不在数组末尾，表示省略了一个元素，此元素会被默认赋值为undefined</span></span><br><span class="line"><span class="keyword">let</span> a = [<span class="string">&#x27;a&#x27;</span>,,<span class="string">&#x27;c&#x27;</span>];        <span class="comment">//此时a[1] = undefined</span></span><br><span class="line"><span class="comment">//位于末尾的最后一个逗号会被忽略</span></span><br><span class="line"><span class="keyword">let</span> a = [<span class="string">&#x27;a&#x27;</span>,,<span class="string">&#x27;c&#x27;</span>,];       <span class="comment">//此时a.length = 3</span></span><br><span class="line"><span class="comment">//只有最后一个逗号会被忽略</span></span><br><span class="line"><span class="keyword">let</span> a = [<span class="string">&#x27;a&#x27;</span>,,<span class="string">&#x27;c&#x27;</span>,,];      <span class="comment">//此时相当于let a = [&#x27;a&#x27;,,&#x27;c&#x27;,];    //数组长度等于有效逗号数量加1</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-6-3-逻辑字面量"><a href="#1-6-3-逻辑字面量" class="headerlink" title="1.6.3. 逻辑字面量"></a>1.6.3. 逻辑字面量</h3></li>
+<li>两个值：<code>true</code>和<code>false</code></li>
+<li>注意<ul>
+<li>原始布尔类型的<code>true</code>和<code>false</code>和布尔对象的<code>true</code>和<code>false</code>是不同的。布尔对象是对原始数据类型的封装<h3 id="1-6-4-整数字面量"><a href="#1-6-4-整数字面量" class="headerlink" title="1.6.4. 整数字面量"></a>1.6.4. 整数字面量</h3></li>
+</ul>
+</li>
+<li>整数可以是十进制、十六进制、八进制、二进制，几种进制的表示方式不同</li>
+<li>规则<ul>
+<li>十进制整数字面量是一串数字序列，没有前缀<code>0</code></li>
+<li>八进制整数字面量以<code>0</code>或者<code>0O</code>和<code>0o</code>开头，只能有数字<code>0-7</code>。严格模式下不能以<code>0</code>开头</li>
+<li>十六进制整数字面量以<code>0x</code>或者<code>0X</code>开头，只能包含数字<code>0-9</code>，字母<code>a-f|A-F</code></li>
+<li>二进制整数字面量以<code>0b</code>或者<code>0B</code>开头，只能包含数字<code>0</code>和<code>1</code><h3 id="1-6-5-浮点数字面量"><a href="#1-6-5-浮点数字面量" class="headerlink" title="1.6.5. 浮点数字面量"></a>1.6.5. 浮点数字面量</h3></li>
+</ul>
+</li>
+<li>浮点数字面量的组成部分<ul>
+<li>一个十进制整数，可以带正负号</li>
+<li>小数点</li>
+<li>小数部分</li>
+<li>指数部分</li>
+</ul>
+</li>
+<li>规则<ul>
+<li>指数部分以<code>e</code>或者<code>E</code>开头，后面跟着一个整数，可以有正负号。</li>
+<li>浮点数字面量至少有一位数字，并且必须带小数点<code>.</code>或者<code>e|E</code>。</li>
+<li>小数点之前或者之后只有数字<code>0</code>时，<code>0</code>可以省略，但是要注意至少有一位数字。</li>
+</ul>
+</li>
+<li>实例  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">.3</span>            <span class="comment">//0.3</span></span><br><span class="line"> <span class="number">3.1e-12</span></span><br><span class="line"></span><br><span class="line"> <span class="number">3.</span>            <span class="comment">//3.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-6-6-对象字面量"><a href="#1-6-6-对象字面量" class="headerlink" title="1.6.6. 对象字面量"></a>1.6.6. 对象字面量</h3></li>
+<li>对象字面量是封闭在<code>&#123;&#125;</code>中的一个对象的零个或者多个<code>属性名-值</code>对的列表</li>
+<li>注意<ul>
+<li>对象字面量不能直接放在语句的开头，因为会被认为是一个语句块。</li>
+</ul>
+</li>
+<li>可以使用数字或者字符串字面值作为属性的名字,还可以在一个字面值里嵌套另一个字面值。  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;<span class="attr">b</span>:&#123;<span class="attr">c</span>:<span class="number">4</span>,<span class="number">7</span>:<span class="string">&#x27;d&#x27;</span>&#125;,<span class="attr">e</span>:<span class="string">&quot;f&quot;</span>&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>属性名可以是任意字符串，甚至空串。如果对象属性名不是数字或者字符串就必须使用<code>&quot;&quot;</code>包裹。访问和修改时使用<code>[]</code>。  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">let</span> a = &#123;</span><br><span class="line">       <span class="string">&quot;&quot;</span>:<span class="number">10</span>,</span><br><span class="line">       <span class="string">&quot;!&quot;</span>:<span class="number">20</span>,</span><br><span class="line">       <span class="number">10</span>:<span class="number">30</span></span><br><span class="line">   &#125;;</span><br><span class="line">   <span class="built_in">console</span>.log(a[<span class="string">&quot;&quot;</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(a[<span class="string">&quot;!&quot;</span>]);</span><br><span class="line">   <span class="built_in">console</span>.log(a[<span class="number">10</span>]);</span><br></pre></td></tr></table></figure>
+<h3 id="1-6-7-正则表达式字面量"><a href="#1-6-7-正则表达式字面量" class="headerlink" title="1.6.7. 正则表达式字面量"></a>1.6.7. 正则表达式字面量</h3></li>
+<li>字符被斜线围成的表达式  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="regexp">/ab+c/</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="1-6-8-字符串字面量"><a href="#1-6-8-字符串字面量" class="headerlink" title="1.6.8. 字符串字面量"></a>1.6.8. 字符串字面量</h3></li>
+<li>由双引号<code>&quot;&quot;</code>或者单引号<code>&#39;&#39;</code>括起来的零个或者多个字符。引号要配对，不能混用。</li>
+<li>可以在字符串字面量上使用所有的字符串对象方法，<code>JS</code>会自动将字符串字面量转换为一个临时的字符串对象，调用方法之后再将临时对象废弃。  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;length&quot;</span>.length);</span><br><span class="line"><span class="comment">//输出为6</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="1-7-语句"><a href="#1-7-语句" class="headerlink" title="1.7. 语句"></a>1.7. 语句</h2>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>朱辉
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/WEB/JS/01.%20JS%E5%9F%BA%E7%A1%80/" title="">http://example.com/2021/07/17/Note/笔记/WEB/JS/01. JS基础/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/17/Note/%E7%AC%94%E8%AE%B0/WEB/JS/02%20.%20JS%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/17/Note/%E7%AC%94%E8%AE%B0/WEB/JS/04.%20%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-JS%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">1. JS基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E8%AF%AD%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-%E5%9F%BA%E7%A1%80"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1. 基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2. 语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-3-%E6%B3%A8%E9%87%8A"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.3. 注释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E7%8E%B0%E4%BB%A3%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 现代模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.</span> <span class="nav-text">1.3. 变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-%E5%A3%B0%E6%98%8E%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1. 声明变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-%E5%8F%98%E9%87%8F%E6%80%A7%E8%B4%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2. 变量性质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E5%B8%B8%E9%87%8F"><span class="nav-number">1.4.</span> <span class="nav-text">1.4. 常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.</span> <span class="nav-text">1.5. 数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-1-%E6%A6%82%E8%A7%88"><span class="nav-number">1.5.1.</span> <span class="nav-text">1.5.1. 概览</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%88Literals%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">1.6. 字面量（Literals）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.6.1.</span> <span class="nav-text">1.6.1. 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-2-%E6%95%B0%E7%BB%84%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.6.2.</span> <span class="nav-text">1.6.2. 数组字面量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-3-%E9%80%BB%E8%BE%91%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.6.3.</span> <span class="nav-text">1.6.3. 逻辑字面量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-4-%E6%95%B4%E6%95%B0%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.6.4.</span> <span class="nav-text">1.6.4. 整数字面量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-5-%E6%B5%AE%E7%82%B9%E6%95%B0%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.6.5.</span> <span class="nav-text">1.6.5. 浮点数字面量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-6-%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.6.6.</span> <span class="nav-text">1.6.6. 对象字面量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-7-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.6.7.</span> <span class="nav-text">1.6.7. 正则表达式字面量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.6.8.</span> <span class="nav-text">1.6.8. 字符串字面量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.7.</span> <span class="nav-text">1.7. 语句</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="朱辉"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">朱辉</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-7-16 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">朱辉</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">286k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:20</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

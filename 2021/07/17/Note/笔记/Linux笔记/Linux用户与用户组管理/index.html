@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Linux用户与用户组管理 基础知识 Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统 用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问，另一方面也可以帮助用户组织文件，并为用户提供安全性保护 每个用户账号都拥有一个唯一的用户名和各自的口令 用户在登录时键入正确的用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhuhui&#39;s yard">
+<meta property="og:url" content="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E7%94%A8%E6%88%B7%E4%B8%8E%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="zhuhui&#39;s yard">
+<meta property="og:description" content="Linux用户与用户组管理 基础知识 Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统 用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问，另一方面也可以帮助用户组织文件，并为用户提供安全性保护 每个用户账号都拥有一个唯一的用户名和各自的口令 用户在登录时键入正确的用户">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:/Vnote/图片/22.png">
+<meta property="og:image" content="d:/Vnote/图片/25.png">
+<meta property="og:image" content="d:/Vnote/图片/23.png">
+<meta property="og:image" content="d:/Vnote/图片/24.png">
+<meta property="og:image" content="d:/Vnote/图片/26.png">
+<meta property="og:image" content="d:/Vnote/图片/27.png">
+<meta property="og:image" content="d:/Vnote/图片/28.png">
+<meta property="og:image" content="d:/Vnote/图片/29.png">
+<meta property="og:image" content="d:/Vnote/图片/30.png">
+<meta property="og:image" content="d:/Vnote/图片/31.png">
+<meta property="og:image" content="d:/Vnote/图片/32.png">
+<meta property="og:image" content="d:/Vnote/图片/33.png">
+<meta property="article:published_time" content="2021-07-17T13:04:46.752Z">
+<meta property="article:modified_time" content="2021-06-19T02:26:15.295Z">
+<meta property="article:author" content="朱辉">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/Vnote/图片/22.png">
+
+<link rel="canonical" href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E7%94%A8%E6%88%B7%E4%B8%8E%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | zhuhui's yard</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">zhuhui's yard</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E7%94%A8%E6%88%B7%E4%B8%8E%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="朱辉">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhuhui's yard">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-17 21:04:46" itemprop="dateCreated datePublished" datetime="2021-07-17T21:04:46+08:00">2021-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-19 10:26:15" itemprop="dateModified" datetime="2021-06-19T10:26:15+08:00">2021-06-19</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="Linux用户与用户组管理"><a href="#Linux用户与用户组管理" class="headerlink" title="Linux用户与用户组管理"></a>Linux用户与用户组管理</h4><hr>
+<h5 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h5><ul>
+<li>Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统</li>
+<li>用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问，另一方面也可以帮助用户组织文件，并为用户提供安全性保护</li>
+<li><strong>每个用户账号都拥有一个唯一的用户名和各自的口令</strong></li>
+<li>用户在登录时键入正确的用户名和口令后，就能够进入系统和自己的主目录</li>
+<li>任何需要使用操作系统的用户都需要一个系统账号，账号分为：**<code>管理员账号和普通用户账号</code>**</li>
+<li><font style="color:red">操作系统中根据UID来判断账户，而不是用户名，id为0即为管理员，可以有多个id为0的账户</font></li>
+<li>系统新建账号时，会根据账号类型，自动分配递增账号的UID和GID（用户身份编码，组编号），也可以自行分配。通常情况下应保证UID和GID唯一且不重复 </li>
+</ul>
+<hr>
+<h5 id="组的类别"><a href="#组的类别" class="headerlink" title="组的类别"></a>组的类别</h5><ul>
+<li>Linux中，每个用户必须拥有一个主组。创建账号时，系统会自动创建一个同名组作为主组。用户必须属于一个且只有一个主组。用户可以属于0个或者多个附加组。主组又称为基本组，不可以把用户从基本组中删除，但可以更换基本组。</li>
+<li>除了基本组之外，用户所在的其他组都是附加组。用户可以从附加组中删除。用户的附加组可以和主组相同，附加组可以直接删除，可以新增和移除任意个所属用户。用户被删除不会影响附加组。</li>
+</ul>
+<h5 id="用户与组的配置文件"><a href="#用户与组的配置文件" class="headerlink" title="用户与组的配置文件"></a>用户与组的配置文件</h5><ul>
+<li>用户分为以下三类<ul>
+<li>管理员：<code>root</code>，具有使用系统所有权限的用户，<code>UID=0</code>。</li>
+<li>普通用户：使用系统的权限受限，<code>UID=500-60000</code>。</li>
+<li>系统用户：保障系统运行的用户，一般不提供密码登录系统，<code>UID=1-499</code>。</li>
+</ul>
+</li>
+<li>用户组配置文件<ul>
+<li><code>/etc/group</code>，组及其属性信息</li>
+<li>使用<code>cat /etc/group</code>查看此文件（好像只能使用这种方式查看）<br><img src="D:/Vnote/图片/22.png"><br>其中的每一行表示系统中的一个用户组</li>
+<li>含义解释<blockquote>
+<p>每一行都可以分为四列<br>第一列：群组名称<br>第二列：群组密码，真正的组密码存储在<code>/etc/gshadow</code>文件中<br>第三列：群组的<code>ID</code>，即为<code>GID</code><br>第四列：属于这个组的所有用户的列表，此组可以是主组或者附加组，此处只显示将此组作为附加组的用户</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>用户组密码配置文件<ul>
+<li><code>/etc/gshadow</code>，组密码及其相关属性</li>
+<li>使用<code>cat /etc/gshadow</code>查看此文件<br><img src="D:/Vnote/图片/25.png"></li>
+<li>含义解释<blockquote>
+<p>每一行可以分为四列<br>第一列：组名<br>第二列：组密码<br>第三列：组管理员<br>第四列：属于这个组的所有用户的列表，此组可以是主组或者附加组，此处只显示将此组作为附加组的用户</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>用户密码配置文件<ul>
+<li><code>/etc/shadow</code>，用户密码及其相关属性</li>
+<li>其中的文件是和<code>/etc/passwd</code>中的文件一一对应的</li>
+<li>使用<code>cat /etc/shadow</code>查看此文件，只有超级用户才能读取此文件（为了保障密码的安全）<br><img src="D:/Vnote/图片/23.png"></li>
+<li>含义解释<blockquote>
+<p>每一行可以分为九列<br>第一列：登录用户名<br>第二列：密码，通常使用shad512加密，带有！表示该账号不能用来登录<br>第三列：从1970年1月1日起计算到现在为止最近一次修改密码的时间<br>第四列：密码再过几天可以被修改，0表示随时可以修改<br>第五列：密码几天后必须变更，99999表示永不过期<br>第六列：密码过期前多久提示用户<br>第七列：密码过期多久后账户被锁定（用户没有登录活动但是账号仍然能够保持有效的最长时间），如果为0，密码过期直接失效，不能恢复<br>第八列：多少天后账户将失效，（从1970-1-1开始算起）<br>第九列：保留条目，暂未使用</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>用户配置文件<ul>
+<li><code>/etc/passwd</code>，用户及其属性信息</li>
+<li>使用<code>cat /etc/passwd</code>进行查看，任何用户都可以进行查看<br><img src="D:/Vnote/图片/24.png"></li>
+<li>含义解释<blockquote>
+<p>每一行可以分为七列<br>第一列：登录用户名<br>第二列：用户密码，真正的密码存储在<code>/etc/gpasswd</code>中<br>第三列：用户<code>ID</code>，<code>UId</code><br>第四列：所属组的组ID,<code>GID</code><br>第五列：备注信息<br>第六列：用户的主目录（中），当用户登录到到系统时就是在他的home中。是用户登录到系统之后所处的目录，主目录的名称即为用户的登录名,每个用户对自己的主目录有读写和执行的权限。<br>第七列：shell类型。在用户登录后，需要启动一个进程，负责将用户的操作传递给内核，这个进程是用户登录到系统之后运行的命令解释器或者 某个特定的程序，即Shell，默认为<code>/bin/sh</code></p>
+</blockquote>
+</li>
+<li>伪用户<ul>
+<li>在<code>/etc/passwd</code>中占有一条记录但是但是不能用于登录，因为他们的登录<code>shell</code>为空</li>
+<li>是为了方便系统管理，满足相应系统的进程对文件属主的要求</li>
+<li>常见的伪用户定义<blockquote>
+<p><code>bin</code>：拥有可执行的用户命令文件<br><code>sys</code>：拥有系统文件<br><code>adm</code>：拥有账户文件<br><code>uucp</code>：UUCP使用<br><code>lp</code>：lp或者lpd子系统使用<br><code>nobody</code>：NFS使用</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="Linux系统用户账号的管理"><a href="#Linux系统用户账号的管理" class="headerlink" title="Linux系统用户账号的管理"></a>Linux系统用户账号的管理</h5><ul>
+<li><strong><code>useradd</code></strong><ul>
+<li><strong>添加新的用户账号</strong>,就是在<code>/etc/passwd</code>中为新用户增加一条信息，同时更新其他相关系统文件</li>
+<li>语法：<code>useradd 选项 用户名</code></li>
+<li>参数说明<ul>
+<li>**<code>-c</code>**：指定一段注释性描述    <code>-c comment</code></li>
+<li>**<code>-d</code>**：指定用户主目录，如果不存在，同时使用<code>-m</code>选项，创建主目录    <code>-d 目录 -m</code></li>
+<li>**<code>-g</code>**：指定用户所属的基本组    <code>-g 用户组</code></li>
+<li>**<code>-G</code>**：指定用户所属的附加组    <code>-G 用户组，用户组</code></li>
+<li>**<code>-s</code>**：指定用户的登录shell    <code>-s shell文件</code></li>
+<li>**<code>-u</code>**：指定用户的用户号，如果同时有<code>-o</code>选项，则可以重复使用其他用户的标识号    <code>-u 用户号 -o</code></li>
+</ul>
+</li>
+<li>各种参数可以配合使用，使用效果是单个效果的叠加。</li>
+<li>实例<blockquote>
+<p><code>useradd -d /home/sam -m sam</code>，添加一个以/home/sam为home的用户账号，账号名称为sam<br><img src="D:/Vnote/图片/26.png"><br><code>useradd -s /bin/sh -g group -G adm,root gem</code>，添加一个gem用户，shell文件为/bin/sh，属于group主组，adm和root附加组<br>（组如果不存在则应该先创建组）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong><code>userdel</code></strong><ul>
+<li><strong>删除用户账号</strong>，就是将<code>/etc/passwd</code>等系统文件中的该用户信息删除，必要时还需要删除用户的主目录</li>
+<li>语法：<code>userdel 选项 用户名</code></li>
+<li>参数说明<ul>
+<li>**<code>-r</code>**：将用户的主目录一起删除</li>
+</ul>
+</li>
+<li>实例<blockquote>
+<p><code>userdel -r sam</code>，将之前创建的sam用户连同其主目录一同删除</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong><code>usermod</code></strong><ul>
+<li><strong>修改账号</strong></li>
+<li>语法：<code>usermod 选项 用户名</code></li>
+<li>参数说明<ul>
+<li>同<code>useradd</code></li>
+<li>**<code>-l</code>**：指定一个新的账号，将原来的账号名更改为新的账号名，使用格式：<code>-l 新用户名</code></li>
+<li>**<code>-p</code>**：修改账号的口令，使用格式：<code>-p 新口令</code></li>
+</ul>
+</li>
+<li>实例<blockquote>
+<p><code>usermod -d /home/sam -m sam</code>，将sam账号的主目录进行更改</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong><code>id</code></strong><ul>
+<li><strong>查询账号口令</strong></li>
+<li>语法：<code>id 选项 用户名</code></li>
+<li>参数说明<ul>
+<li>**<code>-u</code>**：显示<code>UID</code></li>
+<li>**<code>-g</code>**：显示<code>GID</code></li>
+<li>**<code>-G</code>**：显示用户所属的组<code>ID</code></li>
+<li>**<code>-n</code>**：显示名称</li>
+</ul>
+</li>
+<li>实例<br>  <img src="D:/Vnote/图片/27.png"></li>
+</ul>
+</li>
+<li><strong><code>passwd</code></strong><ul>
+<li><strong>指定和修改用户口令</strong></li>
+<li>用户刚刚创建时没有口令，但是被系统锁定，无法使用（在<code>passwd</code>中显示为<code>!</code>，表示无法登陆），必须为其指定口令之后才能使用，即使是空口令</li>
+<li>语法：<code>passwd 选项 用户名</code></li>
+<li>参数说明<ul>
+<li>**<code>-l</code>**：锁定口令，禁用账号</li>
+<li>**<code>-u</code>**：口令解锁</li>
+<li>**<code>-d</code>**：使账号无口令，即为将口令删除，下一次将无法使用此账号登陆</li>
+<li>**<code>-f</code>**：强迫用户下次登陆时修改口令</li>
+</ul>
+</li>
+<li>省略用户名则默认为当前用户，超级用户可以修改任意用户的口令，普通用户只能修改自己的口令</li>
+<li>直接使用<code>passwd</code>可以修该当前用户的口令，使用<code>passwd 用户名</code>可以在root用户中修改任意账号的口令</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="Linux系统用户组的管理"><a href="#Linux系统用户组的管理" class="headerlink" title="Linux系统用户组的管理"></a>Linux系统用户组的管理</h5><ul>
+<li><strong><code>groupadd</code></strong><ul>
+<li>添加新的用户组，用户组的操作实质上是对<code>/etc/group</code>等相关文件的修改</li>
+<li>语法：<code>groupadd 选项 用户组</code></li>
+<li>参数说明<ul>
+<li>**<code>-g</code>**：指定新用户的组标识号（<code>GID</code>），默认情况下为递增，使用格式：<code>-g GID</code></li>
+<li>**<code>-o</code>**：一般与<code>-g</code>一同使用，表示新用户组的<code>GID</code>可以与系统已有用户组的<code>GID</code>相同</li>
+</ul>
+</li>
+<li>实例<blockquote>
+<p><code>groupadd a</code>，添加新的用户组a，GID递增<br><code>groupadd -g 1001 -o b</code>，添加新的用户组b，GID为1001<br><img src="D:/Vnote/图片/28.png"></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong><code>groupdel</code></strong><ul>
+<li>删除已有的用户组</li>
+<li>语法：<code>groupdel 用户组</code></li>
+</ul>
+</li>
+<li><strong><code>groupmod</code></strong><ul>
+<li>修改用户组的属性</li>
+<li>语法：<code>groupmod 选项 用户组</code></li>
+<li>参数说明<ul>
+<li>**<code>-g</code>**：为用户指定新的组标识号<code>GID</code>，使用格式：<code>-g GID</code></li>
+<li>**<code>-o</code>**：与<code>-g</code>同时使用，新GID可以与已有的GID相同</li>
+<li>**<code>-n</code>**：将用户组的名字改为新名字，使用格式：<code>-n 新名字</code></li>
+</ul>
+</li>
+<li>实例  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupmod -g 1002 -o -n b a</span><br></pre></td></tr></table></figure>
+  <img src="D:/Vnote/图片/29.png"><br>  <img src="D:/Vnote/图片/30.png"></li>
+</ul>
+</li>
+<li><strong><code>newgrp</code></strong><ul>
+<li>如果一个用户同时属于多个用户组，那么该用户可以在用户组之间进行切换，以便具有其他用户组的权限</li>
+<li>语法：<code>newgrp 用户组</code></li>
+<li>注意：切换到的用户组必须是当前用户的主组或者附加组</li>
+</ul>
+</li>
+<li><strong><code>groupmems</code></strong><ul>
+<li>用于更改和查看组中的成员</li>
+<li>语法：<code>groupmems 选项 动作</code></li>
+<li>参数说明<ul>
+<li><strong>动作</strong></li>
+<li>**<code>-g</code>**：更改为指定组，只有root用户可以使用,使用格式：<code>-g 用户组</code></li>
+<li><strong>选项</strong></li>
+<li>**<code>-a</code>**：指定用户加入组，使用格式：<code>-a 用户</code></li>
+<li>**<code>-d</code>**：从组中删除用户，使用格式：<code>-d 用户</code></li>
+<li>**<code>-p</code>**：从组中清除所有成员</li>
+<li>**<code>-l</code>**：显示组成员列表</li>
+</ul>
+</li>
+<li>实例  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupmems -l -g adm</span><br></pre></td></tr></table></figure>
+  显示adm组所有的成员</li>
+</ul>
+</li>
+<li><h5 id="添加批量用户"><a href="#添加批量用户" class="headerlink" title="添加批量用户"></a>添加批量用户</h5><ul>
+<li>用于快速创建大量用户</li>
+<li>具体步骤<ul>
+<li>编辑一个文本用户文件，按照<code>/etc/passwd</code>中的格式书写，注意每个用户的<code>用户名</code>，<code>UID</code>，<code>宿主目录</code>都不相同，密码栏可以留空或者输入<code>*</code><br>  <img src="D:/Vnote/图片/31.png"><br>  <img src="D:/Vnote/图片/32.png"><br>  此时系统会自动生成用户的密码(<code>/etc/shadow</code>)</li>
+<li>以<code>root</code>身份执行<code>/usr/sbin/newusers</code>，从刚创建的文件中导入数据，添加用户  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/sbin/newusers user.txt或者</span><br><span class="line">newusers user.txt</span><br></pre></td></tr></table></figure></li>
+<li>以<code>root</code>身份执行<code>/use/sbin/pwunconv</code>，此命令将<code>/etc/shadow</code>中的密码解码，写回到<code>/etc/passwd</code>中，并且将<code>/etc/shadow</code>的<code>shadow</code>密码栏删掉  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usr/sbin/pwunconv或者pwunconv</span><br></pre></td></tr></table></figure></li>
+<li>按照格式<code>用户名 密码</code>编辑用户的密码对照文件<br>  <img src="D:/Vnote/图片/33.png"></li>
+<li>以root身份运行<code>usr/sbin/chpasswd</code>，此指令用于创建用户密码，会将经过<code>/usr/sbin/passwd</code>命令编码过的密码写入<code>/etc/passwd</code>的密码栏      <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chpasswd &lt; passwd.txt</span><br></pre></td></tr></table></figure></li>
+<li>执行命令<code>/usr/sbin/pwconv</code>将密码编码为<code>shadow passwd</code>，并将结果写入<code>/etc/shadow</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ddz-linux/p/10467106.html">Linux中用户与用户组的管理</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/chest_/article/details/102666521">Linux用户和用户组配置文件详解</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>朱辉
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E7%94%A8%E6%88%B7%E4%B8%8E%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86/" title="">http://example.com/2021/07/17/Note/笔记/Linux笔记/Linux用户与用户组管理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/UFW%E9%98%B2%E7%81%AB%E5%A2%99/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E7%AE%A1%E9%81%93/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E7%94%A8%E6%88%B7%E4%B8%8E%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">Linux用户与用户组管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%84%E7%9A%84%E7%B1%BB%E5%88%AB"><span class="nav-number">1.2.</span> <span class="nav-text">组的类别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%B8%8E%E7%BB%84%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">用户与组的配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7%E8%B4%A6%E5%8F%B7%E7%9A%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">Linux系统用户账号的管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">Linux系统用户组的管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%89%B9%E9%87%8F%E7%94%A8%E6%88%B7"><span class="nav-number">1.6.</span> <span class="nav-text">添加批量用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.7.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="朱辉"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">朱辉</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-7-16 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">朱辉</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">286k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:20</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

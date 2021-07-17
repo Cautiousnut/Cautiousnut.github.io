@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1. Linux文件基本属性    Linux是一种典型的多用户系统，不同的用户处于不同的地位，拥有不同的权限，Linux系统对不同用户访问同一文件的权限做了不同的规定Linux文件属主和属组  属主 文件的特定的持有者，对该文件持有所有权的用户   属组 用户按组分配，一个用户属于一个或者多个组   其他用户 属主和属组之外的用户为其他用户     文件属性基本格式文件类型 属主权限 属组权限">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhuhui&#39;s yard">
+<meta property="og:url" content="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7/index.html">
+<meta property="og:site_name" content="zhuhui&#39;s yard">
+<meta property="og:description" content="1. Linux文件基本属性    Linux是一种典型的多用户系统，不同的用户处于不同的地位，拥有不同的权限，Linux系统对不同用户访问同一文件的权限做了不同的规定Linux文件属主和属组  属主 文件的特定的持有者，对该文件持有所有权的用户   属组 用户按组分配，一个用户属于一个或者多个组   其他用户 属主和属组之外的用户为其他用户     文件属性基本格式文件类型 属主权限 属组权限">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:/Vnote/图片/14.png">
+<meta property="og:image" content="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%87/15.png">
+<meta property="og:image" content="d:/Vnote/图片/16.png">
+<meta property="og:image" content="d:/Vnote/图片/17.png">
+<meta property="og:image" content="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%87/18.png">
+<meta property="og:image" content="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%87/19.png">
+<meta property="og:image" content="d:/Vnote/图片/20.png">
+<meta property="og:image" content="d:/Vnote/图片/21.png">
+<meta property="article:published_time" content="2021-07-17T13:04:46.752Z">
+<meta property="article:modified_time" content="2021-06-19T05:16:52.097Z">
+<meta property="article:author" content="朱辉">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/Vnote/图片/14.png">
+
+<link rel="canonical" href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | zhuhui's yard</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">zhuhui's yard</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="朱辉">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhuhui's yard">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-17 21:04:46" itemprop="dateCreated datePublished" datetime="2021-07-17T21:04:46+08:00">2021-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-19 13:16:52" itemprop="dateModified" datetime="2021-06-19T13:16:52+08:00">2021-06-19</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="1-Linux文件基本属性"><a href="#1-Linux文件基本属性" class="headerlink" title="1. Linux文件基本属性"></a>1. Linux文件基本属性</h4><hr>
+<p>   Linux是一种典型的多用户系统，不同的用户处于不同的地位，拥有不同的权限，Linux系统对不同用户访问同一文件的权限做了不同的规定<br><strong>Linux文件属主和属组</strong></p>
+<ul>
+<li><strong>属主</strong><ul>
+<li>文件的特定的持有者，对该文件持有所有权的用户</li>
+</ul>
+</li>
+<li><strong>属组</strong><ul>
+<li>用户按组分配，一个用户属于一个或者多个组</li>
+</ul>
+</li>
+<li><strong>其他用户</strong><ul>
+<li>属主和属组之外的用户为其他用户</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>文件属性基本格式</strong><br><code>文件类型 属主权限 属组权限 其他用户权限</code></p>
+<ul>
+<li><strong>文件类型</strong><ul>
+<li>Linux中第一个字符代表这个文件的类型，有如下几种可能</li>
+<li>**<code>d</code>**：表示是目录</li>
+<li>**<code>-</code>**：表示是文件</li>
+<li>**<code>l</code>**：表示为链接文档</li>
+<li>**<code>b</code>**：表示装置文件里面可供存储的接口设备</li>
+<li>**<code>c</code>**：表示转置文件里边的串行接口设备，如鼠标、键盘等</li>
+</ul>
+</li>
+<li><strong>属主权限</strong><ul>
+<li>表示文件所有者拥有的该文件的权限</li>
+<li>三个参数为一组，为rwx的三个参数的集合</li>
+<li>**<code>r</code>**：表示可读（read）</li>
+<li>**<code>w</code>**：表示可写（write）</li>
+<li>**<code>x</code>**：表示可执行（execute）</li>
+<li>**<code>-</code>**：如果没有某个权限则使用<code>-</code>代替</li>
+</ul>
+</li>
+<li><strong>属组权限</strong><ul>
+<li>表示文件所有者的同组用户拥有的该文件的权限</li>
+<li>其余同属主</li>
+</ul>
+</li>
+<li><strong>其他用户权限</strong><ul>
+<li>表示其他用户拥有的该文件的权限</li>
+<li>其余同属主</li>
+</ul>
+</li>
+<li>举例<blockquote>
+<p><img src="D:/Vnote/图片/14.png"><br>以bin文件为例<br>由显示信息可知，bin文件是目录文件，属主和属组权限为rwx，其他用户权限为r-x，属主为zhuhui，属组为zhuhui<br>![](_v_images/20201111200638766_23945.png =842x)</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p><strong>更改文件属性</strong></p>
+<blockquote>
+<p>说明：文件的属性必须由文件的属主或者root用户来修改，其他情况无法进行修改</p>
+</blockquote>
+<ul>
+<li>**<code>chgrp</code>**：更改文件属组<ul>
+<li>语法：<code>chgrp [-R] 属组名 文件名</code></li>
+<li>参数选项<ul>
+<li>**<code>-R</code>**：递归更改文件属性，在更改某个目录文件的属组时，如果加上<code>-R</code>的参数，该目录下的所有文件的属组都会改变</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>**<code>chown</code>**：更改文件的属主和属组<ul>
+<li>语法<ul>
+<li><code>chown [-R] 属主名 文件名</code></li>
+<li><code>chown [-R] 属主名：属组名 文件名</code></li>
+</ul>
+</li>
+<li>举例<blockquote>
+<p>1.将用户切换为root:   <code>su root</code><br><img src="../../%E5%9B%BE%E7%89%87/15.png"><br>2.<code>chown bin:bin a</code><br><img src="D:/Vnote/图片/16.png"></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong><code>chmod</code></strong>:更改文件的属性<br><strong>1.数字类型改变文件权限</strong><ul>
+<li>语法：<code>chmod [-R] xyz 文件或目录</code></li>
+<li>选项与参数<ul>
+<li>**<code>xyz</code>**：即为数字类型的权限属性，x为属主三个属性对应二进制的值，yz同x，如：<code>rwx=7</code></li>
+<li>**<code>-R</code>**：递归变更，次目录下所有文件的属性都会改变</li>
+</ul>
+</li>
+<li>举例<blockquote>
+<p><img src="D:/Vnote/图片/17.png"></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>2.符号类型改变文件权限</strong></p>
+<ul>
+<li>语法<ul>
+<li>1.更改文件权限：<code>chmod u=权限,g=权限,o=权限 文件名</code></li>
+<li>2.删除文件权限：<code>chmod a-r|w|x 文件名</code></li>
+</ul>
+</li>
+<li>选项参数<ul>
+<li>**<code>u</code>**：表示属主权限（<code>user</code>）</li>
+<li>**<code>g</code>**：表示属组权限（<code>group</code>）</li>
+<li>**<code>o</code>**：表示其他用户权限（<code>others</code>）</li>
+<li>**<code>a</code>**：表示全部用户（<code>all</code>）</li>
+</ul>
+</li>
+<li>举例<blockquote>
+<p>把文件a的属性改为rwxrwxrwx<br><img src="../../%E5%9B%BE%E7%89%87/18.png"><br>删除文件的x属性<br><img src="../../%E5%9B%BE%E7%89%87/19.png"></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p><strong>补充：Linux用户及其切换</strong><br><strong>显示格式</strong><br><img src="D:/Vnote/图片/20.png"><img src="D:/Vnote/图片/21.png"><br>基本格式为：</p>
+<ul>
+<li>1.<code>a@b ~ $</code>：<code>a</code>表示当前用户，<code>b</code>表示主机名，<code>~</code>表示当前用户，<code>S</code>表示普通用户</li>
+<li>2.<code>root@b #</code>：<code>root</code>表示超级用户，<code>b</code>表示主机名，<code>#</code>表示超级用户</li>
+</ul>
+<p><strong>由普通用户切换到root用户</strong></p>
+<ul>
+<li><strong><code>sudo</code></strong><ul>
+<li>输入当前管理员用户密码即可得到超级用户权限，但是只有5分钟时间</li>
+</ul>
+</li>
+<li><strong><code>su</code></strong><ul>
+<li>首先要使用<code>sudo passdw root</code>设置root的密码，之后可以使用<code>su</code>自由切换到root</li>
+</ul>
+</li>
+<li><strong>root用户切换为普通用户</strong><ul>
+<li><code>su 用户名</code></li>
+<li><code>exit</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xinjie10001/p/6295020.html">Linux下如何切换到root用户</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xnlay/article/details/79048508">Linux普通用户和root用户任意切换</a></li>
+<li><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/3089.html">su命令</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>朱辉
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7/" title="">http://example.com/2021/07/17/Note/笔记/Linux笔记/Linux文件基本属性/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Linux%E7%AC%94%E8%AE%B0/Linux%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E7%9A%84%E6%96%B9%E5%BC%8F/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Linux%E6%96%87%E4%BB%B6%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">1. Linux文件基本属性</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="朱辉"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">朱辉</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-7-16 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">朱辉</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">286k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:20</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

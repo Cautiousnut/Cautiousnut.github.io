@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1. 01.分页模式 1.1. 概述64位处理器支持四种模式的分页机制。当CR0.PG&#x3D;0时，分页被关闭。当CR0.PE&#x3D;1,CR0.PG&#x3D;1时，分页机制开启，此时有四种分页机制可供选择。  32位分页模式     PAE分页模式 4级分页模式（IA-32e模式） 5级分页模式（IA-32e模式）   1.2. 32位分页模式1.2.1. 概述此时的控制位的状态：CR0.PG&#x3D;1,CR4.PAE&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhuhui&#39;s yard">
+<meta property="og:url" content="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Intel%E5%A4%84%E7%90%86%E5%99%A8/%E5%88%86%E9%A1%B5/01.%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F%E5%8F%8A%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:site_name" content="zhuhui&#39;s yard">
+<meta property="og:description" content="1. 01.分页模式 1.1. 概述64位处理器支持四种模式的分页机制。当CR0.PG&#x3D;0时，分页被关闭。当CR0.PE&#x3D;1,CR0.PG&#x3D;1时，分页机制开启，此时有四种分页机制可供选择。  32位分页模式     PAE分页模式 4级分页模式（IA-32e模式） 5级分页模式（IA-32e模式）   1.2. 32位分页模式1.2.1. 概述此时的控制位的状态：CR0.PG&#x3D;1,CR4.PAE&#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-17T13:04:46.643Z">
+<meta property="article:modified_time" content="2021-06-19T02:26:15.253Z">
+<meta property="article:author" content="朱辉">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Intel%E5%A4%84%E7%90%86%E5%99%A8/%E5%88%86%E9%A1%B5/01.%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F%E5%8F%8A%E8%BD%AC%E6%8D%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | zhuhui's yard</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">zhuhui's yard</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Intel%E5%A4%84%E7%90%86%E5%99%A8/%E5%88%86%E9%A1%B5/01.%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F%E5%8F%8A%E8%BD%AC%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="朱辉">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhuhui's yard">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-17 21:04:46" itemprop="dateCreated datePublished" datetime="2021-07-17T21:04:46+08:00">2021-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-19 10:26:15" itemprop="dateModified" datetime="2021-06-19T10:26:15+08:00">2021-06-19</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-01-分页模式"><a href="#1-01-分页模式" class="headerlink" title="1. 01.分页模式"></a>1. 01.分页模式</h1><hr>
+<h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1. 概述"></a>1.1. 概述</h2><p>64位处理器支持四种模式的分页机制。当<code>CR0.PG=0</code>时，分页被关闭。当<code>CR0.PE=1,CR0.PG=1</code>时，分页机制开启，此时有四种分页机制可供选择。</p>
+<ul>
+<li>32位分页模式    </li>
+<li>PAE分页模式</li>
+<li>4级分页模式（IA-32e模式）</li>
+<li>5级分页模式（IA-32e模式）</li>
+</ul>
+<hr>
+<h2 id="1-2-32位分页模式"><a href="#1-2-32位分页模式" class="headerlink" title="1.2. 32位分页模式"></a>1.2. 32位分页模式</h2><h3 id="1-2-1-概述"><a href="#1-2-1-概述" class="headerlink" title="1.2.1. 概述"></a>1.2.1. 概述</h3><p>此时的控制位的状态：<code>CR0.PG=1,CR4.PAE=0</code></p>
+<p>此模式下处理器将<code>32</code>位线性地址转换为<code>40</code>位的物理地址。线性地址被限制为32位，在任何时间内，处理器最多只能访问4GB的线性地址空间。</p>
+<p>32位分页模式采用多级分页结构（页目录和页表）来进行线性地址的转换。可以将线性地址转换位4KB或者4MB的页。</p>
+<ul>
+<li>此模式下CR3寄存器和相关结构如下<br>  ![相关结构](_v_images/20210305202641542_11558.png =719x)</li>
+</ul>
+<h3 id="1-2-2-相关结构"><a href="#1-2-2-相关结构" class="headerlink" title="1.2.2. 相关结构"></a>1.2.2. 相关结构</h3><ul>
+<li>页目录表<ul>
+<li>共<code>1024</code>个表项(<code>PDE</code>)，每个表项<code>32</code>位，用于存储对应的下一级页表的基地址或者相应的页的基地址以及相关属性。</li>
+<li>页目录表的基地址由<code>CR3</code>寄存器的<code>31：12</code>位指定。页目录表项的存储位置是<code>4KB</code>对齐的，因此只提供高<code>20</code>位地址，剩余地址为<code>0</code>。</li>
+<li>页目录表中的每个表项可以使用目录表基地址加上线性地址前10位乘4获得其地址，然后进行访问。即为下图所示，最后两位为0是因为每个表项是32位，4个字节。<br>  ![目录表项地址构成](_v_images/20210305102613198_2734.png =657x)</li>
+</ul>
+</li>
+<li>页表<ul>
+<li>共<code>1024</code>个表项(<code>PTE</code>)，每个表项<code>32</code>位，用于存储相应的页的基地址以及相关属性。</li>
+<li>页表的基地址由相应页目录表项的<code>31：12</code>位指定。和页目录表项的基地址类似。</li>
+<li>页表中的每个表项可以使用页表基地址加上线性地址<code>21:12</code>位乘4获得其地址，然后进行访问。即为下图所示<br>  ![页表项地址构成](_v_images/20210305200308381_26277.png =668x)</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-3-地址转换过程"><a href="#1-2-3-地址转换过程" class="headerlink" title="1.2.3. 地址转换过程"></a>1.2.3. 地址转换过程</h3><ul>
+<li>页大小为4MB<ul>
+<li>地址转换过程图如下<br>  ![4MB分页](_v_images/20210305100647354_12305.png =712x)</li>
+<li>线性地址的前<code>10</code>位（<code>31:22</code>）作为页目录表的索引，配合<code>CR3</code>寄存器，得出特定目录表项的地址，访问相应的目录表项。</li>
+<li>如果<code>CR4.PSE=1,PDE&#39;s PS=1</code>，此时PDE指向4MB大小的页。</li>
+<li>此时PDE存储结构如下图<br>  ![4MB页目录表项结构](_v_images/20210305194247311_7060.png =720x)</li>
+<li>此时目录表项给出目标页的基地址，加上线性地址中的偏移量，即得最终物理地址。最终物理地址组成如下<br>  ![物理地址组成](_v_images/20210305195404409_4487.png =577x)</li>
+</ul>
+</li>
+<li>页大小为4KB<ul>
+<li>地址转换过程图如下<br>  ![4KB分页](_v_images/20210305100629914_27565.png =714x)</li>
+<li>线性地址的前10位（<code>31：22</code>）作为页目录表的索引，配合<code>CR3</code>寄存器，得出特定目录表项的地址，访问相应的目录表项。</li>
+<li>如果<code>CR4.PSE=0</code>或者<code>PDE&#39;s PS=0</code>，此时目录表项指向页表，页表项指向4KB大小的页。</li>
+<li>目录表项结构如下。此时可以根据<code>31:22</code>位地址和线性地址的<code>21:12</code>位取得相应页表项的地址，并访问相应的页表项。<br>  ![4KB目录表项结构](_v_images/20210305200502493_14313.png =721x)</li>
+<li>此时页表项结构如下。<br>  ![4KB页表项结构](_v_images/20210305200709509_17010.png =721x)</li>
+<li>此时页表项给出目标页的基地址，加上线性地址中的偏移量，即得最终物理地址。最终物理地址组成如下<br>  ![物理地址组成](_v_images/20210305201204484_5959.png =539x)<h3 id="1-2-4-其他"><a href="#1-2-4-其他" class="headerlink" title="1.2.4. 其他"></a>1.2.4. 其他</h3></li>
+</ul>
+</li>
+<li>如果页结构表项的P标志位是0或者设置了任何保留位，则无法进行转换，会产生页错误。</li>
+<li>对于32位分页模式，只有CR4.PSE=1时才有保留位。参考白皮书2907页。</li>
+<li>仅当转换的访问权限允许时，才执行线性地址到物理地址的转换。</li>
+</ul>
+<hr>
+<h2 id="1-3-PAE分页模式"><a href="#1-3-PAE分页模式" class="headerlink" title="1.3. PAE分页模式"></a>1.3. PAE分页模式</h2><h3 id="1-3-1-概述"><a href="#1-3-1-概述" class="headerlink" title="1.3.1. 概述"></a>1.3.1. 概述</h3><p>此时的控制位的状态：<code>CR0.PG=1,CR4.PAE=1,IA32_EFER.LME=0</code></p>
+<p>此模式下处理器将<code>32</code>位线性地址转换为<code>52</code>位的物理地址。线性地址被限制为<code>32</code>位，在任何时间内，处理器最多只能访问<code>4GB</code>的线性地址空间。</p>
+<p><code>PAE</code>分页模式中，逻辑处理器维护一组共4个<code>PDPTE</code>寄存器，这些寄存器从<code>CR3</code>中的地址对应的页目录指针表中加载。线性地址使用4级内存分页结构进行转换，每个结构使用<code>PDPTE</code>寄存器进行定位。</p>
+<h3 id="1-3-2-相关结构"><a href="#1-3-2-相关结构" class="headerlink" title="1.3.2. 相关结构"></a>1.3.2. 相关结构</h3><ul>
+<li>PDPTE系列结构<ul>
+<li><code>page-directory-pointer table</code>，页目录指针表</li>
+<li>CR3寄存器会指定页目录指针表的基地址，如下图所示<br>  ![CR3](_v_images/20210305215754463_6496.png =719x)</li>
+<li>页目录指针表包含<code>4</code>个<code>64</code>位的表项（<code>PDPTEs</code>），每个表项控制对<code>1GB</code>线性地址空间的访问。</li>
+<li>每个表项对应一个<code>PDPTE</code>寄存器。四个寄存器分别为<code>PDPTE0、PDPTE1、PDPTE2、PDPTE3</code>。</li>
+<li><code>PDPTE</code>寄存器会从<code>PDPTEs</code>中加载<ul>
+<li>如果<code>PAE</code>分页模式是在执行<code>MOV to CR0 or CR4</code>之后使用，并且指令正在修改<code>CR0.CD、CR0.NW、CR0.PG、CR4.PAE、CR4.PGE、CR4.PSE、CR4.SMEP</code>中的任意标志位，则<code>PDPTEs</code>加载<code>CR3</code>中的地址。</li>
+<li>如果在<code>PAE</code>分页模式下执行<code>MOV to CR3</code>，则<code>PDPTEs</code>加载新的<code>CR3</code>中的地址。</li>
+<li>如果<code>PAE</code>分页模式下，进行任务切换更改了<code>CR3</code>的值，则<code>PDPTEs</code>加载新的<code>CR3</code>中的地址。</li>
+</ul>
+</li>
+<li><code>PDPTEs</code>的结构如下图。如果设置了<code>P</code>标志位和任何保留位，<code>MOV to CR</code>都会产生错误。<br>  ![PDPTEs结构](_v_images/20210305221111318_19039.png =719x)</li>
+</ul>
+</li>
+<li>页目录表<ul>
+<li>共<code>512</code>个表项(<code>PDE</code>)，每个表项<code>64</code>位，用于存储对应的下一级页表的基地址或者相应的页的基地址以及相关属性。</li>
+<li>页目录表的基地址由<code>PDPTEi</code>寄存器的<code>51:12</code>位指定。页目录表项的存储位置是<code>4KB</code>对齐的，因此只提供高<code>40</code>位地址，剩余地址为<code>0</code>。</li>
+<li>页目录表中的每个表项地址的组成如下图，基本原理是基地址加偏移<br>  ![地址组成](_v_images/20210305222824163_7885.png =612x)</li>
+</ul>
+</li>
+<li>页表<ul>
+<li>共<code>512</code>个表项(<code>PTE</code>)，每个表项<code>64</code>位，用于存储相应的页的基地址以及相关属性。</li>
+<li>页表的基地址由相应页目录表项的<code>51:12</code>位指定。和页目录表项的基地址类似。</li>
+<li>页表中的每个表项的地址组成如下图所示<br>  ![地址组成](_v_images/20210305223950161_18718.png =606x)<h3 id="1-3-3-地址转换过程"><a href="#1-3-3-地址转换过程" class="headerlink" title="1.3.3. 地址转换过程"></a>1.3.3. 地址转换过程</h3></li>
+</ul>
+</li>
+<li>概述<ul>
+<li>PAE分页模式可以将线性地址映射为4KB或者2MB的页。</li>
+</ul>
+</li>
+<li>页大小为4KB<ul>
+<li>转换过程示意图<br>  ![4KB分页地址转换](_v_images/20210305221659353_6346.png =715x)</li>
+<li>线性地址的<code>31:30</code>两位选择一个<code>PDPTE</code>寄存器<code>PDPTEi</code>，<code>i</code>即为这两位数的值。如果此时P标志位为0，会产生页错误。</li>
+<li>如果P标志位为1，则根据<code>PDPTEi</code>寄存器的<code>51:12</code>位以及线性地址的<code>29：21</code>位访问相应的页目录表项。</li>
+<li>如果<code>PDE&#39;s PS</code>标志位为0，则此时可以根据<code>PDE</code>表项的<code>51:12</code>位获取页表的基地址，同时根据线性地址<code>20:12</code>位的偏移可访问相应的页表项。此时的<code>PDE</code>表项的结构如下图。<br>  ![4KB分页模式PDE结构](_v_images/20210305223727667_32057.png =718x)</li>
+<li>此时页表项结构如下<br>  ![](_v_images/20210305224151614_24484.png =720x)<br>  ![4KB分页页表项结构](_v_images/20210306151920449_12070.png =717x)</li>
+<li>页表项给出目标页的基地址，加上线性地址偏移即得最终物理地址<br>  ![物理地址组成](_v_images/20210305224404973_24156.png =607x)</li>
+</ul>
+</li>
+<li>页大小为2MB<ul>
+<li>转换过程示意图<br>  ![2MB分页地址转换](_v_images/20210305221751361_517.png =711x)</li>
+<li>线性地址的31:30两位选择一个PDPTE寄存器PDPTEi，i即为这两位数的值。如果此时P标志位为0，会产生页错误。</li>
+<li>如果P标志位为1，则根据PDPTEi寄存器的51:12位以及线性地址的29：21位访问相应的页目录表项。</li>
+<li>如果<code>PDE&#39;s PS</code>标志位为1，此时PDE存储结构如下图<br>  ![2MB分页页表项结构](_v_images/20210305224655424_18569.png =720x)</li>
+<li>此时页表项给出目标页的基地址，加上线性地址中的偏移量，即得最终物理地址。最终物理地址组成如下<br>  ![物理地址组成](_v_images/20210306152415210_28424.png =427x)</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-4-其他"><a href="#1-3-4-其他" class="headerlink" title="1.3.4. 其他"></a>1.3.4. 其他</h3><ul>
+<li>相关结构总结<br>  ![相关结构](_v_images/20210305225023032_16634.png =723x)</li>
+</ul>
+<hr>
+<h2 id="1-4-4级和5级分页模式"><a href="#1-4-4级和5级分页模式" class="headerlink" title="1.4. 4级和5级分页模式"></a>1.4. 4级和5级分页模式</h2><h3 id="1-4-1-概述"><a href="#1-4-1-概述" class="headerlink" title="1.4.1. 概述"></a>1.4.1. 概述</h3><ul>
+<li>4级分页模式<ul>
+<li>控制位状态：<code>CR0.PG=1,CR4.PAE=1,IA32_EFER.LME=1,CR4.LA57=0</code>。</li>
+<li>此模式下将48位的线性地址转换为52位的物理地址。线性地址被限制为48位，在任何时间内，处理器最多只能访问256TB的线性地址空间</li>
+</ul>
+</li>
+<li>5级分页模式<ul>
+<li>控制位状态：<code>CR0.PG=1,CR4.PAE=1,IA32_EFER.LME=1,CR4.LA57=1</code>。</li>
+<li>此模式下将57位的线性地址转换为52位的物理地址。此时线性地址可以访问整个物理地址空间。<h3 id="1-4-2-相关结构"><a href="#1-4-2-相关结构" class="headerlink" title="1.4.2. 相关结构"></a>1.4.2. 相关结构</h3></li>
+</ul>
+</li>
+<li>CR3寄存器<ul>
+<li>使用哪种<code>CR3</code>寄存器取决于4级和5分页机制是否通过设置<code>CR4.PCIDE</code>激活了进程上下文标识符（<code>PCIDs</code>）。</li>
+<li>当<code>CR4.PCIDE=0</code>时，<code>CR3</code>结构如下图<br>  ![](_v_images/20210312222247604_15593.png =718x)</li>
+<li>当<code>CR4.PCIDE=1</code>时，<code>CR3</code>结构如下图<br>  ![](_v_images/20210312222355192_28920.png =717x)</li>
+</ul>
+</li>
+<li>PML5表<ul>
+<li>以<code>4KB</code>自然对齐，包含<code>512</code>个<code>64</code>位的表项。</li>
+<li><code>PML5</code>表的基地址由<code>CR3</code>寄存器的<code>51:12</code>位确定。</li>
+<li><code>PML5</code>中每个表项的地址的组成如下图<br>  ![表项地址](_v_images/20210311224618339_23960.png =512x)</li>
+<li><code>PML5</code>表的表项的结构如下图<br>  ![](_v_images/20210311225300071_31205.png =717x)<br>  ![PML5表项格式](_v_images/20210311225338907_2496.png =718x)</li>
+</ul>
+</li>
+<li>PML4表<ul>
+<li>以<code>4KB</code>自然对齐，包含<code>512</code>个<code>64</code>位的表项。</li>
+<li><code>PML4</code>的基地址由<code>CR3</code>寄存器的<code>51:12</code>位确定（4级分页模式），或者由<code>PML5</code>表的表项的<code>51:12</code>位确定（5级分页模式）。</li>
+<li><code>PML4</code>中每个表项的地址组成如下图<br>  ![4级分页模式下的PML4表项地址](_v_images/20210311225730730_5216.png =512x)<br>  ![5级分页模式下的PML4表项地址](_v_images/20210311225849530_19609.png =513x)</li>
+<li><code>PML4</code>表的表项的结构<br>  ![PML4表项结构](_v_images/20210311230213138_18319.png =717x)</li>
+</ul>
+</li>
+<li>页目录指针表<ul>
+<li>以<code>4KB</code>自然对齐，包含<code>512</code>个<code>64</code>位的表项。</li>
+<li>页目录指针表的基地址由<code>PML4</code>表的表项的<code>51:12</code>位确定。</li>
+<li>页目录指针表中每个表项的地址的组成如下图<br>  ![页目录指针表表项地址](_v_images/20210311230350533_10233.png =512x)</li>
+<li>页目录指针表表项结构如下图。<ul>
+<li>此时<code>PS</code>标志位为0，指向页目录表<br>![指向页目录表时的表项结构](_v_images/20210311230836157_4710.png =718x)</li>
+<li>此时<code>PS</code>标志位为<code>1</code>，指向<code>1GB</code>页。<br>![指向1GB页的表项结构](_v_images/20210312221337948_24686.png =720x)<br>最终地址组成如下图<br>  ![1GB页物理地址](_v_images/20210313222302047_29570.png =471x)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>页目录表<ul>
+<li>以<code>4KB</code>自然对齐，包含<code>512</code>个<code>64</code>位的表项。</li>
+<li>页目录表的基地址由页目录指针表表项的<code>51:12</code>位确定。</li>
+<li><code>PML4</code>中每个表项的地址组成如下图<br>  ![页目录表表项地址](_v_images/20210312220929991_15699.png =512x)</li>
+<li>页目录表表项基本结构如下图<ul>
+<li>此时<code>PS</code>标志位为<code>0</code>，指向页表。<br>![指向页表的表项结构](_v_images/20210312220341221_14454.png =720x)</li>
+<li>此时<code>PS</code>标志位为<code>1</code>，指向<code>2MB</code>页。<br>![](_v_images/20210312221427133_24872.png =717x)<br>![指向2MB页的表项结构](_v_images/20210312221450536_22668.png =717x)<br>2MB页地址组成如下图<br>  ![2MB页物理地址](_v_images/20210313222402627_440.png =468x)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>页表<ul>
+<li>以<code>4KB</code>自然对齐，包含<code>512</code>个<code>64</code>位的表项。</li>
+<li>页表的基地址由页目录表表项的<code>51:12</code>位确定。</li>
+<li><code>PML4</code>中每个表项的地址组成如下图<br>  ![页表表项地址](_v_images/20210312220806096_31341.png =512x)</li>
+<li>页表项基本结构<br>  ![页表项结构](_v_images/20210312221629340_7836.png =717x)</li>
+<li>最终地址由页表和剩余的线性地址产生<br>  ![最终地址](_v_images/20210313221418470_139.png =468x)<h3 id="1-4-3-地址转换过程"><a href="#1-4-3-地址转换过程" class="headerlink" title="1.4.3. 地址转换过程"></a>1.4.3. 地址转换过程</h3></li>
+</ul>
+</li>
+<li>概述<ul>
+<li>4级分页模式和4级分页模式可以将线性地址映射为<code>4KB</code>、<code>2MB</code>或者<code>1GB</code>大小的页。4级分页模式转换过程如下图，5级类似。</li>
+</ul>
+</li>
+<li>页大小为4KB<br>  ![4KB页地址转换](_v_images/20210311205834810_29214.png =712x)</li>
+<li>页大小为2MB<br>  ![2MB页地址转换](_v_images/20210311205907951_29016.png =712x)</li>
+<li>页大小为1GB<br>  ![1GB页地址转换](_v_images/20210311205940091_12569.png =714x)<h3 id="1-4-4-其他"><a href="#1-4-4-其他" class="headerlink" title="1.4.4. 其他"></a>1.4.4. 其他</h3></li>
+<li>如果页结构的<code>P</code>标志位为0，或者设置了保留项，则会产生错误。</li>
+<li>仅当转换的访问权限允许时，才能使用线性地址转换为物理地址。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>朱辉
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Intel%E5%A4%84%E7%90%86%E5%99%A8/%E5%88%86%E9%A1%B5/01.%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F%E5%8F%8A%E8%BD%AC%E6%8D%A2/" title="">http://example.com/2021/07/17/Note/笔记/Intel处理器/分页/01.分页模式及转换/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Intel%E5%A4%84%E7%90%86%E5%99%A8/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/05.%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%E3%80%81%E7%BA%BF%E6%80%A7%E5%9C%B0%E5%9D%80%E5%92%8C%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/17/Note/%E7%AC%94%E8%AE%B0/Intel%E5%A4%84%E7%90%86%E5%99%A8/%E5%A4%84%E7%90%86%E5%99%A8%E7%AE%A1%E7%90%86%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2%E5%89%8D%E5%88%9D%E5%A7%8B%E5%8C%96/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-01-%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">1. 01.分页模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-32%E4%BD%8D%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 32位分页模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1. 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-%E7%9B%B8%E5%85%B3%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2. 相关结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3. 地址转换过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-4-%E5%85%B6%E4%BB%96"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.2.4. 其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-PAE%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">1.3. PAE分页模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1. 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-%E7%9B%B8%E5%85%B3%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2. 相关结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-3-%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.3. 地址转换过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-4-%E5%85%B6%E4%BB%96"><span class="nav-number">1.3.4.</span> <span class="nav-text">1.3.4. 其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-4%E7%BA%A7%E5%92%8C5%E7%BA%A7%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">1.4. 4级和5级分页模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.4.1. 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-%E7%9B%B8%E5%85%B3%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.2.</span> <span class="nav-text">1.4.2. 相关结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-3-%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="nav-number">1.4.3.</span> <span class="nav-text">1.4.3. 地址转换过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-4-%E5%85%B6%E4%BB%96"><span class="nav-number">1.4.4.</span> <span class="nav-text">1.4.4. 其他</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="朱辉"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">朱辉</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-7-16 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">朱辉</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">286k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:20</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
