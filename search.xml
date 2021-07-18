@@ -33,4 +33,36 @@
         <tag>实习日志</tag>
       </tags>
   </entry>
+  <entry>
+    <title>localStorage返回值的问题</title>
+    <url>/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="LocalStorage返回值类型的问题"><a href="#LocalStorage返回值类型的问题" class="headerlink" title="LocalStorage返回值类型的问题"></a>LocalStorage返回值类型的问题</h3><span id="more"></span>
+
+<p>在``Web<code>项目中使用</code>LocalStorage`来存储数据，并在页面中进行读取后输出，代码如下所示</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> pid = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;pid = &quot;</span>+pid);</span><br></pre></td></tr></table></figure>
+
+<p>此时输出的结果为<code>null</code></p>
+<p><img src="../images/1.png"></p>
+<p>在其后使用如下语句，发现此时此语句内永远不会执行</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(pid == <span class="literal">null</span>)&#123;....&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出此时<code>pid</code>的类型可知<code>LocalStorage</code>返回的值的类型为<code>String</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid)</span><br></pre></td></tr></table></figure>
+
+<p><img src="../images/2.png"></p>
+<p>则上述判断语句应该改为如下形式即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(pid == <span class="string">&#x27;null&#x27;</span>)&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了测试<code>LocalStorage</code>的返回值类型和输入值类型是否有管，运行如下代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">localStorage</span>.setItem(<span class="string">&quot;pid&quot;</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">let</span> pid = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid);</span><br><span class="line"><span class="comment">//结果仍然为string</span></span><br></pre></td></tr></table></figure>
+
+<p>经过对其他数据类型的测试，发现返回值总是传入的值转换为字符串形式之后的值。</p>
+]]></content>
+      <categories>
+        <category>问题</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+      </tags>
+  </entry>
 </search>
