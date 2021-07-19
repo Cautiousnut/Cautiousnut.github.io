@@ -36,10 +36,7 @@
   <entry>
     <title>localStorage返回值的问题</title>
     <url>/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<ul>
-<li><code>localStorage</code>返回值类型探究</li>
-</ul>
-<span id="more"></span>
+    <content><![CDATA[<span id="more"></span>
 
 <h3 id="localStorage返回值类型的问题"><a href="#localStorage返回值类型的问题" class="headerlink" title="localStorage返回值类型的问题"></a>localStorage返回值类型的问题</h3><h4 id="1-设置过localStorage中相应的值"><a href="#1-设置过localStorage中相应的值" class="headerlink" title="1. 设置过localStorage中相应的值"></a>1. 设置过localStorage中相应的值</h4><p>在``Web<code>项目中使用</code>localStorage`来存储数据，并在页面中进行读取后输出，代码如下所示</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> pid = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;pid = &quot;</span>+pid);</span><br></pre></td></tr></table></figure>
@@ -76,10 +73,7 @@
   <entry>
     <title>实习项目总结</title>
     <url>/2021/07/19/%E5%AE%9E%E4%B9%A0%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<ul>
-<li>实习项目总结</li>
-</ul>
-<span id="more"></span>
+    <content><![CDATA[<span id="more"></span>
 
 <h3 id="实习项目总结"><a href="#实习项目总结" class="headerlink" title="实习项目总结"></a>实习项目总结</h3><ul>
 <li>项目开始前必须进行细致的规划设计，设计各层的接口以及实现细节，不能边写边改，这样会导致效率极其的低下。</li>
