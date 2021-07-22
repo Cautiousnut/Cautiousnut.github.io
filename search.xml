@@ -1,126 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>7-17实习日志</title>
-    <url>/2021/07/17/7-17%E5%AE%9E%E4%B9%A0%E6%97%A5%E5%BF%97/</url>
-    <content><![CDATA[<ul>
-<li>2021-7-17日 星期六 实训日志</li>
-</ul>
-<span id="more"></span>
-
-<h4 id="1-实训内容"><a href="#1-实训内容" class="headerlink" title="1. 实训内容"></a>1. 实训内容</h4><ul>
-<li>继续将前端和后端放在一起进行调试，并基本完成调试工作</li>
-<li>实现了搜索功能</li>
-<li>美化了部分前端界面</li>
-<li>规划了之后的项目分工和安排</li>
-</ul>
-<h4 id="2-实训收获"><a href="#2-实训收获" class="headerlink" title="2. 实训收获"></a>2. 实训收获</h4><ul>
-<li>学习巩固了前端和后端的知识，了解并实践了前后端的连接和交互。</li>
-<li>进一步加强了团队分工与合作，提高了交流及合作的能力</li>
-<li>进一步完善了项目</li>
-</ul>
-<h4 id="3-问题和不足"><a href="#3-问题和不足" class="headerlink" title="3. 问题和不足"></a>3. 问题和不足</h4><ul>
-<li>由于前端由多人开发且缺乏统一的设计，导致前端界面风格不一，影响观感。</li>
-<li>还有少量调试工作尚未完成。</li>
-<li>项目答辩及总结材料等还未开始准备。</li>
-<li>对github等工具不够熟悉，导致合作起来效率低下。</li>
-</ul>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>7-21 日志</title>
+      <link href="/2021/07/22/7-21-%E6%97%A5%E5%BF%97/"/>
+      <url>/2021/07/22/7-21-%E6%97%A5%E5%BF%97/</url>
+      
+        <content type="html"><![CDATA[<ul><li>7月21日 星期三 晴</li></ul><span id="more"></span><h4 id="今日活动"><a href="#今日活动" class="headerlink" title="今日活动"></a>今日活动</h4><ul><li>上午参加了实训结营仪式，为期两周半的实习正式结束。虽然没有得奖，但是确实学到了很多知识，更重要的是认识、熟悉了自己的队友，和他们相处非常愉快。这段时间可能是我在大学中最为快乐和充实的一段时间。这才是我心目中大学该有的样子。</li><li>下午和晚上都在玩手机，算是实习过后的小放松吧。</li><li>晚上学了一会儿<code>QT</code>，算是没有完全荒废。</li></ul><h4 id="今日收获"><a href="#今日收获" class="headerlink" title="今日收获"></a>今日收获</h4><ul><li>昨天的答辩看到了别的组的作品非常的惊艳。虽然知道他们是直接用的库，心里有些不满和不平，但是还是应该虚心学习别人的优点。<code>承认别人优秀也没有那么难</code>。</li></ul><h4 id="问题和不足"><a href="#问题和不足" class="headerlink" title="问题和不足"></a>问题和不足</h4><ul><li>没有得奖，一周多的辛苦好像没有得到应有的成果。</li><li>不想学习，希望命题可以静下心来学习。</li></ul>]]></content>
+      
+      
       <categories>
-        <category>日志</category>
+          
+          <category> 日志 </category>
+          
       </categories>
-      <tags>
-        <tag>实习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>localStorage返回值的问题</title>
-    <url>/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<ul>
-<li>localStorage返回值的两种类型</li>
-</ul>
-<span id="more"></span>
-
-<h3 id="localStorage返回值类型的问题"><a href="#localStorage返回值类型的问题" class="headerlink" title="localStorage返回值类型的问题"></a>localStorage返回值类型的问题</h3><h4 id="1-设置过localStorage中相应的值"><a href="#1-设置过localStorage中相应的值" class="headerlink" title="1. 设置过localStorage中相应的值"></a>1. 设置过localStorage中相应的值</h4><p>在``Web<code>项目中使用</code>localStorage`来存储数据，并在页面中进行读取后输出，代码如下所示</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> pid = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;pid = &quot;</span>+pid);</span><br></pre></td></tr></table></figure>
-
-<p>此时输出的结果为<code>null</code></p>
-<p><img src="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/1.png"></p>
-<p>在其后使用如下语句，发现此时此语句内永远不会执行</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(pid == <span class="literal">null</span>)&#123;....&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出此时<code>pid</code>的类型可知<code>LocalStorage.getItem()</code>返回的值的类型为<code>String</code></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid)</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/2.png"></p>
-<p>则上述判断语句应该改为如下形式即可</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(pid == <span class="string">&#x27;null&#x27;</span>)&#123;...&#125;</span><br></pre></td></tr></table></figure>
-
-<p>为了测试<code>localStorage.getItem()</code>的返回值类型和输入值类型是否有关，运行如下代码</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">localStorage</span>.setItem(<span class="string">&quot;pid&quot;</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">let</span> pid = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid);</span><br><span class="line"><span class="comment">//结果仍然为string</span></span><br></pre></td></tr></table></figure>
-
-<p>经过对其他数据类型的测试，发现返回值总是传入的值转换为字符串形式之后的值。</p>
-<h4 id="2-未设置过localStorage中相应的值"><a href="#2-未设置过localStorage中相应的值" class="headerlink" title="2. 未设置过localStorage中相应的值"></a>2. 未设置过localStorage中相应的值</h4><p>如果清理了浏览器的缓存或者从未使用<code>localStorage.setItem()</code>等设置过相应变量的值，则使用<code>localStorage.getItem()</code>直接获取此变量的值则会返回<code>null</code>，为<code>Object</code>类型。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;pid = &quot;</span>+pid);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid);</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/3.png"></p>
-<h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h4><p>当在<code>localStorage</code>中存储过相应的变量的值，如<code>a</code>，则之后再使用<code>getItem(&quot;a&quot;)</code>获取值时返回的时设置值转换为字符串的形式。如果此前没有设置<code>a</code>这个值，则返回的是<code>null</code>，为<code>Object</code>类型。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 日志 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>实习项目总结</title>
+      <link href="/2021/07/19/%E5%AE%9E%E4%B9%A0%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/"/>
+      <url>/2021/07/19/%E5%AE%9E%E4%B9%A0%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<ul><li>实习项目总结</li></ul><span id="more"></span><h3 id="实习项目总结"><a href="#实习项目总结" class="headerlink" title="实习项目总结"></a>实习项目总结</h3><ul><li>项目开始前必须进行细致的规划设计，设计各层的接口以及实现细节，不能边写边改，这样会导致效率极其的低下。</li><li>项目的设计文档等要从一开始就写，并且要尽可能的详细，不断完善，待到十分完善，基本不会发生大的比变化之后再开始写代码。写代码的事件占到整个项目的<code>40%</code>左右</li><li>要学习使用<code>github</code>等版本控制工具进行版本控制和多人协作。</li></ul>]]></content>
+      
+      
       <categories>
-        <category>Web</category>
+          
+          <category> 总结 </category>
+          
       </categories>
-      <tags>
-        <tag>Bug</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>实习项目总结</title>
-    <url>/2021/07/19/%E5%AE%9E%E4%B9%A0%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<ul>
-<li>实习项目总结</li>
-</ul>
-<span id="more"></span>
-
-<h3 id="实习项目总结"><a href="#实习项目总结" class="headerlink" title="实习项目总结"></a>实习项目总结</h3><ul>
-<li>项目开始前必须进行细致的规划设计，设计各层的接口以及实现细节，不能边写边改，这样会导致效率极其的低下。</li>
-<li>项目的设计文档等要从一开始就写，并且要尽可能的详细，不断完善，待到十分完善，基本不会发生大的比变化之后再开始写代码。写代码的事件占到整个项目的<code>40%</code>左右</li>
-<li>要学习使用<code>github</code>等版本控制工具进行版本控制和多人协作。</li>
-</ul>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 实习 </tag>
+            
+            <tag> 总结 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>localStorage返回值的问题</title>
+      <link href="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+      <url>/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<ul><li>localStorage返回值的两种类型</li></ul><span id="more"></span><h3 id="localStorage返回值类型的问题"><a href="#localStorage返回值类型的问题" class="headerlink" title="localStorage返回值类型的问题"></a>localStorage返回值类型的问题</h3><h4 id="1-设置过localStorage中相应的值"><a href="#1-设置过localStorage中相应的值" class="headerlink" title="1. 设置过localStorage中相应的值"></a>1. 设置过localStorage中相应的值</h4><p>在``Web<code>项目中使用</code>localStorage`来存储数据，并在页面中进行读取后输出，代码如下所示</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pid = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;pid = &quot;</span>+pid);</span><br></pre></td></tr></table></figure><p>此时输出的结果为<code>null</code></p><p><img src="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/1.png"></p><p>在其后使用如下语句，发现此时此语句内永远不会执行</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(pid == <span class="literal">null</span>)&#123;....&#125;</span><br></pre></td></tr></table></figure><p>输出此时<code>pid</code>的类型可知<code>LocalStorage.getItem()</code>返回的值的类型为<code>String</code></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid)</span><br></pre></td></tr></table></figure><p><img src="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/2.png"></p><p>则上述判断语句应该改为如下形式即可</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(pid == <span class="string">&#x27;null&#x27;</span>)&#123;...&#125;</span><br></pre></td></tr></table></figure><p>为了测试<code>localStorage.getItem()</code>的返回值类型和输入值类型是否有关，运行如下代码</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">localStorage</span>.setItem(<span class="string">&quot;pid&quot;</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">let</span> pid = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid);</span><br><span class="line"><span class="comment">//结果仍然为string</span></span><br></pre></td></tr></table></figure><p>经过对其他数据类型的测试，发现返回值总是传入的值转换为字符串形式之后的值。</p><h4 id="2-未设置过localStorage中相应的值"><a href="#2-未设置过localStorage中相应的值" class="headerlink" title="2. 未设置过localStorage中相应的值"></a>2. 未设置过localStorage中相应的值</h4><p>如果清理了浏览器的缓存或者从未使用<code>localStorage.setItem()</code>等设置过相应变量的值，则使用<code>localStorage.getItem()</code>直接获取此变量的值则会返回<code>null</code>，为<code>Object</code>类型。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;pid = &quot;</span>+pid);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid);</span><br></pre></td></tr></table></figure><p><img src="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/3.png"></p><h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h4><p>当在<code>localStorage</code>中存储过相应的变量的值，如<code>a</code>，则之后再使用<code>getItem(&quot;a&quot;)</code>获取值时返回的时设置值转换为字符串的形式。如果此前没有设置<code>a</code>这个值，则返回的是<code>null</code>，为<code>Object</code>类型。</p>]]></content>
+      
+      
       <categories>
-        <category>总结</category>
+          
+          <category> Web </category>
+          
       </categories>
-      <tags>
-        <tag>实习</tag>
-        <tag>总结</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>7-21 日志</title>
-    <url>/2021/07/22/7-21-%E6%97%A5%E5%BF%97/</url>
-    <content><![CDATA[<ul>
-<li>7月21日 星期三 晴</li>
-</ul>
-<span id="more"></span>
-
-<h4 id="今日活动"><a href="#今日活动" class="headerlink" title="今日活动"></a>今日活动</h4><ul>
-<li>上午参加了实训结营仪式，为期两周半的实习正式结束。虽然没有得奖，但是确实学到了很多知识，更重要的是认识、熟悉了自己的队友，和他们相处非常愉快。这段时间可能是我在大学中最为快乐和充实的一段时间。这才是我心目中大学该有的样子。</li>
-<li>下午和晚上都在玩手机，算是实习过后的小放松吧。</li>
-<li>晚上学了一会儿<code>QT</code>，算是没有完全荒废。</li>
-</ul>
-<h4 id="今日收获"><a href="#今日收获" class="headerlink" title="今日收获"></a>今日收获</h4><ul>
-<li>昨天的答辩看到了别的组的作品非常的惊艳。虽然知道他们是直接用的库，心里有些不满和不平，但是还是应该虚心学习别人的优点。<code>承认别人优秀也没有那么难</code>。</li>
-</ul>
-<h4 id="问题和不足"><a href="#问题和不足" class="headerlink" title="问题和不足"></a>问题和不足</h4><ul>
-<li>没有得奖，一周多的辛苦好像没有得到应有的成果。</li>
-<li>不想学习，希望命题可以静下心来学习。</li>
-</ul>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> Bug </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>7-17实习日志</title>
+      <link href="/2021/07/17/7-17%E5%AE%9E%E4%B9%A0%E6%97%A5%E5%BF%97/"/>
+      <url>/2021/07/17/7-17%E5%AE%9E%E4%B9%A0%E6%97%A5%E5%BF%97/</url>
+      
+        <content type="html"><![CDATA[<ul><li>2021-7-17日 星期六 实训日志</li></ul><span id="more"></span><h4 id="1-实训内容"><a href="#1-实训内容" class="headerlink" title="1. 实训内容"></a>1. 实训内容</h4><ul><li>继续将前端和后端放在一起进行调试，并基本完成调试工作</li><li>实现了搜索功能</li><li>美化了部分前端界面</li><li>规划了之后的项目分工和安排</li></ul><h4 id="2-实训收获"><a href="#2-实训收获" class="headerlink" title="2. 实训收获"></a>2. 实训收获</h4><ul><li>学习巩固了前端和后端的知识，了解并实践了前后端的连接和交互。</li><li>进一步加强了团队分工与合作，提高了交流及合作的能力</li><li>进一步完善了项目</li></ul><h4 id="3-问题和不足"><a href="#3-问题和不足" class="headerlink" title="3. 问题和不足"></a>3. 问题和不足</h4><ul><li>由于前端由多人开发且缺乏统一的设计，导致前端界面风格不一，影响观感。</li><li>还有少量调试工作尚未完成。</li><li>项目答辩及总结材料等还未开始准备。</li><li>对github等工具不够熟悉，导致合作起来效率低下。</li></ul>]]></content>
+      
+      
       <categories>
-        <category>日志</category>
+          
+          <category> 日志 </category>
+          
       </categories>
-      <tags>
-        <tag>日志</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> 实习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>
