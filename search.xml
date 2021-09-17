@@ -21,7 +21,7 @@
 <p>输出此时<code>pid</code>的类型可知<code>LocalStorage.getItem()</code>返回的值的类型为<code>String</code></p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid)</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/2.png"></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/2.png"></p>
 <p>则上述判断语句应该改为如下形式即可</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(pid == <span class="string">&#x27;null&#x27;</span>)&#123;...&#125;</span><br></pre></td></tr></table></figure>
 
@@ -32,7 +32,7 @@
 <h4 id="2-未设置过localStorage中相应的值"><a href="#2-未设置过localStorage中相应的值" class="headerlink" title="2. 未设置过localStorage中相应的值"></a>2. 未设置过localStorage中相应的值</h4><p>如果清理了浏览器的缓存或者从未使用<code>localStorage.setItem()</code>等设置过相应变量的值，则使用<code>localStorage.getItem()</code>直接获取此变量的值则会返回<code>null</code>，为<code>Object</code>类型。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;pid = &quot;</span>+pid);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid);</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/3.png"></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/3.png"></p>
 <h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h4><p>当在<code>localStorage</code>中存储过相应的变量的值，如<code>a</code>，则之后再使用<code>getItem(&quot;a&quot;)</code>获取值时返回的时设置值转换为字符串的形式。如果此前没有设置<code>a</code>这个值，则返回的是<code>null</code>，为<code>Object</code>类型。</p>
 ]]></content>
       <categories>
