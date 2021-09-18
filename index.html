@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-18 09:01:08" itemprop="dateModified" datetime="2021-09-18T09:01:08+08:00">2021-09-18</time>
+                <time title="修改时间：2021-09-18 09:02:39" itemprop="dateModified" datetime="2021-09-18T09:02:39+08:00">2021-09-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,15 +258,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>localStorage返回值类型的问题</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <h3 id="localStorage返回值类型的问题"><a href="#localStorage返回值类型的问题" class="headerlink" title="localStorage返回值类型的问题"></a>localStorage返回值类型的问题</h3><h4 id="1-设置过localStorage中相应的值"><a href="#1-设置过localStorage中相应的值" class="headerlink" title="1. 设置过localStorage中相应的值"></a>1. 设置过localStorage中相应的值</h4><p>在<code>Web</code>项目中使用<code>localStorage</code>来存储数据，并在页面中进行读取后输出，代码如下所示</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pid = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;pid = &quot;</span>+pid);</span><br></pre></td></tr></table></figure>
+
+<p>此时输出的结果为<code>null</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/1.png"></p>
+<p>在其后使用如下语句，发现此时此语句内永远不会执行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(pid == <span class="literal">null</span>)&#123;....&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出此时<code>pid</code>的类型可知<code>LocalStorage.getItem()</code>返回的值的类型为<code>String</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/2.png"></p>
+<p>则上述判断语句应该改为如下形式即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(pid == <span class="string">&#x27;null&#x27;</span>)&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了测试<code>localStorage.getItem()</code>的返回值类型和输入值类型是否有关，运行如下代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">localStorage</span>.setItem(<span class="string">&quot;pid&quot;</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">let</span> pid = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid);</span><br><span class="line"><span class="comment">//结果仍然为string</span></span><br></pre></td></tr></table></figure>
+
+<p>经过对其他数据类型的测试，发现返回值总是传入的值转换为字符串形式之后的值。</p>
+<h4 id="2-未设置过localStorage中相应的值"><a href="#2-未设置过localStorage中相应的值" class="headerlink" title="2. 未设置过localStorage中相应的值"></a>2. 未设置过localStorage中相应的值</h4><p>如果清理了浏览器的缓存或者从未使用<code>localStorage.setItem()</code>等设置过相应变量的值，则使用<code>localStorage.getItem()</code>直接获取此变量的值则会返回<code>null</code>，为<code>Object</code>类型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;pid = &quot;</span>+pid);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> pid);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/3.png"></p>
+<h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h4><p>当在<code>localStorage</code>中存储过相应的变量的值，如<code>a</code>，则之后再使用<code>getItem(&quot;a&quot;)</code>获取值时返回的时设置值转换为字符串的形式。如果此前没有设置<code>a</code>这个值，则返回的是<code>null</code>，为<code>Object</code>类型。</p>
+
       
     </div>
 
