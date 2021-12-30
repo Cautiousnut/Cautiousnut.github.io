@@ -3,7 +3,18 @@
   <entry>
     <title>C++基础</title>
     <url>/2021/12/30/C++%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h2 id="C-基础学习相关问题总结"><a href="#C-基础学习相关问题总结" class="headerlink" title="C++基础学习相关问题总结"></a>C++基础学习相关问题总结</h2><h4 id="1-重定向问题"><a href="#1-重定向问题" class="headerlink" title="1. 重定向问题"></a>1. 重定向问题</h4><ul>
+<li><code>C++primer</code>中提到可以使用<code>&gt;</code>和<code>&lt;</code>实现文件重定向，但是实测在<code>powershell</code>中是无法使用的。但可以使用其他命令代替，具体内容可参考如下链接。</li>
+<li><a href="https://www.cnblogs.com/yejiaxing-01/p/12570763.html">Windows下的重定向 - 叶家星 - 博客园 (cnblogs.com)</a></li>
+<li><a href="https://blog.csdn.net/fjjaylz/article/details/86663013">(55条消息) Windows PowerShell的“管道”以及对可执行文件的文件重定向_fjjaylz的博客-CSDN博客_powershell 文件重定向</a></li>
+</ul>
+<h4 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h4>]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
   </entry>
   <entry>
     <title>localStorage返回值的问题</title>
@@ -38,6 +49,32 @@
       </categories>
       <tags>
         <tag>Bug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows terminal获取管理员权限</title>
+    <url>/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/</url>
+    <content><![CDATA[<h2 id="Windows-terminal获取管理员权限"><a href="#Windows-terminal获取管理员权限" class="headerlink" title="Windows terminal获取管理员权限"></a>Windows terminal获取管理员权限</h2><h4 id="安装Scoop包管理工具"><a href="#安装Scoop包管理工具" class="headerlink" title="安装Scoop包管理工具"></a>安装Scoop包管理工具</h4><ul>
+<li><p>以管理员身份进入powershell，并按照scoop文档进行安装即可<code>https://github.com/ScoopInstaller/Scoop</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170207619.png"></p>
+</li>
+<li><p>输入<code>scoop help</code>查看是否安装成功</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170343194.png" alt="image-20211230170343194"></p>
+</li>
+</ul>
+<h4 id="安装sudo工具"><a href="#安装sudo工具" class="headerlink" title="安装sudo工具"></a>安装<code>sudo</code>工具</h4><ul>
+<li><p>使用命令<code>scoop install sudo --global</code>安装</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230171147126.png" alt="image-20211230171147126"></p>
+</li>
+<li><p>之后使用指令时在前边加上<code>sudo</code>即可以管理员身份运行指令</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
 </search>
