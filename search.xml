@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C++基础</title>
+    <url>/2021/12/30/C++%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>localStorage返回值的问题</title>
     <url>/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h3 id="localStorage返回值类型的问题"><a href="#localStorage返回值类型的问题" class="headerlink" title="localStorage返回值类型的问题"></a>localStorage返回值类型的问题</h3><h4 id="1-设置过localStorage中相应的值"><a href="#1-设置过localStorage中相应的值" class="headerlink" title="1. 设置过localStorage中相应的值"></a>1. 设置过localStorage中相应的值</h4><p>在<code>Web</code>项目中使用<code>localStorage</code>来存储数据，并在页面中进行读取后输出，代码如下所示</p>
