@@ -20,24 +20,31 @@
     var CONFIG = {"hostname":"cautiousnut.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Windows terminal获取管理员权限安装Scoop包管理工具 以管理员身份进入powershell，并按照scoop文档进行安装即可https:&#x2F;&#x2F;github.com&#x2F;ScoopInstaller&#x2F;Scoop   输入scoop help查看是否安装成功    安装sudo工具 使用命令scoop install sudo --global安装   之后使用指令时在前边加上sudo即可">
+  <meta name="description" content="自制操作系统一——环境配置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows terminal获取管理员权限">
-<meta property="og:url" content="https://cautiousnut.github.io/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/index.html">
+<meta property="og:title" content="Linux上Bochs的安装和配置">
+<meta property="og:url" content="https://cautiousnut.github.io/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="静水流深">
-<meta property="og:description" content="Windows terminal获取管理员权限安装Scoop包管理工具 以管理员身份进入powershell，并按照scoop文档进行安装即可https:&#x2F;&#x2F;github.com&#x2F;ScoopInstaller&#x2F;Scoop   输入scoop help查看是否安装成功    安装sudo工具 使用命令scoop install sudo --global安装   之后使用指令时在前边加上sudo即可">
+<meta property="og:description" content="自制操作系统一——环境配置">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170207619.png">
-<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170343194.png">
-<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230171147126.png">
-<meta property="article:published_time" content="2021-12-30T08:19:38.000Z">
-<meta property="article:modified_time" content="2021-12-30T13:59:10.086Z">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101172946927.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173057682.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173806619.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101175747865.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101175730106.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101194807027.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101204906611.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101221809240.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101224449308.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101231023841.png">
+<meta property="article:published_time" content="2022-01-01T09:19:06.000Z">
+<meta property="article:modified_time" content="2022-01-01T15:10:40.361Z">
 <meta property="article:author" content="StillWater">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170207619.png">
+<meta name="twitter:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101172946927.png">
 
-<link rel="canonical" href="https://cautiousnut.github.io/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/">
+<link rel="canonical" href="https://cautiousnut.github.io/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/">
 
 
 <script id="page-configurations">
@@ -50,7 +57,7 @@
   };
 </script>
 
-  <title>Windows terminal获取管理员权限 | 静水流深</title>
+  <title>Linux上Bochs的安装和配置 | 静水流深</title>
   
 
 
@@ -198,7 +205,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cautiousnut.github.io/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/">
+    <link itemprop="mainEntityOfPage" href="https://cautiousnut.github.io/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -211,7 +218,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Windows terminal获取管理员权限
+          Linux上Bochs的安装和配置
         </h1>
 
         <div class="post-meta">
@@ -222,7 +229,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-12-30 16:19:38 / 修改时间：21:59:10" itemprop="dateCreated datePublished" datetime="2021-12-30T16:19:38+08:00">2021-12-30</time>
+              <time title="创建时间：2022-01-01 17:19:06 / 修改时间：23:10:40" itemprop="dateCreated datePublished" datetime="2022-01-01T17:19:06+08:00">2022-01-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,7 +247,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>193</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -259,22 +266,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Windows-terminal获取管理员权限"><a href="#Windows-terminal获取管理员权限" class="headerlink" title="Windows terminal获取管理员权限"></a>Windows terminal获取管理员权限</h2><h4 id="安装Scoop包管理工具"><a href="#安装Scoop包管理工具" class="headerlink" title="安装Scoop包管理工具"></a>安装Scoop包管理工具</h4><ul>
-<li><p>以管理员身份进入powershell，并按照scoop文档进行安装即可<code>https://github.com/ScoopInstaller/Scoop</code></p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170207619.png"></p>
+        <h2 id="Linux上Bochs的安装和配置"><a href="#Linux上Bochs的安装和配置" class="headerlink" title="Linux上Bochs的安装和配置"></a>Linux上Bochs的安装和配置</h2><h4 id="下载Bochs最新版"><a href="#下载Bochs最新版" class="headerlink" title="下载Bochs最新版"></a>下载Bochs最新版</h4><ul>
+<li><p>进入网址<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/bochs/files/bochs/">Bochs x86 PC emulator - Browse /bochs at SourceForge.net</a>，点击最新版进入</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101172946927.png" alt="image-20220101172946927"></p>
 </li>
-<li><p>输入<code>scoop help</code>查看是否安装成功</p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170343194.png" alt="image-20211230170343194"></p>
+<li><p>选择相应的版本，此处为<code>Linux</code>平台，所以选择<code>bochs-2.7.tar.gz</code>，点击下载</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173057682.png" alt="image-20220101173057682"></p>
 </li>
-</ul>
-<h4 id="安装sudo工具"><a href="#安装sudo工具" class="headerlink" title="安装sudo工具"></a>安装<code>sudo</code>工具</h4><ul>
-<li><p>使用命令<code>scoop install sudo --global</code>安装</p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230171147126.png" alt="image-20211230171147126"></p>
-</li>
-<li><p>之后使用指令时在前边加上<code>sudo</code>即可以管理员身份运行指令</p>
+<li><p>解压后使用<code>scp</code>命令上传至<code>Linux</code>平台（假设下载在<code>windows</code>平台进行）</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173806619.png" alt="image-20220101173806619"></p>
 </li>
 </ul>
-
+<h4 id="编译安装Bochs"><a href="#编译安装Bochs" class="headerlink" title="编译安装Bochs"></a>编译安装Bochs</h4><h5 id="configure"><a href="#configure" class="headerlink" title="configure"></a>configure</h5><ul>
+<li><p>配置<code>configure</code>工具，生成<code>Makefile</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure -<span class="literal">-with</span><span class="literal">-x11</span> -<span class="literal">-with</span><span class="literal">-wx</span> -<span class="literal">-enable</span><span class="literal">-plugins</span> -<span class="literal">-enable</span><span class="literal">-debugger</span> -<span class="literal">-enable</span><span class="literal">-debugger</span><span class="literal">-gui</span> -<span class="literal">-enable</span><span class="literal">-readline</span> -<span class="literal">-enable</span><span class="literal">-cpp</span> -<span class="literal">-enable</span><span class="literal">-idle</span><span class="literal">-hack</span> -<span class="literal">-enable</span><span class="literal">-cpu</span><span class="literal">-level</span>=<span class="number">6</span> -<span class="literal">-enable</span><span class="literal">-x86</span><span class="literal">-64</span> -<span class="literal">-enable</span><span class="literal">-smp</span> -<span class="literal">-enable</span><span class="literal">-vmx</span>=<span class="number">2</span> -<span class="literal">-enable</span><span class="literal">-svm</span> -<span class="literal">-enable</span><span class="literal">-avx</span> -<span class="literal">-enable</span><span class="literal">-x86</span><span class="literal">-debugger</span> -<span class="literal">-enable</span><span class="literal">-monitor</span><span class="literal">-mwait</span> -<span class="literal">-enable</span><span class="literal">-configurable</span><span class="literal">-msrs</span> -<span class="literal">-enable</span><span class="literal">-long</span><span class="literal">-phy</span><span class="literal">-address</span> -<span class="literal">-enable</span><span class="literal">-repeat</span><span class="literal">-speedups</span> -<span class="literal">-enable</span><span class="literal">-fast</span><span class="literal">-function</span><span class="literal">-calls</span> -<span class="literal">-enable</span><span class="literal">-trace</span><span class="literal">-linking</span> -<span class="literal">-enable</span><span class="literal">-ltdl</span><span class="literal">-install</span> -<span class="literal">-enable</span><span class="literal">-assert</span><span class="literal">-checks</span> -<span class="literal">-enable</span><span class="literal">-3dnow</span> -<span class="literal">-enable</span><span class="literal">-evex</span> -<span class="literal">-enable</span><span class="literal">-usb</span> -<span class="literal">-enable</span><span class="literal">-voodoo</span></span><br></pre></td></tr></table></figure></li>
+<li><p>若提示缺少<code>gcc</code>、<code>cc</code>、<code>cl</code>、<code>g++</code>等则安装即可</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101175747865.png" alt="image-20220101175747865"></p>
+</li>
+<li><p>如提示缺少<code>configure</code>命令，则使用<code>chmod 764 configre</code>改变文件属性即可</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101175730106.png" alt="image-20220101175730106"></p>
+</li>
+<li><p>提示<code>The readline library was disabled because it was not found</code>，安装<code>libreadline-dev</code>即可</p>
+</li>
+<li><p>提示<code>handlers-chaining speedups are not supported with internal debugger or gdbstub yet</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101194807027.png" alt="image-20220101194807027"></p>
+<p>此时参考官方文档，去除<code>--enable-handlers-chaining</code>。</p>
+</li>
+<li><p>提示<code>WARNING: Bochs for wxWidgets cannot be compiled here, disabling it</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101204906611.png" alt="image-20220101204906611"></p>
+<p>此时安装<code>libwxbase3.0-dev</code>库和<code>libwxgtk3.0-gtk3-dev</code>库</p>
+</li>
+<li><p>提示<code>Package gdk-3.0 was not found in the pkg-config search path</code>。安装<code>libgtk-3-dev</code>库</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101221809240.png" alt="image-20220101221809240"></p>
+</li>
+<li><p>参考<a target="_blank" rel="noopener" href="https://linux.debian.user.narkive.com/f7eEuTk8/x-windows-libraries">X windows libraries?? (narkive.com)</a></p>
+</li>
+</ul>
+<h5 id="Make"><a href="#Make" class="headerlink" title="Make"></a>Make</h5><ul>
+<li><p>执行<code>make</code>命令</p>
+</li>
+<li><p>找不到<code>config.h</code>头文件和<code>osdep.h</code>头文件</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101224449308.png" alt="image-20220101224449308"></p>
+<p>分析可得，此时<code>bx_debug</code>文件夹内的<code>debug.h</code>文件找不到<code>config.h</code>文件和<code>osdep.h</code>文件，经查看，这两个文件都在<code>bochs-2.7</code>目录下，移入<code>bx_debug</code>目录即可或者更改<code>debug.h</code>中的路径。其他缺少的头文件可使用类似方式解决。</p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9439744/gtk-cant-find-config-h">c - Gtk can’t find “” - Stack Overflow</a></p>
+</li>
+<li><p><code>make: *** 没有规则可制作目标“misc/bximage.cc”，由“misc/bximage.o” 需求。 停止</code>。出现类似问题，只需要找到文件，将其后缀由<code>cpp</code>改为<code>cc</code>。</p>
+</li>
+</ul>
+<h5 id="make-install"><a href="#make-install" class="headerlink" title="make install"></a>make install</h5><ul>
+<li>执行<code>sudo make install</code>命令即可。</li>
+</ul>
+<h5 id="检测安装结果"><a href="#检测安装结果" class="headerlink" title="检测安装结果"></a>检测安装结果</h5><ul>
+<li><p>执行<code>bochs</code>命令，出现如下结果则表示安装成功</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101231023841.png" alt="image-20220101231023841"></p>
+</li>
+</ul>
+<h4 id="配置Bochs"><a href="#配置Bochs" class="headerlink" title="配置Bochs"></a>配置Bochs</h4>
     </div>
 
     
@@ -289,7 +336,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cautiousnut.github.io/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/" title="Windows terminal获取管理员权限">https://cautiousnut.github.io/2021/12/30/Windows terminal获取管理员权限/</a>
+    <a href="https://cautiousnut.github.io/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" title="Linux上Bochs的安装和配置">https://cautiousnut.github.io/2022/01/01/Linux上Bochs的安装和配置/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -309,13 +356,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/" rel="prev" title="localStorage返回值的问题">
-      <i class="fa fa-chevron-left"></i> localStorage返回值的问题
+    <a href="/2021/12/30/C++%E5%9F%BA%E7%A1%80/" rel="prev" title="C++基础">
+      <i class="fa fa-chevron-left"></i> C++基础
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/12/30/C++%E5%9F%BA%E7%A1%80/" rel="next" title="C++基础">
-      C++基础 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -374,7 +418,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">Windows terminal获取管理员权限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Scoop%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="nav-number">1.0.1.</span> <span class="nav-text">安装Scoop包管理工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85sudo%E5%B7%A5%E5%85%B7"><span class="nav-number">1.0.2.</span> <span class="nav-text">安装sudo工具</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">Linux上Bochs的安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDBochs%E6%9C%80%E6%96%B0%E7%89%88"><span class="nav-number">1.0.1.</span> <span class="nav-text">下载Bochs最新版</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Bochs"><span class="nav-number">1.0.2.</span> <span class="nav-text">编译安装Bochs</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#configure"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">configure</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Make"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">Make</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#make-install"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">make install</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">检测安装结果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEBochs"><span class="nav-number">1.0.3.</span> <span class="nav-text">配置Bochs</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

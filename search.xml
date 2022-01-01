@@ -138,4 +138,70 @@
         <tag>学习笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Linux上Bochs的安装和配置</title>
+    <url>/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="Linux上Bochs的安装和配置"><a href="#Linux上Bochs的安装和配置" class="headerlink" title="Linux上Bochs的安装和配置"></a>Linux上Bochs的安装和配置</h2><h4 id="下载Bochs最新版"><a href="#下载Bochs最新版" class="headerlink" title="下载Bochs最新版"></a>下载Bochs最新版</h4><ul>
+<li><p>进入网址<a href="https://sourceforge.net/projects/bochs/files/bochs/">Bochs x86 PC emulator - Browse /bochs at SourceForge.net</a>，点击最新版进入</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101172946927.png" alt="image-20220101172946927"></p>
+</li>
+<li><p>选择相应的版本，此处为<code>Linux</code>平台，所以选择<code>bochs-2.7.tar.gz</code>，点击下载</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173057682.png" alt="image-20220101173057682"></p>
+</li>
+<li><p>解压后使用<code>scp</code>命令上传至<code>Linux</code>平台（假设下载在<code>windows</code>平台进行）</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173806619.png" alt="image-20220101173806619"></p>
+</li>
+</ul>
+<h4 id="编译安装Bochs"><a href="#编译安装Bochs" class="headerlink" title="编译安装Bochs"></a>编译安装Bochs</h4><h5 id="configure"><a href="#configure" class="headerlink" title="configure"></a>configure</h5><ul>
+<li><p>配置<code>configure</code>工具，生成<code>Makefile</code></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">./configure -<span class="literal">-with</span><span class="literal">-x11</span> -<span class="literal">-with</span><span class="literal">-wx</span> -<span class="literal">-enable</span><span class="literal">-plugins</span> -<span class="literal">-enable</span><span class="literal">-debugger</span> -<span class="literal">-enable</span><span class="literal">-debugger</span><span class="literal">-gui</span> -<span class="literal">-enable</span><span class="literal">-readline</span> -<span class="literal">-enable</span><span class="literal">-cpp</span> -<span class="literal">-enable</span><span class="literal">-idle</span><span class="literal">-hack</span> -<span class="literal">-enable</span><span class="literal">-cpu</span><span class="literal">-level</span>=<span class="number">6</span> -<span class="literal">-enable</span><span class="literal">-x86</span><span class="literal">-64</span> -<span class="literal">-enable</span><span class="literal">-smp</span> -<span class="literal">-enable</span><span class="literal">-vmx</span>=<span class="number">2</span> -<span class="literal">-enable</span><span class="literal">-svm</span> -<span class="literal">-enable</span><span class="literal">-avx</span> -<span class="literal">-enable</span><span class="literal">-x86</span><span class="literal">-debugger</span> -<span class="literal">-enable</span><span class="literal">-monitor</span><span class="literal">-mwait</span> -<span class="literal">-enable</span><span class="literal">-configurable</span><span class="literal">-msrs</span> -<span class="literal">-enable</span><span class="literal">-long</span><span class="literal">-phy</span><span class="literal">-address</span> -<span class="literal">-enable</span><span class="literal">-repeat</span><span class="literal">-speedups</span> -<span class="literal">-enable</span><span class="literal">-fast</span><span class="literal">-function</span><span class="literal">-calls</span> -<span class="literal">-enable</span><span class="literal">-trace</span><span class="literal">-linking</span> -<span class="literal">-enable</span><span class="literal">-ltdl</span><span class="literal">-install</span> -<span class="literal">-enable</span><span class="literal">-assert</span><span class="literal">-checks</span> -<span class="literal">-enable</span><span class="literal">-3dnow</span> -<span class="literal">-enable</span><span class="literal">-evex</span> -<span class="literal">-enable</span><span class="literal">-usb</span> -<span class="literal">-enable</span><span class="literal">-voodoo</span></span><br></pre></td></tr></table></figure></li>
+<li><p>若提示缺少<code>gcc</code>、<code>cc</code>、<code>cl</code>、<code>g++</code>等则安装即可</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101175747865.png" alt="image-20220101175747865"></p>
+</li>
+<li><p>如提示缺少<code>configure</code>命令，则使用<code>chmod 764 configre</code>改变文件属性即可</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101175730106.png" alt="image-20220101175730106"></p>
+</li>
+<li><p>提示<code>The readline library was disabled because it was not found</code>，安装<code>libreadline-dev</code>即可</p>
+</li>
+<li><p>提示<code>handlers-chaining speedups are not supported with internal debugger or gdbstub yet</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101194807027.png" alt="image-20220101194807027"></p>
+<p>此时参考官方文档，去除<code>--enable-handlers-chaining</code>。</p>
+</li>
+<li><p>提示<code>WARNING: Bochs for wxWidgets cannot be compiled here, disabling it</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101204906611.png" alt="image-20220101204906611"></p>
+<p>此时安装<code>libwxbase3.0-dev</code>库和<code>libwxgtk3.0-gtk3-dev</code>库</p>
+</li>
+<li><p>提示<code>Package gdk-3.0 was not found in the pkg-config search path</code>。安装<code>libgtk-3-dev</code>库</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101221809240.png" alt="image-20220101221809240"></p>
+</li>
+<li><p>参考<a href="https://linux.debian.user.narkive.com/f7eEuTk8/x-windows-libraries">X windows libraries?? (narkive.com)</a></p>
+</li>
+</ul>
+<h5 id="Make"><a href="#Make" class="headerlink" title="Make"></a>Make</h5><ul>
+<li><p>执行<code>make</code>命令</p>
+</li>
+<li><p>找不到<code>config.h</code>头文件和<code>osdep.h</code>头文件</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101224449308.png" alt="image-20220101224449308"></p>
+<p>分析可得，此时<code>bx_debug</code>文件夹内的<code>debug.h</code>文件找不到<code>config.h</code>文件和<code>osdep.h</code>文件，经查看，这两个文件都在<code>bochs-2.7</code>目录下，移入<code>bx_debug</code>目录即可或者更改<code>debug.h</code>中的路径。其他缺少的头文件可使用类似方式解决。</p>
+<p><a href="https://stackoverflow.com/questions/9439744/gtk-cant-find-config-h">c - Gtk can’t find “” - Stack Overflow</a></p>
+</li>
+<li><p><code>make: *** 没有规则可制作目标“misc/bximage.cc”，由“misc/bximage.o” 需求。 停止</code>。出现类似问题，只需要找到文件，将其后缀由<code>cpp</code>改为<code>cc</code>。</p>
+</li>
+</ul>
+<h5 id="make-install"><a href="#make-install" class="headerlink" title="make install"></a>make install</h5><ul>
+<li>执行<code>sudo make install</code>命令即可。</li>
+</ul>
+<h5 id="检测安装结果"><a href="#检测安装结果" class="headerlink" title="检测安装结果"></a>检测安装结果</h5><ul>
+<li><p>执行<code>bochs</code>命令，出现如下结果则表示安装成功</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101231023841.png" alt="image-20220101231023841"></p>
+</li>
+</ul>
+<h4 id="配置Bochs"><a href="#配置Bochs" class="headerlink" title="配置Bochs"></a>配置Bochs</h4>]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
 </search>
