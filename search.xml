@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Windows terminal获取管理员权限</title>
-    <url>/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/</url>
-    <content><![CDATA[<h2 id="Windows-terminal获取管理员权限"><a href="#Windows-terminal获取管理员权限" class="headerlink" title="Windows terminal获取管理员权限"></a>Windows terminal获取管理员权限</h2><h4 id="安装Scoop包管理工具"><a href="#安装Scoop包管理工具" class="headerlink" title="安装Scoop包管理工具"></a>安装Scoop包管理工具</h4><ul>
-<li><p>以管理员身份进入powershell，并按照scoop文档进行安装即可<code>https://github.com/ScoopInstaller/Scoop</code></p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170207619.png"></p>
-</li>
-<li><p>输入<code>scoop help</code>查看是否安装成功</p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170343194.png" alt="image-20211230170343194"></p>
-</li>
-</ul>
-<h4 id="安装sudo工具"><a href="#安装sudo工具" class="headerlink" title="安装sudo工具"></a>安装<code>sudo</code>工具</h4><ul>
-<li><p>使用命令<code>scoop install sudo --global</code>安装</p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230171147126.png" alt="image-20211230171147126"></p>
-</li>
-<li><p>之后使用指令时在前边加上<code>sudo</code>即可以管理员身份运行指令</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++基础</title>
     <url>/2021/12/30/C++%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h2 id="C-基础学习总结"><a href="#C-基础学习总结" class="headerlink" title="C++基础学习总结"></a>C++基础学习总结</h2><h4 id="1-重定向问题"><a href="#1-重定向问题" class="headerlink" title="1. 重定向问题"></a>1. 重定向问题</h4><ul>
@@ -101,41 +75,6 @@
       </categories>
       <tags>
         <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>localStorage返回值的问题</title>
-    <url>/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="localStorage返回值类型的问题"><a href="#localStorage返回值类型的问题" class="headerlink" title="localStorage返回值类型的问题"></a>localStorage返回值类型的问题</h3><h4 id="1-设置过localStorage中相应的值"><a href="#1-设置过localStorage中相应的值" class="headerlink" title="1. 设置过localStorage中相应的值"></a>1. 设置过localStorage中相应的值</h4><p>在<code>Web</code>项目中使用<code>localStorage</code>来存储数据，并在页面中进行读取后输出，代码如下所示</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> pid = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&quot;pid&quot;</span>);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;pid = &quot;</span>+pid);<br></code></pre></td></tr></table></figure>
-
-<p>此时输出的结果为<code>null</code></p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/1.png"></p>
-<p>在其后使用如下语句，发现此时此语句内永远不会执行</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(pid == <span class="hljs-literal">null</span>)&#123;....&#125;<br></code></pre></td></tr></table></figure>
-
-<p>输出此时<code>pid</code>的类型可知<code>LocalStorage.getItem()</code>返回的值的类型为<code>String</code></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid)<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/2.png"></p>
-<p>则上述判断语句应该改为如下形式即可</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(pid == <span class="hljs-string">&#x27;null&#x27;</span>)&#123;...&#125;<br></code></pre></td></tr></table></figure>
-
-<p>为了测试<code>localStorage.getItem()</code>的返回值类型和输入值类型是否有关，运行如下代码</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&quot;pid&quot;</span>,<span class="hljs-number">1</span>);<br><span class="hljs-keyword">let</span> pid = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&quot;pid&quot;</span>);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid);<br><span class="hljs-comment">//结果仍然为string</span><br></code></pre></td></tr></table></figure>
-
-<p>经过对其他数据类型的测试，发现返回值总是传入的值转换为字符串形式之后的值。</p>
-<h4 id="2-未设置过localStorage中相应的值"><a href="#2-未设置过localStorage中相应的值" class="headerlink" title="2. 未设置过localStorage中相应的值"></a>2. 未设置过localStorage中相应的值</h4><p>如果清理了浏览器的缓存或者从未使用<code>localStorage.setItem()</code>等设置过相应变量的值，则使用<code>localStorage.getItem()</code>直接获取此变量的值则会返回<code>null</code>，为<code>Object</code>类型。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;pid = &quot;</span>+pid);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid);<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/3.png"></p>
-<h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h4><p>当在<code>localStorage</code>中存储过相应的变量的值，如<code>a</code>，则之后再使用<code>getItem(&quot;a&quot;)</code>获取值时返回的时设置值转换为字符串的形式。如果此前没有设置<code>a</code>这个值，则返回的是<code>null</code>，为<code>Object</code>类型。</p>
-]]></content>
-      <categories>
-        <category>Web</category>
-      </categories>
-      <tags>
-        <tag>Bug</tag>
       </tags>
   </entry>
   <entry>
@@ -242,6 +181,67 @@
       </categories>
       <tags>
         <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows terminal获取管理员权限</title>
+    <url>/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/</url>
+    <content><![CDATA[<h2 id="Windows-terminal获取管理员权限"><a href="#Windows-terminal获取管理员权限" class="headerlink" title="Windows terminal获取管理员权限"></a>Windows terminal获取管理员权限</h2><h4 id="安装Scoop包管理工具"><a href="#安装Scoop包管理工具" class="headerlink" title="安装Scoop包管理工具"></a>安装Scoop包管理工具</h4><ul>
+<li><p>以管理员身份进入powershell，并按照scoop文档进行安装即可<code>https://github.com/ScoopInstaller/Scoop</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170207619.png"></p>
+</li>
+<li><p>输入<code>scoop help</code>查看是否安装成功</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170343194.png" alt="image-20211230170343194"></p>
+</li>
+</ul>
+<h4 id="安装sudo工具"><a href="#安装sudo工具" class="headerlink" title="安装sudo工具"></a>安装<code>sudo</code>工具</h4><ul>
+<li><p>使用命令<code>scoop install sudo --global</code>安装</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230171147126.png" alt="image-20211230171147126"></p>
+</li>
+<li><p>之后使用指令时在前边加上<code>sudo</code>即可以管理员身份运行指令</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>localStorage返回值的问题</title>
+    <url>/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="localStorage返回值类型的问题"><a href="#localStorage返回值类型的问题" class="headerlink" title="localStorage返回值类型的问题"></a>localStorage返回值类型的问题</h3><h4 id="1-设置过localStorage中相应的值"><a href="#1-设置过localStorage中相应的值" class="headerlink" title="1. 设置过localStorage中相应的值"></a>1. 设置过localStorage中相应的值</h4><p>在<code>Web</code>项目中使用<code>localStorage</code>来存储数据，并在页面中进行读取后输出，代码如下所示</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> pid = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&quot;pid&quot;</span>);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;pid = &quot;</span>+pid);<br></code></pre></td></tr></table></figure>
+
+<p>此时输出的结果为<code>null</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/1.png"></p>
+<p>在其后使用如下语句，发现此时此语句内永远不会执行</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(pid == <span class="hljs-literal">null</span>)&#123;....&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出此时<code>pid</code>的类型可知<code>LocalStorage.getItem()</code>返回的值的类型为<code>String</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/2.png"></p>
+<p>则上述判断语句应该改为如下形式即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(pid == <span class="hljs-string">&#x27;null&#x27;</span>)&#123;...&#125;<br></code></pre></td></tr></table></figure>
+
+<p>为了测试<code>localStorage.getItem()</code>的返回值类型和输入值类型是否有关，运行如下代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&quot;pid&quot;</span>,<span class="hljs-number">1</span>);<br><span class="hljs-keyword">let</span> pid = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&quot;pid&quot;</span>);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid);<br><span class="hljs-comment">//结果仍然为string</span><br></code></pre></td></tr></table></figure>
+
+<p>经过对其他数据类型的测试，发现返回值总是传入的值转换为字符串形式之后的值。</p>
+<h4 id="2-未设置过localStorage中相应的值"><a href="#2-未设置过localStorage中相应的值" class="headerlink" title="2. 未设置过localStorage中相应的值"></a>2. 未设置过localStorage中相应的值</h4><p>如果清理了浏览器的缓存或者从未使用<code>localStorage.setItem()</code>等设置过相应变量的值，则使用<code>localStorage.getItem()</code>直接获取此变量的值则会返回<code>null</code>，为<code>Object</code>类型。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;pid = &quot;</span>+pid);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/3.png"></p>
+<h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h4><p>当在<code>localStorage</code>中存储过相应的变量的值，如<code>a</code>，则之后再使用<code>getItem(&quot;a&quot;)</code>获取值时返回的时设置值转换为字符串的形式。如果此前没有设置<code>a</code>这个值，则返回的是<code>null</code>，为<code>Object</code>类型。</p>
+]]></content>
+      <categories>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>Bug</tag>
       </tags>
   </entry>
 </search>
