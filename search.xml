@@ -81,9 +81,10 @@
     <title>Linux上Bochs的安装和配置</title>
     <url>/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h2 id="Linux上Bochs的安装和配置"><a href="#Linux上Bochs的安装和配置" class="headerlink" title="Linux上Bochs的安装和配置"></a>Linux上Bochs的安装和配置</h2><h4 id="下载Bochs最新版"><a href="#下载Bochs最新版" class="headerlink" title="下载Bochs最新版"></a>下载Bochs最新版</h4><ul>
-<li><p>进入网址<a href="https://sourceforge.net/projects/bochs/files/bochs/">Bochs x86 PC emulator - Browse /bochs at SourceForge.net</a>，点击最新版进入</p>
+<li>进入网址<a href="https://sourceforge.net/projects/bochs/files/bochs/">Bochs x86 PC emulator - Browse /bochs at SourceForge.net</a>，点击最新版进入</li>
+</ul>
 <p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101172946927.png"></p>
-</li>
+<ul>
 <li><p>选择相应的版本，此处为<code>Linux</code>平台，所以选择<code>bochs-2.7.tar.gz</code>，点击下载</p>
 <p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173057682.png"></p>
 </li>
