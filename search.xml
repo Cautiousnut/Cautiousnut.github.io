@@ -1,107 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>Linux上Bochs的安装和配置</title>
-      <link href="/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/"/>
-      <url>/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
-      
-        <content type="html"><![CDATA[<h2 id="Linux上Bochs的安装和配置"><a href="#Linux上Bochs的安装和配置" class="headerlink" title="Linux上Bochs的安装和配置"></a>Linux上Bochs的安装和配置</h2><hr><h4 id="下载Bochs最新版"><a href="#下载Bochs最新版" class="headerlink" title="下载Bochs最新版"></a>下载Bochs最新版</h4><ul><li><p>进入网址<a href="https://sourceforge.net/projects/bochs/files/bochs/">Bochs x86 PC emulator - Browse /bochs at SourceForge.net</a>，点击最新版进入</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101172946927.png" alt="image-20220101172946927"></p></li><li><p>选择相应的版本，此处为<code>Linux</code>平台，所以选择<code>bochs-2.7.tar.gz</code>，点击下载</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173057682.png" alt="image-20220101173057682"></p></li><li><p>解压后使用<code>scp</code>命令上传至<code>Linux</code>平台（假设下载在<code>windows</code>平台进行）</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173806619.png" alt="image-20220101173806619"></p></li></ul><h4 id="编译安装Bochs"><a href="#编译安装Bochs" class="headerlink" title="编译安装Bochs"></a>编译安装Bochs</h4><h5 id="configure"><a href="#configure" class="headerlink" title="configure"></a>configure</h5><ul><li><p>配置<code>configure</code>工具，生成<code>Makefile</code></p><figure class="highlight powershell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs powershell">./configure -<span class="hljs-literal">-with</span><span class="hljs-literal">-x11</span> -<span class="hljs-literal">-with</span><span class="hljs-literal">-wx</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-plugins</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-debugger</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-debugger</span><span class="hljs-literal">-gui</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-readline</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-cpp</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-idle</span><span class="hljs-literal">-hack</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-cpu</span><span class="hljs-literal">-level</span>=<span class="hljs-number">6</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-x86</span><span class="hljs-literal">-64</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-smp</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-vmx</span>=<span class="hljs-number">2</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-svm</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-avx</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-x86</span><span class="hljs-literal">-debugger</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-monitor</span><span class="hljs-literal">-mwait</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-configurable</span><span class="hljs-literal">-msrs</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-long</span><span class="hljs-literal">-phy</span><span class="hljs-literal">-address</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-repeat</span><span class="hljs-literal">-speedups</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-fast</span><span class="hljs-literal">-function</span><span class="hljs-literal">-calls</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-trace</span><span class="hljs-literal">-linking</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-ltdl</span><span class="hljs-literal">-install</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-assert</span><span class="hljs-literal">-checks</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-3dnow</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-evex</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-usb</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-voodoo</span><br></code></pre></td></tr></table></figure></li><li><p>若提示缺少<code>gcc</code>、<code>cc</code>、<code>cl</code>、<code>g++</code>等则安装即可</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101175747865.png" alt="image-20220101175747865"></p></li><li><p>如提示缺少<code>configure</code>命令，则使用<code>chmod 764 configre</code>改变文件属性即可</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101175730106.png" alt="image-20220101175730106"></p></li><li><p>提示<code>The readline library was disabled because it was not found</code>，安装<code>libreadline-dev</code>即可</p></li><li><p>提示<code>handlers-chaining speedups are not supported with internal debugger or gdbstub yet</code></p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101194807027.png" alt="image-20220101194807027"></p><p>此时参考官方文档，去除<code>--enable-handlers-chaining</code>。</p></li><li><p>提示<code>WARNING: Bochs for wxWidgets cannot be compiled here, disabling it</code></p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101204906611.png" alt="image-20220101204906611"></p><p>此时安装<code>libwxbase3.0-dev</code>库和<code>libwxgtk3.0-gtk3-dev</code>库</p></li><li><p>提示<code>Package gdk-3.0 was not found in the pkg-config search path</code>。安装<code>libgtk-3-dev</code>库</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101221809240.png" alt="image-20220101221809240"></p></li><li><p>参考<a href="https://linux.debian.user.narkive.com/f7eEuTk8/x-windows-libraries">X windows libraries?? (narkive.com)</a></p></li></ul><h5 id="Make"><a href="#Make" class="headerlink" title="Make"></a>Make</h5><ul><li><p>执行<code>make</code>命令</p></li><li><p>找不到<code>config.h</code>头文件和<code>osdep.h</code>头文件</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101224449308.png" alt="image-20220101224449308"></p><p>分析可得，此时<code>bx_debug</code>文件夹内的<code>debug.h</code>文件找不到<code>config.h</code>文件和<code>osdep.h</code>文件，经查看，这两个文件都在<code>bochs-2.7</code>目录下，移入<code>bx_debug</code>目录即可或者更改<code>debug.h</code>中的路径。其他缺少的头文件可使用类似方式解决。</p><p><a href="https://stackoverflow.com/questions/9439744/gtk-cant-find-config-h">c - Gtk can’t find “” - Stack Overflow</a></p></li><li><p><code>make: *** 没有规则可制作目标“misc/bximage.cc”，由“misc/bximage.o” 需求。 停止</code>。出现类似问题，只需要找到文件，将其后缀由<code>cpp</code>改为<code>cc</code>。</p></li></ul><h5 id="make-install"><a href="#make-install" class="headerlink" title="make install"></a>make install</h5><ul><li>执行<code>sudo make install</code>命令即可。</li></ul><h5 id="检测安装结果"><a href="#检测安装结果" class="headerlink" title="检测安装结果"></a>检测安装结果</h5><ul><li><p>执行<code>bochs</code>命令，出现如下结果则表示安装成功</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101231023841.png" alt="image-20220101231023841"></p></li></ul><h4 id="配置Bochs"><a href="#配置Bochs" class="headerlink" title="配置Bochs"></a>配置Bochs</h4><ul><li><p>为将要调试的操作系统配置虚拟硬件环境。此环境通过<code>bochsrc</code>描述，默认此文件所在目录为<code>/etc/bochs-init/</code>。当运行<code>bochs</code>时默认读取当前工作目录下的<code>bochsrc</code>文件。</p></li><li><p>配置信息</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> configuration file generated by Bochs</span> <br>plugin_ctrl: unmapped=1, biosdev=1, speaker=1, extfpuirq=1, parallel=1, serial=1, iodebug=1 <br>config_interface: textconfig <br>display_library: x <br>romimage: file=/usr/local/share/bochs/BIOS-bochs-latest<br>vgaromimage: file=/usr/local/share/bochs/VGABIOS-lgpl-latest<br>boot: floppy <br>floppy_bootsig_check: disabled=0 <br>floppya: type=1_44, 1_44=&quot;boot.img&quot;, status=inserted, write_protected=0 <br>ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14 <br>ata0-master: type=none <br>ata0-slave: type=none <br>ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15 <br>ata1-master: type=none <br>ata1-slave: type=none <br>ata2: enabled=0 <br>ata3: enabled=0 <br>pci: enabled=1, chipset=i440fx <br>vga: extension=vbe, update_freq=5 <br>cpu: count=1:1:1, ips=4000000, quantum=16, model=bx_generic, reset_on_triple_fault=1, cpuid_limit_winnt=0, ignore_bad_msrs=1, mwait_is_nop=0, msrs=&quot;msrs.def&quot;<br>cpuid: x86_64=1,level=6, mmx=1, sep=1, simd=avx512, aes=1, movbe=1, xsave=1, apic=x2apic, sha=1, movbe=1, adx=1, xsaveopt=1, avx_f16c=1, avx_fma=1, bmi=bmi2, 1g_pages=1, pcid=1, fsgsbase=1, smep=1, smap=1, mwait=1, vmx=1 <br>cpuid: family=6, model=0x1a, stepping=5, vendor_string=&quot;GenuineIntel&quot;, brand_string=&quot;Intel(R) Core(TM) i7-4770 CPU (Haswell)&quot; <br>print_timestamps: enabled=0 <br>debugger_log: - <br>magic_break: enabled=0 <br>port_e9_hack: enabled=0 <br>private_colormap: enabled=0 <br>clock: sync=none, time0=local, rtc_sync=0 <br>log: - <br>logprefix: %t%e%d <br>debug: action=ignore <br>info: action=report <br>error: action=report <br>panic: action=ask <br>keyboard: type=mf, serial_delay=250, paste_delay=100000, user_shortcut=none <br>mouse: type=ps2, enabled=0, toggle=ctrl+mbutton <br>speaker: enabled=1, mode=system <br>parport1: enabled=1, file=none <br>parport2: enabled=0 <br>com1: enabled=1, mode=null <br>com2: enabled=0 <br>com3: enabled=0 <br>com4: enabled=0 <br><br>megs: 2048<br></code></pre></td></tr></table></figure><p>参考官方文档<a href="https://bochs.sourceforge.io/cgi-bin/topper.pl?name=New+Bochs+Documentation&url=https://bochs.sourceforge.io/doc/docbook/user/index.html">bochs: The Open Source IA-32 Emulation Project (New Bochs Documentation) (sourceforge.io)</a></p></li><li><p>配置完成后运行<code>bochs</code>，出错及处理如下</p><ul><li><code>bochs: cannot connect to X server</code>，此时是因为本地机器不支持<code>X11</code>转发。</li></ul></li></ul><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><ul><li><p>使用<code>bximage</code>制作<code>1.44MB</code>软盘</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220102121910156.png" alt="image-20220102121910156"></p></li><li><p>下载<code>Linux</code>早期版本的<code>bochs</code>镜像文件。此处选择<code>bootroot-0.11-040928.zip</code>下载，解压后如下。其中<code>bootroot-0.11</code>即为此处要用的软盘镜像文件。下载地址<a href="http://www.oldlinux.org/Linux.old/bochs-images/">Linux Bochs镜像下载</a></p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220102162214775.png" alt="image-20220102162214775"></p></li><li><p>将<code>bootimage-0.11</code>写入到<code>boot.img</code>中</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">dd if=bootroot-0.11 of=boot.img<br></code></pre></td></tr></table></figure><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220102162330025.png" alt="image-20220102162330025"></p></li><li><p>运行<code>bochs</code>，<code>sudo bochs</code>。出现如下界面，即为正确。</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220102162527286.png" alt="image-20220102162527286"></p></li></ul><hr><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul><li><a href="http://www.oldlinux.org/Linux.old/bochs-images/">Linux Bochs镜像下载</a></li><li><a href="https://zhuanlan.zhihu.com/p/54771795">bochs安装配置，搭建小型操作系统运行环境 - 知乎 (zhihu.com)</a></li><li><a href="https://stackoverflow.com/questions/34251016/floppy-read-on-floppy-image-returns-0">assembly - FLOPPY: read() on floppy image returns 0 - Stack Overflow</a></li><li><a href="https://sourceforge.net/projects/bochs/files/bochs/">Bochs x86 PC emulator - Browse /bochs at SourceForge.net</a></li><li><a href="https://linux.debian.user.narkive.com/f7eEuTk8/x-windows-libraries">X windows libraries?? (narkive.com)</a></li><li><a href="https://stackoverflow.com/questions/9439744/gtk-cant-find-config-h">c - Gtk can’t find “” - Stack Overflow</a></li><li><a href="https://bochs.sourceforge.io/cgi-bin/topper.pl?name=New+Bochs+Documentation&url=https://bochs.sourceforge.io/doc/docbook/user/index.html">bochs: The Open Source IA-32 Emulation Project (New Bochs Documentation) (sourceforge.io)</a></li></ul>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>Linux上Bochs的安装和配置</title>
+    <url>/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="Linux上Bochs的安装和配置"><a href="#Linux上Bochs的安装和配置" class="headerlink" title="Linux上Bochs的安装和配置"></a>Linux上Bochs的安装和配置</h2><hr>
+<h4 id="下载Bochs最新版"><a href="#下载Bochs最新版" class="headerlink" title="下载Bochs最新版"></a>下载Bochs最新版</h4><ul>
+<li><p>进入网址<a href="https://sourceforge.net/projects/bochs/files/bochs/">Bochs x86 PC emulator - Browse /bochs at SourceForge.net</a>，点击最新版进入</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101172946927.png" alt="image-20220101172946927"></p>
+</li>
+<li><p>选择相应的版本，此处为<code>Linux</code>平台，所以选择<code>bochs-2.7.tar.gz</code>，点击下载</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173057682.png" alt="image-20220101173057682"></p>
+</li>
+<li><p>解压后使用<code>scp</code>命令上传至<code>Linux</code>平台（假设下载在<code>windows</code>平台进行）</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173806619.png" alt="image-20220101173806619"></p>
+</li>
+</ul>
+<h4 id="编译安装Bochs"><a href="#编译安装Bochs" class="headerlink" title="编译安装Bochs"></a>编译安装Bochs</h4><h5 id="configure"><a href="#configure" class="headerlink" title="configure"></a>configure</h5><ul>
+<li><p>配置<code>configure</code>工具，生成<code>Makefile</code></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell">./configure -<span class="hljs-literal">-with</span><span class="hljs-literal">-x11</span> -<span class="hljs-literal">-with</span><span class="hljs-literal">-wx</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-plugins</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-debugger</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-debugger</span><span class="hljs-literal">-gui</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-readline</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-cpp</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-idle</span><span class="hljs-literal">-hack</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-cpu</span><span class="hljs-literal">-level</span>=<span class="hljs-number">6</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-x86</span><span class="hljs-literal">-64</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-smp</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-vmx</span>=<span class="hljs-number">2</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-svm</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-avx</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-x86</span><span class="hljs-literal">-debugger</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-monitor</span><span class="hljs-literal">-mwait</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-configurable</span><span class="hljs-literal">-msrs</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-long</span><span class="hljs-literal">-phy</span><span class="hljs-literal">-address</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-repeat</span><span class="hljs-literal">-speedups</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-fast</span><span class="hljs-literal">-function</span><span class="hljs-literal">-calls</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-trace</span><span class="hljs-literal">-linking</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-ltdl</span><span class="hljs-literal">-install</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-assert</span><span class="hljs-literal">-checks</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-3dnow</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-evex</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-usb</span> -<span class="hljs-literal">-enable</span><span class="hljs-literal">-voodoo</span><br></code></pre></td></tr></table></figure></li>
+<li><p>若提示缺少<code>gcc</code>、<code>cc</code>、<code>cl</code>、<code>g++</code>等则安装即可</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101175747865.png" alt="image-20220101175747865"></p>
+</li>
+<li><p>如提示缺少<code>configure</code>命令，则使用<code>chmod 764 configre</code>改变文件属性即可</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101175730106.png" alt="image-20220101175730106"></p>
+</li>
+<li><p>提示<code>The readline library was disabled because it was not found</code>，安装<code>libreadline-dev</code>即可</p>
+</li>
+<li><p>提示<code>handlers-chaining speedups are not supported with internal debugger or gdbstub yet</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101194807027.png" alt="image-20220101194807027"></p>
+<p>此时参考官方文档，去除<code>--enable-handlers-chaining</code>。</p>
+</li>
+<li><p>提示<code>WARNING: Bochs for wxWidgets cannot be compiled here, disabling it</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101204906611.png" alt="image-20220101204906611"></p>
+<p>此时安装<code>libwxbase3.0-dev</code>库和<code>libwxgtk3.0-gtk3-dev</code>库</p>
+</li>
+<li><p>提示<code>Package gdk-3.0 was not found in the pkg-config search path</code>。安装<code>libgtk-3-dev</code>库</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101221809240.png" alt="image-20220101221809240"></p>
+</li>
+<li><p>参考<a href="https://linux.debian.user.narkive.com/f7eEuTk8/x-windows-libraries">X windows libraries?? (narkive.com)</a></p>
+</li>
+</ul>
+<h5 id="Make"><a href="#Make" class="headerlink" title="Make"></a>Make</h5><ul>
+<li><p>执行<code>make</code>命令</p>
+</li>
+<li><p>找不到<code>config.h</code>头文件和<code>osdep.h</code>头文件</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101224449308.png" alt="image-20220101224449308"></p>
+<p>分析可得，此时<code>bx_debug</code>文件夹内的<code>debug.h</code>文件找不到<code>config.h</code>文件和<code>osdep.h</code>文件，经查看，这两个文件都在<code>bochs-2.7</code>目录下，移入<code>bx_debug</code>目录即可或者更改<code>debug.h</code>中的路径。其他缺少的头文件可使用类似方式解决。</p>
+<p><a href="https://stackoverflow.com/questions/9439744/gtk-cant-find-config-h">c - Gtk can’t find “” - Stack Overflow</a></p>
+</li>
+<li><p><code>make: *** 没有规则可制作目标“misc/bximage.cc”，由“misc/bximage.o” 需求。 停止</code>。出现类似问题，只需要找到文件，将其后缀由<code>cpp</code>改为<code>cc</code>。</p>
+</li>
+</ul>
+<h5 id="make-install"><a href="#make-install" class="headerlink" title="make install"></a>make install</h5><ul>
+<li>执行<code>sudo make install</code>命令即可。</li>
+</ul>
+<h5 id="检测安装结果"><a href="#检测安装结果" class="headerlink" title="检测安装结果"></a>检测安装结果</h5><ul>
+<li><p>执行<code>bochs</code>命令，出现如下结果则表示安装成功</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101231023841.png" alt="image-20220101231023841"></p>
+</li>
+</ul>
+<h4 id="配置Bochs"><a href="#配置Bochs" class="headerlink" title="配置Bochs"></a>配置Bochs</h4><ul>
+<li><p>为将要调试的操作系统配置虚拟硬件环境。此环境通过<code>bochsrc</code>描述，默认此文件所在目录为<code>/etc/bochs-init/</code>。当运行<code>bochs</code>时默认读取当前工作目录下的<code>bochsrc</code>文件。</p>
+</li>
+<li><p>配置信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> configuration file generated by Bochs</span> <br>plugin_ctrl: unmapped=1, biosdev=1, speaker=1, extfpuirq=1, parallel=1, serial=1, iodebug=1 <br>config_interface: textconfig <br>display_library: x <br>romimage: file=/usr/local/share/bochs/BIOS-bochs-latest<br>vgaromimage: file=/usr/local/share/bochs/VGABIOS-lgpl-latest<br>boot: floppy <br>floppy_bootsig_check: disabled=0 <br>floppya: type=1_44, 1_44=&quot;boot.img&quot;, status=inserted, write_protected=0 <br>ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14 <br>ata0-master: type=none <br>ata0-slave: type=none <br>ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15 <br>ata1-master: type=none <br>ata1-slave: type=none <br>ata2: enabled=0 <br>ata3: enabled=0 <br>pci: enabled=1, chipset=i440fx <br>vga: extension=vbe, update_freq=5 <br>cpu: count=1:1:1, ips=4000000, quantum=16, model=bx_generic, reset_on_triple_fault=1, cpuid_limit_winnt=0, ignore_bad_msrs=1, mwait_is_nop=0, msrs=&quot;msrs.def&quot;<br>cpuid: x86_64=1,level=6, mmx=1, sep=1, simd=avx512, aes=1, movbe=1, xsave=1, apic=x2apic, sha=1, movbe=1, adx=1, xsaveopt=1, avx_f16c=1, avx_fma=1, bmi=bmi2, 1g_pages=1, pcid=1, fsgsbase=1, smep=1, smap=1, mwait=1, vmx=1 <br>cpuid: family=6, model=0x1a, stepping=5, vendor_string=&quot;GenuineIntel&quot;, brand_string=&quot;Intel(R) Core(TM) i7-4770 CPU (Haswell)&quot; <br>print_timestamps: enabled=0 <br>debugger_log: - <br>magic_break: enabled=0 <br>port_e9_hack: enabled=0 <br>private_colormap: enabled=0 <br>clock: sync=none, time0=local, rtc_sync=0 <br>log: - <br>logprefix: %t%e%d <br>debug: action=ignore <br>info: action=report <br>error: action=report <br>panic: action=ask <br>keyboard: type=mf, serial_delay=250, paste_delay=100000, user_shortcut=none <br>mouse: type=ps2, enabled=0, toggle=ctrl+mbutton <br>speaker: enabled=1, mode=system <br>parport1: enabled=1, file=none <br>parport2: enabled=0 <br>com1: enabled=1, mode=null <br>com2: enabled=0 <br>com3: enabled=0 <br>com4: enabled=0 <br><br>megs: 2048<br></code></pre></td></tr></table></figure>
+
+<p>参考官方文档<a href="https://bochs.sourceforge.io/cgi-bin/topper.pl?name=New+Bochs+Documentation&url=https://bochs.sourceforge.io/doc/docbook/user/index.html">bochs: The Open Source IA-32 Emulation Project (New Bochs Documentation) (sourceforge.io)</a></p>
+</li>
+<li><p>配置完成后运行<code>bochs</code>，出错及处理如下</p>
+<ul>
+<li><code>bochs: cannot connect to X server</code>，此时是因为本地机器不支持<code>X11</code>转发。</li>
+</ul>
+</li>
+</ul>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><ul>
+<li><p>使用<code>bximage</code>制作<code>1.44MB</code>软盘</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220102121910156.png" alt="image-20220102121910156"></p>
+</li>
+<li><p>下载<code>Linux</code>早期版本的<code>bochs</code>镜像文件。此处选择<code>bootroot-0.11-040928.zip</code>下载，解压后如下。其中<code>bootroot-0.11</code>即为此处要用的软盘镜像文件。下载地址<a href="http://www.oldlinux.org/Linux.old/bochs-images/">Linux Bochs镜像下载</a></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220102162214775.png" alt="image-20220102162214775"></p>
+</li>
+<li><p>将<code>bootimage-0.11</code>写入到<code>boot.img</code>中</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">dd if=bootroot-0.11 of=boot.img<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220102162330025.png" alt="image-20220102162330025"></p>
+</li>
+<li><p>运行<code>bochs</code>，<code>sudo bochs</code>。出现如下界面，即为正确。</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220102162527286.png" alt="image-20220102162527286"></p>
+</li>
+</ul>
+<hr>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="http://www.oldlinux.org/Linux.old/bochs-images/">Linux Bochs镜像下载</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/54771795">bochs安装配置，搭建小型操作系统运行环境 - 知乎 (zhihu.com)</a></li>
+<li><a href="https://stackoverflow.com/questions/34251016/floppy-read-on-floppy-image-returns-0">assembly - FLOPPY: read() on floppy image returns 0 - Stack Overflow</a></li>
+<li><a href="https://sourceforge.net/projects/bochs/files/bochs/">Bochs x86 PC emulator - Browse /bochs at SourceForge.net</a></li>
+<li><a href="https://linux.debian.user.narkive.com/f7eEuTk8/x-windows-libraries">X windows libraries?? (narkive.com)</a></li>
+<li><a href="https://stackoverflow.com/questions/9439744/gtk-cant-find-config-h">c - Gtk can’t find “” - Stack Overflow</a></li>
+<li><a href="https://bochs.sourceforge.io/cgi-bin/topper.pl?name=New+Bochs+Documentation&url=https://bochs.sourceforge.io/doc/docbook/user/index.html">bochs: The Open Source IA-32 Emulation Project (New Bochs Documentation) (sourceforge.io)</a></li>
+</ul>]]></content>
       <categories>
-          
-          <category> 工具 </category>
-          
+        <category>工具</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 学习笔记 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>C++基础</title>
-      <link href="/2021/12/30/C++%E5%9F%BA%E7%A1%80/"/>
-      <url>/2021/12/30/C++%E5%9F%BA%E7%A1%80/</url>
-      
-        <content type="html"><![CDATA[<h2 id="C-基础学习总结"><a href="#C-基础学习总结" class="headerlink" title="C++基础学习总结"></a>C++基础学习总结</h2><h4 id="1-重定向问题"><a href="#1-重定向问题" class="headerlink" title="1. 重定向问题"></a>1. 重定向问题</h4><ul><li><code>C++primer</code>中提到可以使用<code>&gt;</code>和<code>&lt;</code>实现文件重定向，但是实测在<code>powershell</code>中是无法使用的。但可以使用其他命令代替，具体内容可参考如下链接。</li><li><a href="https://www.cnblogs.com/yejiaxing-01/p/12570763.html">Windows下的重定向 - 叶家星 - 博客园 (cnblogs.com)</a></li><li><a href="https://blog.csdn.net/fjjaylz/article/details/86663013">(55条消息) Windows PowerShell的“管道”以及对可执行文件的文件重定向_fjjaylz的博客-CSDN博客_powershell 文件重定向</a></li></ul><h4 id="2-初始化与赋值"><a href="#2-初始化与赋值" class="headerlink" title="2. 初始化与赋值"></a>2. 初始化与赋值</h4><ul><li>初始化不是赋值</li><li>初始化是创建变量时赋予一个初始值。</li><li>赋值是把对象的当前值擦除，用一个新值代替。</li></ul><h4 id="3-列表初始化"><a href="#3-列表初始化" class="headerlink" title="3. 列表初始化"></a>3. 列表初始化</h4><ul><li><p>当列表初始化应用于内置类型，且此时存在丢失信息的风险时，编译器会报错，注意与普通的初始化过程的对比</p><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">long</span> <span class="hljs-keyword">double</span> a = <span class="hljs-number">10</span>;<br><span class="hljs-keyword">int</span> b&#123;a&#125;,c = &#123;a&#125;;<span class="hljs-comment">//报错</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">d</span><span class="hljs-params">(a)</span>,e </span>= a;<span class="hljs-comment">//正确</span><br></code></pre></td></tr></table></figure><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211231115931840.png" alt="image-20211231115931840"></p></li></ul><h4 id="4-默认初始化"><a href="#4-默认初始化" class="headerlink" title="4. 默认初始化"></a>4. 默认初始化</h4><ul><li><p>变量定义时未指定初值则会进行默认初始化。</p></li><li><p>内置类型（包括指针）</p><ul><li><p>定义于函数体外初始化为0</p></li><li><p>定义于函数体内不会初始化，为未定义，无法预知结果。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">double</span> a;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">double</span> b;<br>    std::cout &lt;&lt; a &lt;&lt; std::endl;<span class="hljs-comment">//函数外，初始化为0</span><br>    std::cout &lt;&lt; b &lt;&lt; std::endl;<span class="hljs-comment">//函数内，编译器等运行环境决定</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211231121209894.png" alt="image-20211231121209894" style="zoom:200%;" /></li></ul></li><li><p>类类型由类自己决定</p></li></ul><h4 id="5-声明与定义"><a href="#5-声明与定义" class="headerlink" title="5. 声明与定义"></a>5. 声明与定义</h4><ul><li><p>声明：规定变量的类型和名字</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i;<span class="hljs-comment">//初始化后成为定义，且不能在函数体内初始化</span><br><span class="hljs-comment">//变量可以声明多次，但只能定义一次</span><br><span class="hljs-comment">//例</span><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;<span class="hljs-comment">//定义，正确</span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    i = <span class="hljs-number">10</span>;<span class="hljs-comment">//错误</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li><li><p>定义：规定变量的类型、名字，并申请存储空间，还可能赋初值。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i;<br></code></pre></td></tr></table></figure></li></ul><h4 id="6-引用"><a href="#6-引用" class="headerlink" title="6. 引用"></a>6. 引用</h4><ul><li><p>引用必须初始化，且无法进行赋值，即初始化之后无法重新绑定到其他对象上。</p></li><li><p>引用不是对象，它只是对象的别名，引用的类型要和与之绑定的对象严格匹配。</p></li><li><p>引用必须绑定在对象上，不能定义引用的引用；引用不是对象，因此也没有引用的指针；指针是对象，因此有指针的引用。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-keyword">int</span> *b = &amp;a;<br>    <span class="hljs-keyword">int</span> *&amp;c = b;<span class="hljs-comment">//指针的引用，注意类型的匹配</span><br>    std::cout &lt;&lt; *c &lt;&lt; std::endl;<span class="hljs-comment">//输出10</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li></ul><h4 id="7-指针"><a href="#7-指针" class="headerlink" title="7. 指针"></a>7. 指针</h4><ul><li><p>指针是对象，指针的类型与它所指向的类型必须匹配。</p></li><li><p>使用字面值<code>nullptr</code>初始化指针得到空指针，<code>nullptr</code>可以转换为任何指针类型。</p></li><li><p><code>void*</code>指针可以指向任意类型的对象，不能直接操作<code>void*</code>指针指向的对象，因为无法确认对象的类型。</p></li><li><p>使用<code>*</code>，<code>&amp;</code>等定义变量时，二者只是类型修饰符，是声明符的一部分，只作用于其后所接的第一个变量名。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">1024</span>,*p = &amp;i,&amp;r = i;<span class="hljs-comment">//i为int型的数，p是int型指针，r是int型引用</span><br><span class="hljs-keyword">int</span> *p1,p2;<span class="hljs-comment">//p1为int型指针，p2为int型变量</span><br></code></pre></td></tr></table></figure></li></ul><h4 id="8-const限定符"><a href="#8-const限定符" class="headerlink" title="8. const限定符"></a>8. const限定符</h4><ul><li><p><code>const</code>对象一经创建就无法修改，因此必须进行初始化。</p></li><li><p>在<code>const</code>类型的对象上进行的操作不能改变其内容，否则会出错。</p></li><li><p>默认情况下，<code>const</code>对象仅在一个文件中有效，因为<code>const</code>对象在编译时会被替换为其值，编译器必须知道它的初始值，因此每个文件中都必须有其定义。并且当多个文件中出现同名的<code>const</code>变量时，等同于在不同文件中定义了独立的变量。</p></li><li><p>想要在文件之间共享<code>const</code>变量，可以使用<code>extern</code>关键字进行声明和定义</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//a.cpp中定义const变量</span><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> bufSize = <span class="hljs-built_in">fcn</span>();<br><span class="hljs-comment">//b.h头文件中声明，即可直接使用</span><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> bufSize;<span class="hljs-comment">//与a.cpp中的是同一个变量</span><br></code></pre></td></tr></table></figure></li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++基础</title>
+    <url>/2021/12/30/C++%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h2 id="C-基础学习总结"><a href="#C-基础学习总结" class="headerlink" title="C++基础学习总结"></a>C++基础学习总结</h2><h4 id="1-重定向问题"><a href="#1-重定向问题" class="headerlink" title="1. 重定向问题"></a>1. 重定向问题</h4><ul>
+<li><code>C++primer</code>中提到可以使用<code>&gt;</code>和<code>&lt;</code>实现文件重定向，但是实测在<code>powershell</code>中是无法使用的。但可以使用其他命令代替，具体内容可参考如下链接。</li>
+<li><a href="https://www.cnblogs.com/yejiaxing-01/p/12570763.html">Windows下的重定向 - 叶家星 - 博客园 (cnblogs.com)</a></li>
+<li><a href="https://blog.csdn.net/fjjaylz/article/details/86663013">(55条消息) Windows PowerShell的“管道”以及对可执行文件的文件重定向_fjjaylz的博客-CSDN博客_powershell 文件重定向</a></li>
+</ul>
+<h4 id="2-初始化与赋值"><a href="#2-初始化与赋值" class="headerlink" title="2. 初始化与赋值"></a>2. 初始化与赋值</h4><ul>
+<li>初始化不是赋值</li>
+<li>初始化是创建变量时赋予一个初始值。</li>
+<li>赋值是把对象的当前值擦除，用一个新值代替。</li>
+</ul>
+<h4 id="3-列表初始化"><a href="#3-列表初始化" class="headerlink" title="3. 列表初始化"></a>3. 列表初始化</h4><ul>
+<li><p>当列表初始化应用于内置类型，且此时存在丢失信息的风险时，编译器会报错，注意与普通的初始化过程的对比</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">long</span> <span class="hljs-keyword">double</span> a = <span class="hljs-number">10</span>;<br><span class="hljs-keyword">int</span> b&#123;a&#125;,c = &#123;a&#125;;		<span class="hljs-comment">//报错</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">d</span><span class="hljs-params">(a)</span>,e </span>= a;			<span class="hljs-comment">//正确</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211231115931840.png" alt="image-20211231115931840"></p>
+</li>
+</ul>
+<h4 id="4-默认初始化"><a href="#4-默认初始化" class="headerlink" title="4. 默认初始化"></a>4. 默认初始化</h4><ul>
+<li><p>变量定义时未指定初值则会进行默认初始化。</p>
+</li>
+<li><p>内置类型（包括指针）</p>
+<ul>
+<li><p>定义于函数体外初始化为0</p>
+</li>
+<li><p>定义于函数体内不会初始化，为未定义，无法预知结果。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">double</span> a;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">double</span> b;<br>    std::cout &lt;&lt; a &lt;&lt; std::endl;			<span class="hljs-comment">//函数外，初始化为0</span><br>    std::cout &lt;&lt; b &lt;&lt; std::endl;			<span class="hljs-comment">//函数内，编译器等运行环境决定</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211231121209894.png" alt="image-20211231121209894" style="zoom:200%;" /></li>
+</ul>
+</li>
+<li><p>类类型由类自己决定</p>
+</li>
+</ul>
+<h4 id="5-声明与定义"><a href="#5-声明与定义" class="headerlink" title="5. 声明与定义"></a>5. 声明与定义</h4><ul>
+<li><p>声明：规定变量的类型和名字</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i;		<span class="hljs-comment">//初始化后成为定义，且不能在函数体内初始化</span><br><span class="hljs-comment">//变量可以声明多次，但只能定义一次</span><br><span class="hljs-comment">//例</span><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;	<span class="hljs-comment">//定义，正确</span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    i = <span class="hljs-number">10</span>;			<span class="hljs-comment">//错误</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>定义：规定变量的类型、名字，并申请存储空间，还可能赋初值。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="6-引用"><a href="#6-引用" class="headerlink" title="6. 引用"></a>6. 引用</h4><ul>
+<li><p>引用必须初始化，且无法进行赋值，即初始化之后无法重新绑定到其他对象上。</p>
+</li>
+<li><p>引用不是对象，它只是对象的别名，引用的类型要和与之绑定的对象严格匹配。</p>
+</li>
+<li><p>引用必须绑定在对象上，不能定义引用的引用；引用不是对象，因此也没有引用的指针；指针是对象，因此有指针的引用。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-keyword">int</span> *b = &amp;a;<br>    <span class="hljs-keyword">int</span> *&amp;c = b;					<span class="hljs-comment">//指针的引用，注意类型的匹配</span><br>    std::cout &lt;&lt; *c &lt;&lt; std::endl;	<span class="hljs-comment">//输出10</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="7-指针"><a href="#7-指针" class="headerlink" title="7. 指针"></a>7. 指针</h4><ul>
+<li><p>指针是对象，指针的类型与它所指向的类型必须匹配。</p>
+</li>
+<li><p>使用字面值<code>nullptr</code>初始化指针得到空指针，<code>nullptr</code>可以转换为任何指针类型。</p>
+</li>
+<li><p><code>void*</code>指针可以指向任意类型的对象，不能直接操作<code>void*</code>指针指向的对象，因为无法确认对象的类型。</p>
+</li>
+<li><p>使用<code>*</code>，<code>&amp;</code>等定义变量时，二者只是类型修饰符，是声明符的一部分，只作用于其后所接的第一个变量名。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">1024</span>,*p = &amp;i,&amp;r = i;		<span class="hljs-comment">//i为int型的数，p是int型指针，r是int型引用</span><br><span class="hljs-keyword">int</span> *p1,p2;							<span class="hljs-comment">//p1为int型指针，p2为int型变量</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="8-const限定符"><a href="#8-const限定符" class="headerlink" title="8. const限定符"></a>8. const限定符</h4><ul>
+<li><p><code>const</code>对象一经创建就无法修改，因此必须进行初始化。</p>
+</li>
+<li><p>在<code>const</code>类型的对象上进行的操作不能改变其内容，否则会出错。</p>
+</li>
+<li><p>默认情况下，<code>const</code>对象仅在一个文件中有效，因为<code>const</code>对象在编译时会被替换为其值，编译器必须知道它的初始值，因此每个文件中都必须有其定义。并且当多个文件中出现同名的<code>const</code>变量时，等同于在不同文件中定义了独立的变量。</p>
+</li>
+<li><p>想要在文件之间共享<code>const</code>变量，可以使用<code>extern</code>关键字进行声明和定义</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//a.cpp中定义const变量</span><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> bufSize = <span class="hljs-built_in">fcn</span>();<br><span class="hljs-comment">//b.h头文件中声明，即可直接使用</span><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> bufSize;	<span class="hljs-comment">//与a.cpp中的是同一个变量</span><br></code></pre></td></tr></table></figure></li>
+</ul>]]></content>
       <categories>
-          
-          <category> C++ </category>
-          
+        <category>C++</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 学习笔记 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Windows terminal获取管理员权限</title>
-      <link href="/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/"/>
-      <url>/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/</url>
-      
-        <content type="html"><![CDATA[<h2 id="Windows-terminal获取管理员权限"><a href="#Windows-terminal获取管理员权限" class="headerlink" title="Windows terminal获取管理员权限"></a>Windows terminal获取管理员权限</h2><h4 id="安装Scoop包管理工具"><a href="#安装Scoop包管理工具" class="headerlink" title="安装Scoop包管理工具"></a>安装Scoop包管理工具</h4><ul><li><p>以管理员身份进入powershell，并按照scoop文档进行安装即可<code>https://github.com/ScoopInstaller/Scoop</code></p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170207619.png"></p></li><li><p>输入<code>scoop help</code>查看是否安装成功</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170343194.png" alt="image-20211230170343194"></p></li></ul><h4 id="安装sudo工具"><a href="#安装sudo工具" class="headerlink" title="安装sudo工具"></a>安装<code>sudo</code>工具</h4><ul><li><p>使用命令<code>scoop install sudo --global</code>安装</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230171147126.png" alt="image-20211230171147126"></p></li><li><p>之后使用指令时在前边加上<code>sudo</code>即可以管理员身份运行指令</p></li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows terminal获取管理员权限</title>
+    <url>/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/</url>
+    <content><![CDATA[<h2 id="Windows-terminal获取管理员权限"><a href="#Windows-terminal获取管理员权限" class="headerlink" title="Windows terminal获取管理员权限"></a>Windows terminal获取管理员权限</h2><h4 id="安装Scoop包管理工具"><a href="#安装Scoop包管理工具" class="headerlink" title="安装Scoop包管理工具"></a>安装Scoop包管理工具</h4><ul>
+<li><p>以管理员身份进入powershell，并按照scoop文档进行安装即可<code>https://github.com/ScoopInstaller/Scoop</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170207619.png"></p>
+</li>
+<li><p>输入<code>scoop help</code>查看是否安装成功</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170343194.png" alt="image-20211230170343194"></p>
+</li>
+</ul>
+<h4 id="安装sudo工具"><a href="#安装sudo工具" class="headerlink" title="安装sudo工具"></a>安装<code>sudo</code>工具</h4><ul>
+<li><p>使用命令<code>scoop install sudo --global</code>安装</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230171147126.png" alt="image-20211230171147126"></p>
+</li>
+<li><p>之后使用指令时在前边加上<code>sudo</code>即可以管理员身份运行指令</p>
+</li>
+</ul>
+]]></content>
       <categories>
-          
-          <category> 工具 </category>
-          
+        <category>工具</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 学习笔记 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>localStorage返回值的问题</title>
-      <link href="/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-      <url>/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-      
-        <content type="html"><![CDATA[<h3 id="localStorage返回值类型的问题"><a href="#localStorage返回值类型的问题" class="headerlink" title="localStorage返回值类型的问题"></a>localStorage返回值类型的问题</h3><h4 id="1-设置过localStorage中相应的值"><a href="#1-设置过localStorage中相应的值" class="headerlink" title="1. 设置过localStorage中相应的值"></a>1. 设置过localStorage中相应的值</h4><p>在<code>Web</code>项目中使用<code>localStorage</code>来存储数据，并在页面中进行读取后输出，代码如下所示</p><figure class="highlight javascript"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> pid = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&quot;pid&quot;</span>);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;pid = &quot;</span>+pid);<br></code></pre></td></tr></table></figure><p>此时输出的结果为<code>null</code></p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/1.png"></p><p>在其后使用如下语句，发现此时此语句内永远不会执行</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(pid == <span class="hljs-literal">null</span>)&#123;....&#125;<br></code></pre></td></tr></table></figure><p>输出此时<code>pid</code>的类型可知<code>LocalStorage.getItem()</code>返回的值的类型为<code>String</code></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid)<br></code></pre></td></tr></table></figure><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/2.png"></p><p>则上述判断语句应该改为如下形式即可</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(pid == <span class="hljs-string">&#x27;null&#x27;</span>)&#123;...&#125;<br></code></pre></td></tr></table></figure><p>为了测试<code>localStorage.getItem()</code>的返回值类型和输入值类型是否有关，运行如下代码</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&quot;pid&quot;</span>,<span class="hljs-number">1</span>);<br><span class="hljs-keyword">let</span> pid = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&quot;pid&quot;</span>);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid);<br><span class="hljs-comment">//结果仍然为string</span><br></code></pre></td></tr></table></figure><p>经过对其他数据类型的测试，发现返回值总是传入的值转换为字符串形式之后的值。</p><h4 id="2-未设置过localStorage中相应的值"><a href="#2-未设置过localStorage中相应的值" class="headerlink" title="2. 未设置过localStorage中相应的值"></a>2. 未设置过localStorage中相应的值</h4><p>如果清理了浏览器的缓存或者从未使用<code>localStorage.setItem()</code>等设置过相应变量的值，则使用<code>localStorage.getItem()</code>直接获取此变量的值则会返回<code>null</code>，为<code>Object</code>类型。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;pid = &quot;</span>+pid);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid);<br></code></pre></td></tr></table></figure><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/3.png"></p><h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h4><p>当在<code>localStorage</code>中存储过相应的变量的值，如<code>a</code>，则之后再使用<code>getItem(&quot;a&quot;)</code>获取值时返回的时设置值转换为字符串的形式。如果此前没有设置<code>a</code>这个值，则返回的是<code>null</code>，为<code>Object</code>类型。</p>]]></content>
-      
-      
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>localStorage返回值的问题</title>
+    <url>/2021/07/18/localStorage%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="localStorage返回值类型的问题"><a href="#localStorage返回值类型的问题" class="headerlink" title="localStorage返回值类型的问题"></a>localStorage返回值类型的问题</h3><h4 id="1-设置过localStorage中相应的值"><a href="#1-设置过localStorage中相应的值" class="headerlink" title="1. 设置过localStorage中相应的值"></a>1. 设置过localStorage中相应的值</h4><p>在<code>Web</code>项目中使用<code>localStorage</code>来存储数据，并在页面中进行读取后输出，代码如下所示</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> pid = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&quot;pid&quot;</span>);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;pid = &quot;</span>+pid);<br></code></pre></td></tr></table></figure>
+
+<p>此时输出的结果为<code>null</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/1.png"></p>
+<p>在其后使用如下语句，发现此时此语句内永远不会执行</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(pid == <span class="hljs-literal">null</span>)&#123;....&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出此时<code>pid</code>的类型可知<code>LocalStorage.getItem()</code>返回的值的类型为<code>String</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/2.png"></p>
+<p>则上述判断语句应该改为如下形式即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(pid == <span class="hljs-string">&#x27;null&#x27;</span>)&#123;...&#125;<br></code></pre></td></tr></table></figure>
+
+<p>为了测试<code>localStorage.getItem()</code>的返回值类型和输入值类型是否有关，运行如下代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&quot;pid&quot;</span>,<span class="hljs-number">1</span>);<br><span class="hljs-keyword">let</span> pid = <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&quot;pid&quot;</span>);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid);<br><span class="hljs-comment">//结果仍然为string</span><br></code></pre></td></tr></table></figure>
+
+<p>经过对其他数据类型的测试，发现返回值总是传入的值转换为字符串形式之后的值。</p>
+<h4 id="2-未设置过localStorage中相应的值"><a href="#2-未设置过localStorage中相应的值" class="headerlink" title="2. 未设置过localStorage中相应的值"></a>2. 未设置过localStorage中相应的值</h4><p>如果清理了浏览器的缓存或者从未使用<code>localStorage.setItem()</code>等设置过相应变量的值，则使用<code>localStorage.getItem()</code>直接获取此变量的值则会返回<code>null</code>，为<code>Object</code>类型。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;pid = &quot;</span>+pid);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> pid);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/3.png"></p>
+<h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h4><p>当在<code>localStorage</code>中存储过相应的变量的值，如<code>a</code>，则之后再使用<code>getItem(&quot;a&quot;)</code>获取值时返回的时设置值转换为字符串的形式。如果此前没有设置<code>a</code>这个值，则返回的是<code>null</code>，为<code>Object</code>类型。</p>
+]]></content>
       <categories>
-          
-          <category> Web </category>
-          
+        <category>Web</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Bug </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>Bug</tag>
+      </tags>
+  </entry>
 </search>
