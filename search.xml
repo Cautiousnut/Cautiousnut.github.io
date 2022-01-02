@@ -78,13 +78,38 @@
       </tags>
   </entry>
   <entry>
+    <title>Windows terminal获取管理员权限</title>
+    <url>/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/</url>
+    <content><![CDATA[<h2 id="Windows-terminal获取管理员权限"><a href="#Windows-terminal获取管理员权限" class="headerlink" title="Windows terminal获取管理员权限"></a>Windows terminal获取管理员权限</h2><h4 id="安装Scoop包管理工具"><a href="#安装Scoop包管理工具" class="headerlink" title="安装Scoop包管理工具"></a>安装Scoop包管理工具</h4><ul>
+<li><p>以管理员身份进入powershell，并按照scoop文档进行安装即可<code>https://github.com/ScoopInstaller/Scoop</code></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170207619.png"></p>
+</li>
+<li><p>输入<code>scoop help</code>查看是否安装成功</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170343194.png" alt="image-20211230170343194"></p>
+</li>
+</ul>
+<h4 id="安装sudo工具"><a href="#安装sudo工具" class="headerlink" title="安装sudo工具"></a>安装<code>sudo</code>工具</h4><ul>
+<li><p>使用命令<code>scoop install sudo --global</code>安装</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230171147126.png" alt="image-20211230171147126"></p>
+</li>
+<li><p>之后使用指令时在前边加上<code>sudo</code>即可以管理员身份运行指令</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux上Bochs的安装和配置</title>
     <url>/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h2 id="Linux上Bochs的安装和配置"><a href="#Linux上Bochs的安装和配置" class="headerlink" title="Linux上Bochs的安装和配置"></a>Linux上Bochs的安装和配置</h2><h4 id="下载Bochs最新版"><a href="#下载Bochs最新版" class="headerlink" title="下载Bochs最新版"></a>下载Bochs最新版</h4><ul>
-<li>进入网址<a href="https://sourceforge.net/projects/bochs/files/bochs/">Bochs x86 PC emulator - Browse /bochs at SourceForge.net</a>，点击最新版进入</li>
-</ul>
+<li><p>进入网址<a href="https://sourceforge.net/projects/bochs/files/bochs/">Bochs x86 PC emulator - Browse /bochs at SourceForge.net</a>，点击最新版进入</p>
 <p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101172946927.png"></p>
-<ul>
+</li>
 <li><p>选择相应的版本，此处为<code>Linux</code>平台，所以选择<code>bochs-2.7.tar.gz</code>，点击下载</p>
 <p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220101173057682.png"></p>
 </li>
@@ -176,32 +201,6 @@
 <li><a href="https://stackoverflow.com/questions/9439744/gtk-cant-find-config-h">c - Gtk can’t find “” - Stack Overflow</a></li>
 <li><a href="https://bochs.sourceforge.io/cgi-bin/topper.pl?name=New+Bochs+Documentation&url=https://bochs.sourceforge.io/doc/docbook/user/index.html">bochs: The Open Source IA-32 Emulation Project (New Bochs Documentation) (sourceforge.io)</a></li>
 </ul>]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows terminal获取管理员权限</title>
-    <url>/2021/12/30/Windows%20terminal%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/</url>
-    <content><![CDATA[<h2 id="Windows-terminal获取管理员权限"><a href="#Windows-terminal获取管理员权限" class="headerlink" title="Windows terminal获取管理员权限"></a>Windows terminal获取管理员权限</h2><h4 id="安装Scoop包管理工具"><a href="#安装Scoop包管理工具" class="headerlink" title="安装Scoop包管理工具"></a>安装Scoop包管理工具</h4><ul>
-<li><p>以管理员身份进入powershell，并按照scoop文档进行安装即可<code>https://github.com/ScoopInstaller/Scoop</code></p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170207619.png"></p>
-</li>
-<li><p>输入<code>scoop help</code>查看是否安装成功</p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230170343194.png" alt="image-20211230170343194"></p>
-</li>
-</ul>
-<h4 id="安装sudo工具"><a href="#安装sudo工具" class="headerlink" title="安装sudo工具"></a>安装<code>sudo</code>工具</h4><ul>
-<li><p>使用命令<code>scoop install sudo --global</code>安装</p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20211230171147126.png" alt="image-20211230171147126"></p>
-</li>
-<li><p>之后使用指令时在前边加上<code>sudo</code>即可以管理员身份运行指令</p>
-</li>
-</ul>
-]]></content>
       <categories>
         <category>工具</category>
       </categories>
