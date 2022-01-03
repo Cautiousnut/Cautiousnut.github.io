@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/C++.jpg">
 <meta property="article:published_time" content="2021-12-30T08:19:38.000Z">
-<meta property="article:modified_time" content="2022-01-03T10:31:59.969Z">
+<meta property="article:modified_time" content="2022-01-03T13:21:10.583Z">
 <meta property="article:author" content="StillWater">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -199,7 +199,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.8k 字
+      5k 字
     </span>
   
 
@@ -208,7 +208,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32 分钟
+      42 分钟
     </span>
   
 
@@ -356,6 +356,26 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//声明</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> a;					<span class="hljs-comment">//a是int的同义词</span><br><span class="hljs-keyword">typedef</span> a b,*c;					<span class="hljs-comment">//b是int的同义词，c是int*的同义词，*为类型修饰，表									  示是指针类型</span><br><span class="hljs-comment">//使用 出现原类型的地方直接使用别名代替即可</span><br><br><span class="hljs-comment">//声明</span><br><span class="hljs-keyword">using</span> a = <span class="hljs-keyword">int</span>;					<span class="hljs-comment">//a是int的同义词</span><br><span class="hljs-comment">//使用</span><br>a b = <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure></li>
 <li><p>注意类型别名的理解</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">char</span> *ptr;<br><span class="hljs-keyword">const</span> ptr a = <span class="hljs-number">0</span>;			<span class="hljs-comment">//a是常量指针，指向char类型的对象</span><br><span class="hljs-keyword">const</span> ptr *b;				<span class="hljs-comment">//ps是一个指针，指向对象是指向char的常量指针</span><br><span class="hljs-comment">//ptr是整体，表示指向char的指针，此时不能直接将char*还原到语句中来理解。</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="11-auto类型说明符"><a href="#11-auto类型说明符" class="headerlink" title="11. auto类型说明符"></a>11. auto类型说明符</h4><ul>
+<li><p><code>auto</code>由编译器分析表达式确定类型。因此<code>auto</code>定义的变量必须具有初始值，否则编译器无法分析。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">auto</span> a = b + c;			<span class="hljs-comment">//根据b和c的类型确定a的类型</span><br></code></pre></td></tr></table></figure></li>
+<li><p>当引用类型作为<code>auto</code>的初始值时，编译器会将引用对象的类型作为<code>auto</code>的类型。</p>
+</li>
+<li><p><code>auto</code>会忽略顶层<code>const</code>，保留底层<code>const</code>。希望<code>auto</code>是顶层<code>const</code>，要明确指出。<code>auto</code>为引用类型时，引用的相应规则仍旧适用。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = i,&amp;cr = ci;<br><span class="hljs-keyword">auto</span> b = ci;		<span class="hljs-comment">//int</span><br><span class="hljs-keyword">auto</span> c = cr;		<span class="hljs-comment">//cr是ci的别名，因此还是int</span><br><span class="hljs-keyword">auto</span> d = &amp;i;		<span class="hljs-comment">//int</span><br><span class="hljs-keyword">auto</span> e = &amp;ci;		<span class="hljs-comment">//ci为常量，&amp;ci表示指向常量的指针的值(底层const)，const int</span><br><span class="hljs-keyword">auto</span> &amp;g = ci;		<span class="hljs-comment">//const int，整形常量引用</span><br><span class="hljs-keyword">auto</span> &amp;h = <span class="hljs-number">42</span>;		<span class="hljs-comment">//错误</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> &amp;j = <span class="hljs-number">42</span>;	<span class="hljs-comment">//正确，常量引用，const int</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span> f = ci;		<span class="hljs-comment">//明确指出，ci是int，f即为const int</span><br></code></pre></td></tr></table></figure></li>
+<li><p>使用<code>auto</code>一条语句声明多个变量时，因为一条声明语句只能有一个基本数据类型，因此该语句中所有变量的类型必须一致。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">auto</span> a = <span class="hljs-number">0</span>,b = <span class="hljs-number">3.14</span>;		<span class="hljs-comment">//错误，a和b的类型不一致</span><br><span class="hljs-keyword">auto</span> &amp;m = ci,*p = &amp;ci;		<span class="hljs-comment">//正确，m为常量引用，p为指向常量的指针</span><br><span class="hljs-keyword">auto</span> &amp;n = i,*p2 = &amp;ci;		<span class="hljs-comment">//错误，n为int，p2为const int</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="12-decltype类型指示符"><a href="#12-decltype类型指示符" class="headerlink" title="12. decltype类型指示符"></a>12. decltype类型指示符</h4><ul>
+<li><p>用于希望从表达式类型推断要定义的变量类型但是不想用该表达式的值初始化的情形。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">decltype</span>(<span class="hljs-built_in">f</span>()) sum = x;			<span class="hljs-comment">//f的返回类型即为sum的类型</span><br><span class="hljs-comment">//编译器不会实际调用函数f，只会获取f的返回值的类型作为sum的类型</span><br></code></pre></td></tr></table></figure></li>
+<li><p>如果<code>decltype</code>使用的表达式是一个变量，则会返回变量的类型，包括顶层<code>const</code>和引用。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>,&amp;b = a;<br><span class="hljs-keyword">decltype</span>(a) x = <span class="hljs-number">0</span>;			<span class="hljs-comment">//const int</span><br><span class="hljs-keyword">decltype</span>(b) y = x;			<span class="hljs-comment">//const int &amp;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>如果<code>decltype</code>使用的表达式不是一个变量，则会返回表达式结果对应的类型。当表达式的结果对象能作为一条赋值语句的左值时，一般返回引用类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;*p = &amp;i,&amp;r = i;<br><span class="hljs-keyword">decltype</span>(r+<span class="hljs-number">0</span>) b;	<span class="hljs-comment">//r是引用类型，直接替换为i即1，相加之后还是整形，因此b是int</span><br><span class="hljs-keyword">decltype</span>(*p) c;		<span class="hljs-comment">//*p是一个可赋值的左值，返回引用类型，即int&amp;，此时要初始化</span><br></code></pre></td></tr></table></figure></li>
+<li><p>注意。对于<code>decltype</code>所用表达式，如果变量名加上额外的一对或多对括号，则编译器会将其当做表达式。并且是一种可以作为赋值语句左值的特殊表达式，因此会返回引用类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">decltype</span>((i)) a;		<span class="hljs-comment">//int &amp;，必须初始化</span><br><span class="hljs-keyword">decltype</span>(i) b;			<span class="hljs-comment">//int</span><br></code></pre></td></tr></table></figure></li>
 </ul>
             </div>
             <hr>
