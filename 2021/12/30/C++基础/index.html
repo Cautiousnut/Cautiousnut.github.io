@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/C++.jpg">
 <meta property="article:published_time" content="2021-12-30T08:19:38.000Z">
-<meta property="article:modified_time" content="2022-01-02T14:10:46.173Z">
+<meta property="article:modified_time" content="2022-01-03T09:23:09.427Z">
 <meta property="article:author" content="StillWater">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -199,7 +199,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      2.8k 字
     </span>
   
 
@@ -208,7 +208,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15 分钟
+      24 分钟
     </span>
   
 
@@ -284,8 +284,16 @@
 </li>
 <li><p>引用不是对象，它只是对象的别名，引用的类型要和与之绑定的对象严格匹配。</p>
 </li>
+<li><p>字面值和表达式的计算结果不是对象，因此没有相应的引用。也可理解为，引用是左值引用，即引用的对象必须是一个左值。</p>
+</li>
 <li><p>引用必须绑定在对象上，不能定义引用的引用；引用不是对象，因此也没有引用的指针；指针是对象，因此有指针的引用。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-keyword">int</span> *b = &amp;a;<br>    <span class="hljs-keyword">int</span> *&amp;c = b;					<span class="hljs-comment">//指针的引用，注意类型的匹配</span><br>    std::cout &lt;&lt; *c &lt;&lt; std::endl;	<span class="hljs-comment">//输出10</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>前述引用类型和与之绑定的对象类型要严格匹配。但是有两个例外</p>
+<ul>
+<li><p>初始化常量引用时，允许任意表达式作为初始值，只要该表达式结果能够转换为引用的类型即可。允许常量引用绑定非常亮的对象、字面值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;b = a;			<span class="hljs-comment">//正确，非常量可以转换为常量</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;c = <span class="hljs-number">1</span>;			<span class="hljs-comment">//正确，字面值常量可以转换为常量对象</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;d = b * <span class="hljs-number">2</span>;		<span class="hljs-comment">//正确，运算结果可转换</span><br><span class="hljs-keyword">int</span> &amp;e = b * <span class="hljs-number">2</span>;				<span class="hljs-comment">//错误，不是常量引用，不能引用字面值</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
 </ul>
 <h4 id="7-指针"><a href="#7-指针" class="headerlink" title="7. 指针"></a>7. 指针</h4><ul>
 <li><p>指针是对象，指针的类型与它所指向的类型必须匹配。</p>
@@ -296,6 +304,12 @@
 </li>
 <li><p>使用<code>*</code>，<code>&amp;</code>等定义变量时，二者只是类型修饰符，是声明符的一部分，只作用于其后所接的第一个变量名。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">1024</span>,*p = &amp;i,&amp;r = i;		<span class="hljs-comment">//i为int型的数，p是int型指针，r是int型引用</span><br><span class="hljs-keyword">int</span> *p1,p2;							<span class="hljs-comment">//p1为int型指针，p2为int型变量</span><br></code></pre></td></tr></table></figure></li>
+<li><p>指针类型和所指对象类型不匹配的两种情况</p>
+<ul>
+<li><p>允许指向常量的指针指向一个非常量对象（类似常量引用）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *b = &amp;a;				<span class="hljs-comment">//正确,但是不能用b改变a的值</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
 </ul>
 <h4 id="8-const限定符"><a href="#8-const限定符" class="headerlink" title="8. const限定符"></a>8. const限定符</h4><ul>
 <li><p><code>const</code>对象一经创建就无法修改，因此必须进行初始化。</p>
@@ -306,6 +320,20 @@
 </li>
 <li><p>想要在文件之间共享<code>const</code>变量，可以使用<code>extern</code>关键字进行声明和定义</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//a.cpp中定义const变量</span><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> bufSize = <span class="hljs-built_in">fcn</span>();<br><span class="hljs-comment">//b.h头文件中声明，即可直接使用</span><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> bufSize;	<span class="hljs-comment">//与a.cpp中的是同一个变量</span><br></code></pre></td></tr></table></figure></li>
+<li><p>常量引用，即把引用绑定到常量对象上。此时显然不能对被引用的常量对象进行修改操作。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;b = a;		<span class="hljs-comment">//正确</span><br><span class="hljs-keyword">int</span> &amp;c = a;				<span class="hljs-comment">//错误</span><br></code></pre></td></tr></table></figure></li>
+<li><p>对<code>const</code>的引用可以引用一个非<code>const</code>对象，此时无法通过引用修改对象，但是可以通过其他方式进行修改</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;				<span class="hljs-comment">//i是可以修改的</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;a = i;		<span class="hljs-comment">//不能通过a修改i对象</span><br></code></pre></td></tr></table></figure></li>
+<li><p>指向常量的指针和常量指针</p>
+<ul>
+<li><p>指向常量的指针，不能用于修改其所指对象的值。对象不是常量时，其值可以通过其他方式修改。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *b = &amp;a;		<span class="hljs-comment">//此处即为指向常量的指针，此时不能通过b修改a的值</span><br></code></pre></td></tr></table></figure></li>
+<li><p>常量指针。指针是对象，可以把自身定为常量。常量指针要满足普通常量的要求（初始化等特性）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> b = &amp;a;		<span class="hljs-comment">//此时b为常量指针，b的内容无法改变，但是a可以改变</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> c = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> d = &amp;c;	<span class="hljs-comment">//指向常量对象的常量指针</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>顶层<code>const</code>和底层<code>const</code>。顶层<code>const</code>表示指针本身是常量，底层<code>const</code>表示指针所指对象是常量。执行对象的拷贝操作时，拷入和拷出的对象必须具有相同的底层<code>const</code>资格，或者两个对象的数据类型可以相互转换。非常量可以转换为常量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> b = &amp;a;		<span class="hljs-comment">//既是底层const又是顶层const</span><br><span class="hljs-keyword">int</span> c = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>* d = &amp;a;				<span class="hljs-comment">//底层const</span><br><span class="hljs-keyword">int</span> *e = b;						<span class="hljs-comment">//错误，b包含底层const定义，而c没有</span><br>d = b;							<span class="hljs-comment">//正确，b,c都包含底层const定义</span><br>d = &amp;c;							<span class="hljs-comment">//正确，int*可以转换为const int *</span><br></code></pre></td></tr></table></figure></li>
 </ul>
             </div>
             <hr>
