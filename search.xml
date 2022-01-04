@@ -401,8 +401,284 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">if</span>(index!=s.<span class="hljs-built_in">size</span>() &amp;&amp; !<span class="hljs-built_in">isspace</span>(s[index]))	<span class="hljs-comment">//注意检测条件的巧妙之处。</span><br><span class="hljs-comment">//只有索引合法时才会真正的去访问</span><br></code></pre></td></tr></table></figure></li>
 </ul>
 </li>
+</ul>]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++容器和迭代器</title>
+    <url>/2022/01/04/C++%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8%E5%92%8C%E8%BF%AD%E4%BB%A3%E5%99%A8/</url>
+    <content><![CDATA[<h2 id="C-容器和迭代器"><a href="#C-容器和迭代器" class="headerlink" title="C++容器和迭代器"></a>C++容器和迭代器</h2><h3 id="1-容器"><a href="#1-容器" class="headerlink" title="1. 容器"></a>1. 容器</h3><h4 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h4><ul>
+<li><p>容器：一些特定类型对象的集合</p>
+</li>
+<li><p>顺序容器：提供控制元素存储和访问顺序的能力。这种顺序与元素的值无关，只与元素加入容器的顺序相关。</p>
+</li>
+<li><p>标准库提供的顺序容器</p>
+<table>
+<thead>
+<tr>
+<th>容器名称</th>
+<th>容器特性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>vector</code></td>
+<td>可变大小数组。支持快速随机访问。在尾部之外的位置插入或删除元素可能很慢</td>
+</tr>
+<tr>
+<td><code>array</code></td>
+<td>固定大小数组。支持快速随机访问。不能添加或者删除元素</td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td>专门用于保存字符的可变大小数组。支持快速随机访问。在尾部插入删除速度很快</td>
+</tr>
+<tr>
+<td><code>deque</code></td>
+<td>双端队列。支持快速随机访问。在头或者尾部插入或者删除速度很快</td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td>双向链表。支持双向顺序访问。任何位置进行插入删除速度都很快</td>
+</tr>
+<tr>
+<td><code>froward_list</code></td>
+<td>单向链表。支持单向顺序访问。任何位置进行插入删除速度都很快</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>注意</p>
+<ul>
+<li>标准库容器的性能几乎肯定与最精心优化过的同类数据结构一样好。所以建议使用标准库容器而不是原始的数据结构。</li>
+<li>一般情况下推荐使用<code>vector</code>。</li>
 </ul>
-<h4 id="3-标准库类型vector"><a href="#3-标准库类型vector" class="headerlink" title="3. 标准库类型vector"></a>3. 标准库类型vector</h4>]]></content>
+</li>
+</ul>
+<h4 id="1-2-容器通用操作"><a href="#1-2-容器通用操作" class="headerlink" title="1.2 容器通用操作"></a>1.2 容器通用操作</h4><h5 id="1-2-1-概述"><a href="#1-2-1-概述" class="headerlink" title="1.2.1 概述"></a>1.2.1 概述</h5><ul>
+<li><p>一般来说，每个容器定义在一个头文件中，文件名与容器名相同。容器类均为模板类，使用时必须提供特定的类型来生成特定的容器。</p>
+</li>
+<li><p>容器保存的元素的限制</p>
+<ul>
+<li><p>可以保存任何类型的元素，甚至可以是另一个容器。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++">vector&lt;vector&lt;string&gt;&gt;lines;<br></code></pre></td></tr></table></figure></li>
+<li><p>某些容器操作对元素类型有特定要求。因此要使用这些操作时，必须提供合法的元素类型。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="1-2-2-容器定义和初始化"><a href="#1-2-2-容器定义和初始化" class="headerlink" title="1.2.2 容器定义和初始化"></a>1.2.2 容器定义和初始化</h5><ul>
+<li><p>容器的构造函数如下</p>
+<table>
+<thead>
+<tr>
+<th>函数形式</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>C a</code></td>
+<td>默认构造函数，<code>array</code>类型默认初始化，其他类型默认构造空容器</td>
+</tr>
+<tr>
+<td><code>C a(b) ; C a = b</code></td>
+<td><code>a</code>初始化为<code>b</code>的拷贝。二者必须是同类容器，且元素类型相同。对于<code>array</code>两容器的大小必须相同</td>
+</tr>
+<tr>
+<td><code>C a&#123;x,y,z,……&#125; ; C a = &#123;x,y,z,……&#125;</code></td>
+<td>初始化列表中的元素类型必须和<code>a</code>的元素类型相容。容器元素个数等于列表元素个数，<code>array</code>类型，列表中元素的数目小于等于<code>array</code>的大小</td>
+</tr>
+<tr>
+<td><code>C a(b,e)</code></td>
+<td><code>a</code>初始化为任意容器的迭代器<code>b</code>和<code>e</code>指定范围内元素的拷贝，元素类型必须相容。<code>array</code>不适用。拷贝范围<code>[b,e)</code>，新容器的大小等于此范围内的元素的个数</td>
+</tr>
+<tr>
+<td><code>C seq(n)</code></td>
+<td><code>seq</code>包含<code>n</code>个元素并进行了值初始化。<code>array</code>不适用                                                   。有默认构造函数时才能使用此方法，否则应该使用下述方法</td>
+</tr>
+<tr>
+<td><code>C seq(n,t)</code></td>
+<td><code>seq</code>包含<code>n</code>个初始化为<code>t</code>的元素。<code>array</code>不适用</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><code>array</code>的定义和初始化</p>
+<ul>
+<li>标准库<code>array</code>的大小也是数据的一部分。定义时要指定元素的类型和容器的大小。<ul>
+<li>例：<code>array&lt;int,10&gt;a</code>，定义一个元素类型是整型，长度为10的<code>array</code>类型</li>
+</ul>
+</li>
+<li>初始化<ul>
+<li>默认构造的<code>array</code>是非空的，它包含了与其大小一样多的元素。并且这些元素都被默认初始化了</li>
+<li>进行默认初始化时，如果元素类型是类类型，那么必须具有默认构造函数</li>
+<li><code>array</code>类型可以相互赋值，但是必须满足元素类型相同，元素个数相同。</li>
+<li>因为大小是<code>array</code>类型的一部分，所以要求所有元素的类型和大小相同</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="1-2-3-容器赋值运算"><a href="#1-2-3-容器赋值运算" class="headerlink" title="1.2.3 容器赋值运算"></a>1.2.3 容器赋值运算</h5><ul>
+<li><code>a = b</code><ul>
+<li>将<code>a</code>中的元素替换为<code>b</code>中的元素，二者必须具有相同的类型</li>
+<li>如果原有两个容器大小不等，则赋值之后二者的大小和右边容器的大小相等(<code>array</code>除外)</li>
+</ul>
+</li>
+<li><code>a = &#123;b,c,d&#125;</code><ul>
+<li>将<code>a</code>中的元素替换为列表中元素的拷贝</li>
+<li>赋值运算之后，<code>a</code>的长度等于列表的长度</li>
+<li><code>array</code>需满足元素类型和大小的限制</li>
+</ul>
+</li>
+<li><code>swap(a,b)  a.swap(b)</code><ul>
+<li>交换<code>a b</code>中的元素。</li>
+<li><code>a b</code>必须具有相同的类型</li>
+<li>一般速度比从<code>b</code>到<code>a</code>拷贝元素快的多</li>
+<li>除了应用于<code>array</code>类型，交换操作不会对任何元素进行拷贝、删除或者插入操作，只是交换容器内部数据结构，因此操作可以在常数时间内完成。并且交换之后指向容器内部的迭代器、指针、引用等依然有效，仍然指向交换操作之前所指向的元素。</li>
+<li>对于<code>array</code>类型，交换操作会真正交换二者的元素，所需时间与元素数目有关。并且交换之后指向容器内部的迭代器、指针、引用等依然有效，但是元素已经进行了交换。</li>
+<li>对于<code>string</code>类型，交换之后会导致引用、指针、迭代器等失效。</li>
+</ul>
+</li>
+<li><code>assign操作</code><ul>
+<li>不适用于关联容器和<code>array</code></li>
+<li>允许使用不同但是相容的类型给左边的容器赋值。容器类型也不用相同。赋值之后左边容器的元素的个数等于右边。</li>
+<li><code>seq.assign(b,e)</code>，将<code>seq</code>中的元素替换为迭代器<code>b</code>和<code>e</code>所表示范围中的元素。两迭代器不能指向<code>seq</code></li>
+<li><code>seq.assign(il)</code>，将<code>seq</code>中的元素替换为初始化列表<code>il</code>中的元素</li>
+<li><code>seq.assign(n,t)</code>，将<code>seq</code>中的元素替换为<code>n</code>个值为<code>t</code>的元素</li>
+</ul>
+</li>
+<li>注意<ul>
+<li>赋值操作会导致原来指向左边容器内部的迭代器、引用和指针失效，但是<code>swap</code>操作交换容器内容不会导致此种情况</li>
+</ul>
+</li>
+<li>参考资料<ul>
+<li><a href="https://blog.csdn.net/imkelt/article/details/52213735">关于C++容器的swap操作</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="1-2-4-容器大小操作"><a href="#1-2-4-容器大小操作" class="headerlink" title="1.2.4 容器大小操作"></a>1.2.4 容器大小操作</h5><ul>
+<li><code>size</code>函数<ul>
+<li>成员函数</li>
+<li>返回容器中元素的个数</li>
+<li><code>forward_list</code>不支持</li>
+</ul>
+</li>
+<li><code>empty</code>函数<ul>
+<li>成员函数</li>
+<li>判断容器是否为空，为空时，返回<code>true</code>，否则返回<code>false</code></li>
+</ul>
+</li>
+<li><code>max_size</code>函数<ul>
+<li>成员函数</li>
+<li>返回一个大于或者等于该容器所能容纳的最大元素数的值。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="1-2-5-容器关系运算符"><a href="#1-2-5-容器关系运算符" class="headerlink" title="1.2.5 容器关系运算符"></a>1.2.5 容器关系运算符</h5><ul>
+<li>所有容器都支持<code>==</code>和<code>!=</code>运算符</li>
+<li>除了无序关联容器之外所有容器都支持关系运算符<code>&gt;</code>、<code>&lt;</code>、<code>&gt;=</code>、<code>&lt;=</code>。</li>
+<li>运算方式<ul>
+<li>两个容器的比较实际上是进行元素的逐对比较。</li>
+<li>如果两个容器的大小相等，并且对应位置的元素相等，则两个容器相等</li>
+<li>如果两个容器的大小不等，但是较小容器中的每个元素都等于较大容器中的对应元素，则较小容器小于较大容器。</li>
+<li>如果两个容器都不是另一个容器的前缀子序列，则比较结果取决于第一个不相等的元素的比较结果。</li>
+</ul>
+</li>
+<li>注意事项<ul>
+<li>要求左右两个运算对象容器类型相同并且保存的元素类型相同</li>
+<li>容器的关系运算符使用元素的关系运算符进行比较，只有当元素类型定义了相应的比较运算符时，才能使用关系运算符比较两个容器。</li>
+<li>容器的相等运算符使用元素的<code>==</code>运算符进行比较，容器的其他运算符使用元素的<code>&lt;</code>运算符进行比较。</li>
+<li>可以使用运算符重载的方式改变容器比较的结果。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="2-迭代器"><a href="#2-迭代器" class="headerlink" title="2. 迭代器"></a>2. 迭代器</h3><ul>
+<li>为访问容器提供统一的接口，迭代器即为访问容器中元素的统一的接口</li>
+<li>迭代器在接口上尽可能的模仿指针的行为。</li>
+</ul>
+<h4 id="2-1-迭代器定义和初始化"><a href="#2-1-迭代器定义和初始化" class="headerlink" title="2.1 迭代器定义和初始化"></a>2.1 迭代器定义和初始化</h4><ul>
+<li><p>迭代器类型</p>
+<ul>
+<li>拥有迭代器的标准类型库使用<code>iterator</code>和<code>const_iterator</code>表示迭代器的类型。</li>
+<li><code>iterator</code>相当于普通指针，指向的对象可读可写；<code>const_iterator</code>相当于常量指针，指向的对象只能读但是不能修改。</li>
+</ul>
+</li>
+<li><p>迭代器定义</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++">vector&lt;<span class="hljs-keyword">int</span>&gt;::iterator iter;<br><span class="hljs-comment">//容器名&lt;元素类型&gt;::迭代器类型  迭代器名;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>使用<code>begin</code>和<code>end</code></p>
+<ul>
+<li>有迭代器的容器同时拥有返回迭代器的成员方法。</li>
+<li><code>begin</code>返回指向第一个元素的迭代器。</li>
+<li><code>end</code>返回指向容器最后一个元素的下一位置的迭代器，称为尾后迭代器。</li>
+<li>容器为空时，二者返回同一个迭代器，即为尾后迭代器。</li>
+<li>如果容器元素是常量，返回<code>const_iterator</code>类型的迭代器；如果容器元素不是变量，返回<code>iterator</code>类型的迭代器。</li>
+<li><code>cbegin</code>和<code>cend</code>方法，基本同<code>begin</code>和<code>end</code>。只是二者返回的一定是<code>const_iterator</code>类型的迭代器。</li>
+</ul>
+</li>
+<li><p>迭代器初始化</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++">vector&lt;<span class="hljs-keyword">int</span>&gt;::iterator iter;<br>vector&lt;<span class="hljs-keyword">int</span>&gt; iver;<br>iter = iver.<span class="hljs-built_in">begin</span>();<br>iter = iver.<span class="hljs-built_in">end</span>();<br>iter = iver.<span class="hljs-built_in">cbegin</span>();<br>iter = iver.<span class="hljs-built_in">cend</span>();<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-迭代器通用运算"><a href="#2-2-迭代器通用运算" class="headerlink" title="2.2 迭代器通用运算"></a>2.2 迭代器通用运算</h4><ul>
+<li>解引用<code>*</code><ul>
+<li>通过解引用运算符，可以获取迭代器所指向的元素，<code>*iter</code>。</li>
+<li>解引用运算符必须用于确实指向某个元素的迭代器，否则会出错。</li>
+</ul>
+</li>
+<li>访问元素的成员<code>-&gt;</code><ul>
+<li>使用<code>-&gt;</code>运算符可以像指针一样访问迭代器所指向元素的成员，<code>iter-&gt;a</code>，相当于<code>(*iter).a</code></li>
+</ul>
+</li>
+<li>指向下一个元素<code>++</code><ul>
+<li>使用<code>++iter</code>操作可以使得迭代器指向下一个容器元素。</li>
+<li>不能对尾后迭代器使用此运算符，因为其后没有任何元素。</li>
+</ul>
+</li>
+<li>指向上一个元素<code>--</code><ul>
+<li>使用方式同<code>++</code>运算符</li>
+</ul>
+</li>
+<li>判断是否相等<code>== !=</code><ul>
+<li>用于判断两个迭代器是否相等，<code>iter1 == iter2</code>，<code>iter1 != iter2</code></li>
+<li>如果两个迭代器指向同一个元素或者是同一个容器的尾后迭代器，则二者相等；反之，则不相等。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-迭代器额外运算"><a href="#2-3-迭代器额外运算" class="headerlink" title="2.3 迭代器额外运算"></a>2.3 迭代器额外运算</h4><ul>
+<li><code>string</code>和<code>vector</code>的迭代器具有更多的运算</li>
+<li><code>iter+n</code><ul>
+<li>迭代器向后移动n个位置，指向新的元素或者是尾后迭代器，超出容器范围则会出错</li>
+</ul>
+</li>
+<li><code>iter-n</code><ul>
+<li>迭代器向前移动n个位置，指向新的元素或者是尾后迭代器，超出容器范围则会出错</li>
+</ul>
+</li>
+<li><code>iter+=n</code><ul>
+<li>同<code>+</code></li>
+</ul>
+</li>
+<li><code>iter-=n</code><ul>
+<li>同<code>-</code></li>
+</ul>
+</li>
+<li><code>iter2-iter1</code><ul>
+<li>二者相减得到的是二者之间的距离。即为右侧迭代器向前移动多少可以追上左侧迭代器。两个迭代器必须是同一个容器的迭代器</li>
+</ul>
+</li>
+<li><code>&lt;,&lt;=,&gt;,&gt;=</code><ul>
+<li>关系运算符，两个迭代器必须是同一个容器的迭代器</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-迭代器失效"><a href="#2-4-迭代器失效" class="headerlink" title="2.4 迭代器失效"></a>2.4 迭代器失效</h4><hr>
+]]></content>
       <categories>
         <category>C++</category>
       </categories>
