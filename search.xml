@@ -359,7 +359,7 @@
 <li><p><code>string</code>库表示可变长字符序列，使用时首先包含<code>string</code>头文件。此库定义在<code>std</code>命名空间中。</p>
 </li>
 <li><p>初始化的方式</p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220104162816984.png" alt="image-20220104162816984"></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220104162816984.png"></p>
 </li>
 <li><p>直接初始化和拷贝初始化</p>
 <ul>
@@ -391,17 +391,18 @@
 </ul>
 </li>
 <li><p>处理字符，使用<code>cctype</code>头文件提供的标准库进行处理，同样是在<code>std</code>空间中</p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220104171818899.png" alt="image-20220104171818899"></p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220104171818899.png"></p>
 </li>
 <li><p>遍历<code>string</code>对象</p>
 <ul>
 <li><p>使用范围<code>for</code>语句</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> c : s)				<span class="hljs-comment">//c的类型为char，每次执行会将s中的下一个字符拷贝给c</span><br>    cout &lt;&lt; c &lt;&lt; endl;<br><span class="hljs-comment">//如果想要修改字符，则要使用引用</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;c : s)<br>    c = <span class="hljs-built_in">toupper</span>(c);<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> c : s)		<span class="hljs-comment">//c的类型为char，每次执行会将s中的下一个字符拷贝给c</span><br>    cout &lt;&lt; c &lt;&lt; endl;<br><span class="hljs-comment">//如果想要修改字符，则要使用引用</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> &amp;c : s)<br>    c = <span class="hljs-built_in">toupper</span>(c);<br></code></pre></td></tr></table></figure></li>
 <li><p>使用下标运算符<code>[]</code>，接收参数类型为<code>string::size_type</code>，从0开始，返回该位置上字符的引用。同样注意带符号类型的转换问题。并且使用时确保对象非空，否则会产生无法预知的结果。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">if</span>(index!=s.<span class="hljs-built_in">size</span>() &amp;&amp; !<span class="hljs-built_in">isspace</span>(s[index]))	<span class="hljs-comment">//注意检测条件的巧妙之处。</span><br><span class="hljs-comment">//只有索引合法时才会真正的去访问</span><br></code></pre></td></tr></table></figure></li>
 </ul>
 </li>
-</ul>]]></content>
+</ul>
+<h4 id="3-标准库类型vector"><a href="#3-标准库类型vector" class="headerlink" title="3. 标准库类型vector"></a>3. 标准库类型vector</h4>]]></content>
       <categories>
         <category>C++</category>
       </categories>
