@@ -139,6 +139,25 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;*p = &amp;i,&amp;r = i;<br><span class="hljs-keyword">decltype</span>(r+<span class="hljs-number">0</span>) b;	<span class="hljs-comment">//r是引用类型，直接替换为i即1，相加之后还是整形，因此b是int</span><br><span class="hljs-keyword">decltype</span>(*p) c;		<span class="hljs-comment">//*p是一个可赋值的左值，返回引用类型，即int&amp;，此时要初始化</span><br></code></pre></td></tr></table></figure></li>
 <li><p>注意。对于<code>decltype</code>所用表达式，如果变量名加上额外的一对或多对括号，则编译器会将其当做表达式。并且是一种可以作为赋值语句左值的特殊表达式，因此会返回引用类型。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">decltype</span>((i)) a;		<span class="hljs-comment">//int &amp;，必须初始化</span><br><span class="hljs-keyword">decltype</span>(i) b;			<span class="hljs-comment">//int</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="13-自定义数据类型"><a href="#13-自定义数据类型" class="headerlink" title="13. 自定义数据类型"></a>13. 自定义数据类型</h4><ul>
+<li>类内数据成员可以进行显式初始化，如果没有，则会被默认初始化。</li>
+<li>类通常被定义在头文件中，而且类所在头文件的名字应该与类的名字一样。</li>
+<li>头文件通常包含只能定义一次的实体，如<code>类、const、constexpr变量</code>，还包含用到的其他头文件</li>
+</ul>
+<h4 id="14-头文件保护预处理"><a href="#14-头文件保护预处理" class="headerlink" title="14. 头文件保护预处理"></a>14. 头文件保护预处理</h4><ul>
+<li><p><code>#define</code>把一个名字设定为预处理变量，设定后表示此变量已定义</p>
+</li>
+<li><p><code>#ifdef</code>如果预处理变量已经定义，则执行此后的程序，直到<code>#endif</code></p>
+</li>
+<li><p><code>#ifndef</code>如果预处理变量没有定义，则执行此后的程序，直到<code>#endif</code></p>
+</li>
+<li><p>用预处理功能防止头文件重复包含.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//在头文件中加入如下预处理代码，可防止此头文件被多次引入</span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> SALES_DATA_H		<span class="hljs-comment">//此时未定义，执行之后的程序</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SALES_DATA_H		<span class="hljs-comment">//定义，预处理变量名一般全部大写</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;string&gt;</span>			</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Sales_data</span>&#123;</span>			<br>    std::string a;<br>&#125;;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br><span class="hljs-comment">//之后如果再一次包含此头文件，则ifndef会为假，之后到endif的部分会被直接忽略</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li>本文内容主要是<code>C++ primer</code>第二章内容的总结</li>
 </ul>]]></content>
       <categories>
         <category>C++</category>
