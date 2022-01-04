@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C++基础</title>
+    <title>C++变量和基本类型</title>
     <url>/2021/12/30/C++%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h2 id="C-基础学习总结"><a href="#C-基础学习总结" class="headerlink" title="C++基础学习总结"></a>C++基础学习总结</h2><h4 id="1-重定向问题"><a href="#1-重定向问题" class="headerlink" title="1. 重定向问题"></a>1. 重定向问题</h4><ul>
+    <content><![CDATA[<h2 id="C-变量和基本类型"><a href="#C-变量和基本类型" class="headerlink" title="C++变量和基本类型"></a>C++变量和基本类型</h2><h4 id="1-重定向问题"><a href="#1-重定向问题" class="headerlink" title="1. 重定向问题"></a>1. 重定向问题</h4><ul>
 <li><code>C++primer</code>中提到可以使用<code>&gt;</code>和<code>&lt;</code>实现文件重定向，但是实测在<code>powershell</code>中是无法使用的。但可以使用其他命令代替，具体内容可参考如下链接。</li>
 <li><a href="https://www.cnblogs.com/yejiaxing-01/p/12570763.html">Windows下的重定向 - 叶家星 - 博客园 (cnblogs.com)</a></li>
 <li><a href="https://blog.csdn.net/fjjaylz/article/details/86663013">(55条消息) Windows PowerShell的“管道”以及对可执行文件的文件重定向_fjjaylz的博客-CSDN博客_powershell 文件重定向</a></li>
