@@ -4,11 +4,61 @@
   
   
   <entry>
+    <title>吴恩达机器学习第一周</title>
+    <link href="/2022/01/12/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%91%A8/"/>
+    <url>/2022/01/12/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%91%A8/</url>
+    
+    <content type="html"><![CDATA[<h2 id="吴恩达机器学习第一周"><a href="#吴恩达机器学习第一周" class="headerlink" title="吴恩达机器学习第一周"></a>吴恩达机器学习第一周</h2><h4 id="什么是机器学习"><a href="#什么是机器学习" class="headerlink" title="什么是机器学习"></a>什么是机器学习</h4><ul><li>定义：一个程序能够从经验E中学习，解决任务T，达到性能衡量标准P，当且仅当又了经验E之后，经过P评判，程序在处理任务T时的性能有所提升。</li><li>学习算法分类：监督学习<code>supervised learing</code>、无监督学习<code>unsupervised learing</code></li></ul><h4 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h4><ul><li><p>给算法一个数据集，并且给定正确答案。算法的目的是给出更多的正确答案。</p></li><li><p>分类</p><ul><li><p>回归问题，预测连续值的属性。房子的价格</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220112222943326.png" alt="image-20220112222943326"></p></li><li><p>分类问题，预测离散值的属性。肿瘤是否为良性</p></li></ul></li></ul><h4 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h4><ul><li>只有一个数据集，没有特定的答案。算法的目的是进行归类</li><li>分类<ul><li>聚类算法。将不同的个体归于不同的类。新闻分区</li><li>鸡尾酒宴会问题。分离音频。</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>吴恩达机器学习第二周</title>
+    <link href="/2022/01/12/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%8C%E5%91%A8/"/>
+    <url>/2022/01/12/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%8C%E5%91%A8/</url>
+    
+    <content type="html"><![CDATA[<h3 id="吴恩达机器学习第二周"><a href="#吴恩达机器学习第二周" class="headerlink" title="吴恩达机器学习第二周"></a>吴恩达机器学习第二周</h3><h4 id="线性回归算法"><a href="#线性回归算法" class="headerlink" title="线性回归算法"></a>线性回归算法</h4><ul><li><p>相关概念</p><ul><li>训练集：用于学习的数据集</li><li><code>x</code>：输入变量或特性</li><li><code>y</code>：输出变量或目标变量</li><li><code>m</code>：训练集包含的训练实例的个数，一个<code>(x,y)</code>表示一个训练实例。</li></ul></li><li><p>运行模式</p><p>学习算法根据训练集得出一个映射关系<code>h</code>，<code>h</code>将输入<code>x</code>映射为输出<code>y</code>。<code>h</code>将<code>x</code>映射为<code>y</code>。</p><p><code>h</code>的模式表示为<code>h(x) = ax+b</code>，是一元线性函数，因此成为线性回归算法。</p><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.drawio.svg" alt="机器学习.drawio"></p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>C++顺序容器</title>
     <link href="/2022/01/11/C++%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/"/>
     <url>/2022/01/11/C++%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/</url>
     
-    <content type="html"><![CDATA[<h3 id="顺序容器"><a href="#顺序容器" class="headerlink" title="顺序容器"></a>顺序容器</h3><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h4><p>顺序容器：提供控制元素存储和访问顺序的能力。这种顺序与元素的值无关，只与元素加入容器的顺序相关。按照元素在容器中的位置来顺序保存和访问。</p><table><thead><tr><th>容器名称</th><th>容器特性</th></tr></thead><tbody><tr><td><code>vector</code></td><td>可变大小数组。支持快速随机访问。在尾部之外的位置插入或删除元素可能很慢</td></tr><tr><td><code>array</code></td><td>固定大小数组。支持快速随机访问。不能添加或者删除元素</td></tr><tr><td><code>string</code></td><td>专门用于保存字符的可变大小数组。支持快速随机访问。在尾部插入删除速度很快</td></tr><tr><td><code>deque</code></td><td>双端队列。支持快速随机访问。在头或者尾部插入或者删除速度很快</td></tr><tr><td><code>list</code></td><td>双向链表。支持双向顺序访问。任何位置进行插入删除速度都很快</td></tr><tr><td><code>froward_list</code></td><td>单向链表。支持单向顺序访问。任何位置进行插入删除速度都很快</td></tr></tbody></table><h4 id="2-容器操作"><a href="#2-容器操作" class="headerlink" title="2. 容器操作"></a>2. 容器操作</h4><h5 id="2-1-添加元素"><a href="#2-1-添加元素" class="headerlink" title="2.1 添加元素"></a>2.1 添加元素</h5><ul><li><code>c.push_back(t)</code>：在<code>c</code>容器的尾部添加一个值为<code>t</code>的元素，返回<code>void</code>。<code>forward_list、array</code>不支持此操作</li><li><code>c.push_front(t)</code>：在<code>c</code>容器的头部创建一个值为<code>t</code>的元素，返回<code>void</code>。<code>array、vector、string</code>不支持此操作</li><li><code>c.emplace_back(args)</code>：在<code>c</code>容器的尾部添加一个由<code>args</code>创建的元素，返回<code>void</code>。<code>forward_list、array</code>不支持此操作</li><li><code>c.emplace_front(args)</code>：在<code>c</code>容器的头部添加一个由<code>args</code>创建的元素，返回<code>void</code>。<code>array、vector、string</code>不支持此操作</li><li><code>insert</code>：<ul><li><code>c.insert(p,t)</code>：在迭代器<code>p</code>指向的元素之前插入一个值为<code>t</code>的元素，返回新元素的迭代器。</li><li><code>c.insert(p,n,t)</code>：在迭代器<code>p</code>指向的元素之前插入<code>n</code>个值为<code>t</code>的元素，返回新添加的第一个元素的迭代器，<code>n</code>为0则返回<code>p</code>。</li><li><code>c.insert(p,b,e)</code>：将迭代器<code>p</code>和<code>e</code>指定范围内的元素插入到迭代器<code>p</code>指向的元素之前，返回新添加的第一个元素的迭代器，范围为空返回<code>p</code>。</li><li><code>c.insert(p,il)</code>：<code>il</code>为花括号包围的元素值列表，将这些值插入到迭代器<code>p</code>指向的元素之前。返回新添加的第一个元素的迭代器，列表为空返回<code>p</code></li><li><code>forward_list</code>有自己特有的<code>insert</code>。<code>array</code>不支持此操作</li></ul></li><li><code>c.emplace(p,args)</code>：在迭代器<code>p</code>指向的元素之前插入由<code>args</code>创建的元素，返回新元素的迭代器。<code>forward_list</code>有自己特有的<code>emplace</code>。<code>array</code>不支持此操作</li><li>注意：向<code>vector、string、deque</code>插入元素会使原有的迭代器、引用和指针失效</li></ul>]]></content>
+    <content type="html"><![CDATA[<h3 id="顺序容器"><a href="#顺序容器" class="headerlink" title="顺序容器"></a>顺序容器</h3><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h4><p>顺序容器：提供控制元素存储和访问顺序的能力。这种顺序与元素的值无关，只与元素加入容器的顺序相关。按照元素在容器中的位置来顺序保存和访问。</p><table><thead><tr><th>容器名称</th><th>容器特性</th></tr></thead><tbody><tr><td><code>vector</code></td><td>可变大小数组。支持快速随机访问。在尾部之外的位置插入或删除元素可能很慢</td></tr><tr><td><code>array</code></td><td>固定大小数组。支持快速随机访问。不能添加或者删除元素</td></tr><tr><td><code>string</code></td><td>专门用于保存字符的可变大小数组。支持快速随机访问。在尾部插入删除速度很快</td></tr><tr><td><code>deque</code></td><td>双端队列。支持快速随机访问。在头或者尾部插入或者删除速度很快</td></tr><tr><td><code>list</code></td><td>双向链表。支持双向顺序访问。任何位置进行插入删除速度都很快</td></tr><tr><td><code>froward_list</code></td><td>单向链表。支持单向顺序访问。任何位置进行插入删除速度都很快</td></tr></tbody></table><h4 id="2-容器操作"><a href="#2-容器操作" class="headerlink" title="2. 容器操作"></a>2. 容器操作</h4><h5 id="2-1-添加元素"><a href="#2-1-添加元素" class="headerlink" title="2.1 添加元素"></a>2.1 添加元素</h5><ul><li><code>c.push_back(t)</code>：在<code>c</code>容器的尾部添加一个值为<code>t</code>的元素，返回<code>void</code>。<code>forward_list、array</code>不支持此操作</li><li><code>c.push_front(t)</code>：在<code>c</code>容器的头部创建一个值为<code>t</code>的元素，返回<code>void</code>。<code>array、vector、string</code>不支持此操作</li><li><code>c.emplace_back(args)</code>：在<code>c</code>容器的尾部添加一个由<code>args</code>创建的元素，返回<code>void</code>。<code>forward_list、array</code>不支持此操作</li><li><code>c.emplace_front(args)</code>：在<code>c</code>容器的头部添加一个由<code>args</code>创建的元素，返回<code>void</code>。<code>array、vector、string</code>不支持此操作</li><li><code>insert</code>：<ul><li><code>c.insert(p,t)</code>：在迭代器<code>p</code>指向的元素之前插入一个值为<code>t</code>的元素，返回新元素的迭代器。</li><li><code>c.insert(p,n,t)</code>：在迭代器<code>p</code>指向的元素之前插入<code>n</code>个值为<code>t</code>的元素，返回新添加的第一个元素的迭代器，<code>n</code>为0则返回<code>p</code>。</li><li><code>c.insert(p,b,e)</code>：将迭代器<code>p</code>和<code>e</code>指定范围内的元素插入到迭代器<code>p</code>指向的元素之前，返回新添加的第一个元素的迭代器，范围为空返回<code>p</code>。</li><li><code>c.insert(p,il)</code>：<code>il</code>为花括号包围的元素值列表，将这些值插入到迭代器<code>p</code>指向的元素之前。返回新添加的第一个元素的迭代器，列表为空返回<code>p</code></li><li><code>forward_list</code>有自己特有的<code>insert</code>。<code>array</code>不支持此操作</li></ul></li><li><code>c.emplace(p,args)</code>：在迭代器<code>p</code>指向的元素之前插入由<code>args</code>创建的元素，返回新元素的迭代器。<code>forward_list</code>有自己特有的<code>emplace</code>。<code>array</code>不支持此操作</li><li>注意：向<code>vector、string、deque</code>插入元素会使原有的迭代器、引用和指针失效</li></ul><h5 id="2-2-访问元素"><a href="#2-2-访问元素" class="headerlink" title="2.2 访问元素"></a>2.2 访问元素</h5><h5 id="2-3-删除元素"><a href="#2-3-删除元素" class="headerlink" title="2.3 删除元素"></a>2.3 删除元素</h5><h5 id="2-4-其他操作"><a href="#2-4-其他操作" class="headerlink" title="2.4 其他操作"></a>2.4 其他操作</h5><ul><li><code>sort</code>函数排序<ul><li>包含在<code>algorithm</code>头文件中</li><li><code>void sort(RandomAccessIterator first,RandomAccessIterator last,Compare comp);</code><ul><li><code>first</code>：要排序数组的起始迭代器或地址</li><li><code>last</code>：结束数据的后一个迭代器或地址</li><li><code>comp</code>：排序算法，默认从小到大排序。<code>bool comp(a,b)</code></li></ul></li></ul></li></ul>]]></content>
     
     
     <categories>
@@ -86,31 +136,6 @@
     <content type="html"><![CDATA[]]></content>
     
     
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>吴恩达机器学习第一周</title>
-    <link href="/2022/01/04/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%91%A8/"/>
-    <url>/2022/01/04/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%91%A8/</url>
-    
-    <content type="html"><![CDATA[<h2 id="吴恩达机器学习第一周"><a href="#吴恩达机器学习第一周" class="headerlink" title="吴恩达机器学习第一周"></a>吴恩达机器学习第一周</h2><h4 id="什么是机器学习"><a href="#什么是机器学习" class="headerlink" title="什么是机器学习"></a>什么是机器学习</h4><ul><li>定义：一个程序能够从经验E中学习，解决任务T，达到性能衡量标准P，当且仅当又了经验E之后，经过P评判，程序在处理任务T时的性能有所提升。</li><li>学习算法分类：监督学习<code>supervised learing</code>、无监督学习<code>unsupervised learing</code></li></ul><h4 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h4>]]></content>
-    
-    
-    <categories>
-      
-      <category>机器学习</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>学习笔记</tag>
-      
-    </tags>
     
   </entry>
   
