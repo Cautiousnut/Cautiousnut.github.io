@@ -133,9 +133,21 @@
     <link href="/2022/01/05/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/"/>
     <url>/2022/01/05/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h3 id="关联容器"><a href="#关联容器" class="headerlink" title="关联容器"></a>关联容器</h3><h4 id="关联容器定义"><a href="#关联容器定义" class="headerlink" title="关联容器定义"></a>关联容器定义</h4><ul><li><p>初始化<code>map</code>和<code>set</code></p><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//默认初始化</span><br>map&lt;<span class="hljs-keyword">int</span>,string&gt;mapa;<span class="hljs-comment">//默认初始化为空容器，int为关键字类型，string为值类型</span><br>set&lt;<span class="hljs-keyword">int</span>&gt;seta;<span class="hljs-comment">//默认初始化为空容器，int为关键字类型</span><br><br><span class="hljs-comment">//列表初始化，值可以转换为容器所需类型即可</span><br>set&lt;string&gt;setb = &#123;<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>&#125;;<br>map&lt;string,string&gt;mapb = &#123;&#123;<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;c&quot;</span>,<span class="hljs-string">&quot;d&quot;</span>&#125;&#125;;<br><br><span class="hljs-comment">//初始化为同类型容器的拷贝</span><br></code></pre></td></tr></table></figure></li><li><p>初始化<code>multimap</code>和<code>multiset</code></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++"><br></code></pre></td></tr></table></figure></li></ul><h4 id="关联容器操作"><a href="#关联容器操作" class="headerlink" title="关联容器操作"></a>关联容器操作</h4><h5 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h5><ul><li><code>c.erase(k)</code>：从<code>c</code>中删除所有关键字为<code>k</code>的元素。返回<code>size_type</code>值，指出删除元素的数量。</li></ul><h5 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h5><ul><li><code>c.count(k)</code>：返回容器中关键字等于<code>k</code>的元素数量。</li></ul>]]></content>
     
     
+    <categories>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>学习笔记</tag>
+      
+    </tags>
     
   </entry>
   
@@ -192,11 +204,11 @@
   
   
   <entry>
-    <title>Leetcode846-一手顺子</title>
-    <link href="/2022/01/03/Leetcode%E5%88%B7%E9%A2%98846-%E4%B8%80%E6%89%8B%E9%A1%BA%E5%AD%90/"/>
-    <url>/2022/01/03/Leetcode%E5%88%B7%E9%A2%98846-%E4%B8%80%E6%89%8B%E9%A1%BA%E5%AD%90/</url>
+    <title>Leetcode</title>
+    <link href="/2022/01/03/Leetcode/"/>
+    <url>/2022/01/03/Leetcode/</url>
     
-    <content type="html"><![CDATA[<h2 id="Leetcode846——一手顺子"><a href="#Leetcode846——一手顺子" class="headerlink" title="Leetcode846——一手顺子"></a>Leetcode846——一手顺子</h2><h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220103104944847.png" alt="image-20220103104944847"></p><h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4>]]></content>
+    <content type="html"><![CDATA[<h2 id="Leetcode"><a href="#Leetcode" class="headerlink" title="Leetcode"></a>Leetcode</h2><h4 id="1"><a href="#1" class="headerlink" title="1"></a>1</h4><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></div></td><td class="code"><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> target)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> len = nums.<span class="hljs-built_in">size</span>();<br>        unordered_multimap&lt;<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>&gt;nums_map;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>;k&lt;len;k++)nums_map.<span class="hljs-built_in">insert</span>(&#123;nums[k],k&#125;);<br>        <span class="hljs-built_in">sort</span>(nums.<span class="hljs-built_in">begin</span>(),nums.<span class="hljs-built_in">end</span>());              <span class="hljs-comment">//从小到大排序</span><br>        <br>        <span class="hljs-keyword">int</span> i = len<span class="hljs-number">-1</span> , j = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> temp =  <span class="hljs-number">0</span>;                              <span class="hljs-comment">//暂存运算结果</span><br>        <span class="hljs-keyword">while</span>(i&gt;j)&#123;<br>            temp = nums[i]+nums[j];<br>            <span class="hljs-keyword">if</span>(temp&gt;target)i--;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(temp == target)&#123;<br>                <span class="hljs-keyword">if</span>(nums[i] == nums[j])&#123;<br>                    <span class="hljs-keyword">auto</span> iter1 = nums_map.<span class="hljs-built_in">find</span>(nums[i]);<br>                    <span class="hljs-keyword">auto</span> iter2 = iter1++;<br>                    <span class="hljs-keyword">return</span> &#123;iter1-&gt;second,iter2-&gt;second&#125;;<br>                &#125;<span class="hljs-keyword">else</span>&#123;<br>                    <span class="hljs-keyword">auto</span> iter1 = nums_map.<span class="hljs-built_in">find</span>(nums[i]);<br>                    <span class="hljs-keyword">auto</span> iter2 = nums_map.<span class="hljs-built_in">find</span>(nums[j]);<br>                    <span class="hljs-keyword">return</span> &#123;iter1-&gt;second,iter2-&gt;second&#125;;<br>                &#125;<br>            &#125;<span class="hljs-keyword">else</span> j++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-number">0</span>,<span class="hljs-number">0</span>&#125;;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li>使用哈希表降低查找时间复杂度：1</li></ul>]]></content>
     
     
     <categories>
