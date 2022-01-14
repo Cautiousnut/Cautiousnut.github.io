@@ -71,7 +71,7 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -238,7 +238,9 @@
             <h1 style="display: none">C++顺序容器</h1>
             
             <div class="markdown-body">
-              <h3 id="顺序容器"><a href="#顺序容器" class="headerlink" title="顺序容器"></a>顺序容器</h3><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h4><p>顺序容器：提供控制元素存储和访问顺序的能力。这种顺序与元素的值无关，只与元素加入容器的顺序相关。按照元素在容器中的位置来顺序保存和访问。</p>
+              <h3 id="顺序容器"><a class="markdownIt-Anchor" href="#顺序容器"></a> 顺序容器</h3>
+<h4 id="1-概述"><a class="markdownIt-Anchor" href="#1-概述"></a> 1. 概述</h4>
+<p>顺序容器：提供控制元素存储和访问顺序的能力。这种顺序与元素的值无关，只与元素加入容器的顺序相关。按照元素在容器中的位置来顺序保存和访问。</p>
 <table>
 <thead>
 <tr>
@@ -246,7 +248,8 @@
 <th>容器特性</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>vector</code></td>
 <td>可变大小数组。支持快速随机访问。在尾部之外的位置插入或删除元素可能很慢</td>
 </tr>
@@ -270,13 +273,17 @@
 <td><code>froward_list</code></td>
 <td>单向链表。支持单向顺序访问。任何位置进行插入删除速度都很快</td>
 </tr>
-</tbody></table>
-<h4 id="2-容器操作"><a href="#2-容器操作" class="headerlink" title="2. 容器操作"></a>2. 容器操作</h4><h5 id="2-1-添加元素"><a href="#2-1-添加元素" class="headerlink" title="2.1 添加元素"></a>2.1 添加元素</h5><ul>
+</tbody>
+</table>
+<h4 id="2-容器操作"><a class="markdownIt-Anchor" href="#2-容器操作"></a> 2. 容器操作</h4>
+<h5 id="21-添加元素"><a class="markdownIt-Anchor" href="#21-添加元素"></a> 2.1 添加元素</h5>
+<ul>
 <li><code>c.push_back(t)</code>：在<code>c</code>容器的尾部添加一个值为<code>t</code>的元素，返回<code>void</code>。<code>forward_list、array</code>不支持此操作</li>
 <li><code>c.push_front(t)</code>：在<code>c</code>容器的头部创建一个值为<code>t</code>的元素，返回<code>void</code>。<code>array、vector、string</code>不支持此操作</li>
 <li><code>c.emplace_back(args)</code>：在<code>c</code>容器的尾部添加一个由<code>args</code>创建的元素，返回<code>void</code>。<code>forward_list、array</code>不支持此操作</li>
 <li><code>c.emplace_front(args)</code>：在<code>c</code>容器的头部添加一个由<code>args</code>创建的元素，返回<code>void</code>。<code>array、vector、string</code>不支持此操作</li>
-<li><code>insert</code>：<ul>
+<li><code>insert</code>：
+<ul>
 <li><code>c.insert(p,t)</code>：在迭代器<code>p</code>指向的元素之前插入一个值为<code>t</code>的元素，返回新元素的迭代器。</li>
 <li><code>c.insert(p,n,t)</code>：在迭代器<code>p</code>指向的元素之前插入<code>n</code>个值为<code>t</code>的元素，返回新添加的第一个元素的迭代器，<code>n</code>为0则返回<code>p</code>。</li>
 <li><code>c.insert(p,b,e)</code>：将迭代器<code>p</code>和<code>e</code>指定范围内的元素插入到迭代器<code>p</code>指向的元素之前，返回新添加的第一个元素的迭代器，范围为空返回<code>p</code>。</li>
@@ -287,10 +294,15 @@
 <li><code>c.emplace(p,args)</code>：在迭代器<code>p</code>指向的元素之前插入由<code>args</code>创建的元素，返回新元素的迭代器。<code>forward_list</code>有自己特有的<code>emplace</code>。<code>array</code>不支持此操作</li>
 <li>注意：向<code>vector、string、deque</code>插入元素会使原有的迭代器、引用和指针失效</li>
 </ul>
-<h5 id="2-2-访问元素"><a href="#2-2-访问元素" class="headerlink" title="2.2 访问元素"></a>2.2 访问元素</h5><h5 id="2-3-删除元素"><a href="#2-3-删除元素" class="headerlink" title="2.3 删除元素"></a>2.3 删除元素</h5><h5 id="2-4-其他操作"><a href="#2-4-其他操作" class="headerlink" title="2.4 其他操作"></a>2.4 其他操作</h5><ul>
-<li><code>sort</code>函数排序<ul>
+<h5 id="22-访问元素"><a class="markdownIt-Anchor" href="#22-访问元素"></a> 2.2 访问元素</h5>
+<h5 id="23-删除元素"><a class="markdownIt-Anchor" href="#23-删除元素"></a> 2.3 删除元素</h5>
+<h5 id="24-其他操作"><a class="markdownIt-Anchor" href="#24-其他操作"></a> 2.4 其他操作</h5>
+<ul>
+<li><code>sort</code>函数排序
+<ul>
 <li>包含在<code>algorithm</code>头文件中</li>
-<li><code>void sort(RandomAccessIterator first,RandomAccessIterator last,Compare comp);</code><ul>
+<li><code>void sort(RandomAccessIterator first,RandomAccessIterator last,Compare comp);</code>
+<ul>
 <li><code>first</code>：要排序数组的起始迭代器或地址</li>
 <li><code>last</code>：结束数据的后一个迭代器或地址</li>
 <li><code>comp</code>：排序算法，默认从小到大排序。<code>bool comp(a,b)</code></li>

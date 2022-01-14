@@ -71,7 +71,7 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -238,16 +238,25 @@
             <h1 style="display: none">关联容器</h1>
             
             <div class="markdown-body">
-              <h3 id="关联容器"><a href="#关联容器" class="headerlink" title="关联容器"></a>关联容器</h3><h4 id="关联容器定义"><a href="#关联容器定义" class="headerlink" title="关联容器定义"></a>关联容器定义</h4><ul>
-<li><p>初始化<code>map</code>和<code>set</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//默认初始化</span><br>map&lt;<span class="hljs-keyword">int</span>,string&gt;mapa;			<span class="hljs-comment">//默认初始化为空容器，int为关键字类型，string为值类型</span><br>set&lt;<span class="hljs-keyword">int</span>&gt;seta;					<span class="hljs-comment">//默认初始化为空容器，int为关键字类型</span><br><br><span class="hljs-comment">//列表初始化，值可以转换为容器所需类型即可</span><br>set&lt;string&gt;setb = &#123;<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>&#125;;<br>map&lt;string,string&gt;mapb = &#123;&#123;<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;c&quot;</span>,<span class="hljs-string">&quot;d&quot;</span>&#125;&#125;;<br><br><span class="hljs-comment">//初始化为同类型容器的拷贝</span><br></code></pre></td></tr></table></figure></li>
-<li><p>初始化<code>multimap</code>和<code>multiset</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++"><br></code></pre></td></tr></table></figure></li>
+              <h3 id="关联容器"><a class="markdownIt-Anchor" href="#关联容器"></a> 关联容器</h3>
+<h4 id="关联容器定义"><a class="markdownIt-Anchor" href="#关联容器定义"></a> 关联容器定义</h4>
+<ul>
+<li>
+<p>初始化<code>map</code>和<code>set</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//默认初始化</span><br>map&lt;<span class="hljs-keyword">int</span>,string&gt;mapa;			<span class="hljs-comment">//默认初始化为空容器，int为关键字类型，string为值类型</span><br>set&lt;<span class="hljs-keyword">int</span>&gt;seta;					<span class="hljs-comment">//默认初始化为空容器，int为关键字类型</span><br><br><span class="hljs-comment">//列表初始化，值可以转换为容器所需类型即可</span><br>set&lt;string&gt;setb = &#123;<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>&#125;;<br>map&lt;string,string&gt;mapb = &#123;&#123;<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;c&quot;</span>,<span class="hljs-string">&quot;d&quot;</span>&#125;&#125;;<br><br><span class="hljs-comment">//初始化为同类型容器的拷贝</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>初始化<code>multimap</code>和<code>multiset</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++"><br></code></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="关联容器操作"><a href="#关联容器操作" class="headerlink" title="关联容器操作"></a>关联容器操作</h4><h5 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h5><ul>
+<h4 id="关联容器操作"><a class="markdownIt-Anchor" href="#关联容器操作"></a> 关联容器操作</h4>
+<h5 id="删除元素"><a class="markdownIt-Anchor" href="#删除元素"></a> 删除元素</h5>
+<ul>
 <li><code>c.erase(k)</code>：从<code>c</code>中删除所有关键字为<code>k</code>的元素。返回<code>size_type</code>值，指出删除元素的数量。</li>
 </ul>
-<h5 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h5><ul>
+<h5 id="访问元素"><a class="markdownIt-Anchor" href="#访问元素"></a> 访问元素</h5>
+<ul>
 <li><code>c.count(k)</code>：返回容器中关键字等于<code>k</code>的元素数量。</li>
 </ul>
             </div>
