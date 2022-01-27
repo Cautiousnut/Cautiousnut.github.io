@@ -24,7 +24,7 @@
 <meta property="og:description" content="gcc编译环境下，C语言内嵌汇编语言规则总结归纳">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-27T08:16:11.000Z">
-<meta property="article:modified_time" content="2022-01-27T09:47:18.820Z">
+<meta property="article:modified_time" content="2022-01-27T15:28:50.477Z">
 <meta property="article:author" content="StillWater">
 <meta property="article:tag" content="C语言">
 <meta property="article:tag" content="汇编语言">
@@ -202,7 +202,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1.4k 字
     </span>
   
 
@@ -211,7 +211,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9 分钟
+      12 分钟
     </span>
   
 
@@ -287,7 +287,7 @@
 </li>
 <li>
 <p>单个参数的格式如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">[[asmSymbolicName]] constraint (cvarialblename)<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">[[asmSymbolicName]] constraint (cvarialblename)<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -295,21 +295,52 @@
 <p>参数说明</p>
 <ul>
 <li><code>asmSymbolicName</code>：用于指定C语言中的变量在汇编中的名称。指定之后在汇编中可以使用<code>%[Name]</code>来使用此变量的值。不指定时，在汇编中程序中可以使用<code>%x</code>来使用相应的变量，其中<code>x</code>是相应变量在参数列表中的相对位置，从<code>0</code>开始编号。</li>
-<li><code>constraint</code>：用于指定对应的C程序中的变量在汇编程序中的存储位置。格式为<code>前缀约束符 附加约束符</code>
+<li><code>constraint</code>：用于指定对应的C程序中的变量在汇编程序中的存储位置及操作方式。格式为<code>前缀约束符 附加约束符</code>
 <ul>
 <li>前缀约束符：指出汇编指令对变量的操作
 <ul>
-<li><code>+</code>：表示此操作数对应的C变量会被汇编指令读和写。</li>
+<li><code>+</code>：表示此操作数对应的C变量会被汇编指令读和写。此时此操作数即是输入也是输出操作数。</li>
 <li><code>=</code>：表示此操作数对应的C变量会被汇编指令重写，只写。</li>
 </ul>
 </li>
-<li>附加约束符：指出相应的C变量在汇编程序中的存储位置。
+<li>附加约束符：指出相应的C变量在汇编程序中允许的存储位置。如果指定了多个，则编译器会选择最高效的一个。
 <ul>
 <li><code>m</code>：存在内存单元中</li>
+<li><code>r</code>：存在寄存器中</li>
 </ul>
 </li>
 </ul>
 </li>
+<li><code>cvariablename</code>：汇编指令中要修改的C程序变量名，必须是左值</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">  <br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="输入参数input-operands"><a class="markdownIt-Anchor" href="#输入参数input-operands"></a> 输入参数——Input Operands</h5>
+<ul>
+<li>
+<p>语法格式</p>
+<ul>
+<li>
+<p>多个输入参数使用逗号<code>,</code>隔开</p>
+</li>
+<li>
+<p>单个参数的语法格式如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">[[asmSymbolicName]] constraint (cexpression)<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>参数说明</p>
+<ul>
+<li><code>asmSymbolicName</code>：同输出参数</li>
+<li><code>constraint</code>：基本同输出参数，不以前缀约束符开头。有如下特殊情况
+<ul>
+<li>数字：表示此输入参数和输出列表中数字索引处的输出参数具有相同的存储位置。用于没有指定<code>asmSymbolicName</code>的情况</li>
+<li>名字：用于指定<code>asmSymbolicName</code>的情况，格式为<code>[name]</code></li>
+</ul>
+</li>
+<li><code>cexpression</code>：传递给汇编程序作为输入的C程序变量或者表达式</li>
 </ul>
 </li>
 </ul>
