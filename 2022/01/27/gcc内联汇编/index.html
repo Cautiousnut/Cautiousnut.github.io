@@ -16,23 +16,22 @@
   <meta name="author" content="StillWater">
   <meta name="keywords" content="">
   
-    <meta name="description" content="吴恩达机器学习第一周课程内容总结归纳">
+    <meta name="description" content="gcc编译环境下，C语言内嵌汇编语言规则总结归纳">
 <meta property="og:type" content="article">
-<meta property="og:title" content="吴恩达机器学习第一周">
-<meta property="og:url" content="https://cautiousnut.github.io/2022/01/12/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E5%91%A8/index.html">
+<meta property="og:title" content="gcc内联汇编">
+<meta property="og:url" content="https://cautiousnut.github.io/2022/01/27/gcc%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96/index.html">
 <meta property="og:site_name" content="静水流深">
-<meta property="og:description" content="吴恩达机器学习第一周课程内容总结归纳">
+<meta property="og:description" content="gcc编译环境下，C语言内嵌汇编语言规则总结归纳">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220112222943326.png">
-<meta property="article:published_time" content="2022-01-12T14:25:00.000Z">
-<meta property="article:modified_time" content="2022-01-12T14:29:53.611Z">
+<meta property="article:published_time" content="2022-01-27T08:16:11.000Z">
+<meta property="article:modified_time" content="2022-01-27T09:47:18.820Z">
 <meta property="article:author" content="StillWater">
-<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="汇编语言">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220112222943326.png">
   
   
-  <title>吴恩达机器学习第一周 - 静水流深</title>
+  <title>gcc内联汇编 - 静水流深</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -182,7 +181,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="吴恩达机器学习第一周">
+            <span class="h2" id="subtitle" title="gcc内联汇编">
               
             </span>
 
@@ -192,8 +191,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-12 22:25" pubdate>
-        2022年1月12日 晚上
+      <time datetime="2022-01-27 16:16" pubdate>
+        2022年1月27日 下午
       </time>
     </span>
   
@@ -203,7 +202,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      304 字
+      1.1k 字
     </span>
   
 
@@ -212,7 +211,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3 分钟
+      9 分钟
     </span>
   
 
@@ -241,40 +240,76 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">吴恩达机器学习第一周</h1>
+            <h1 style="display: none">gcc内联汇编</h1>
             
             <div class="markdown-body">
-              <h2 id="吴恩达机器学习第一周"><a class="markdownIt-Anchor" href="#吴恩达机器学习第一周"></a> 吴恩达机器学习第一周</h2>
-<h4 id="什么是机器学习"><a class="markdownIt-Anchor" href="#什么是机器学习"></a> 什么是机器学习</h4>
+              <h2 id="gcc内嵌汇编语言"><a class="markdownIt-Anchor" href="#gcc内嵌汇编语言"></a> GCC内嵌汇编语言</h2>
 <ul>
-<li>定义：一个程序能够从经验E中学习，解决任务T，达到性能衡量标准P，当且仅当又了经验E之后，经过P评判，程序在处理任务T时的性能有所提升。</li>
-<li>学习算法分类：监督学习<code>supervised learing</code>、无监督学习<code>unsupervised learing</code></li>
-</ul>
-<h4 id="监督学习"><a class="markdownIt-Anchor" href="#监督学习"></a> 监督学习</h4>
+<li><code>Inline Assembly language in C Code</code></li>
+<li><code>GCC</code>提供了两种形式的内联汇编语句。
 <ul>
-<li>
-<p>给算法一个数据集，并且给定正确答案。算法的目的是给出更多的正确答案。</p>
-</li>
-<li>
-<p>分类</p>
-<ul>
-<li>
-<p>回归问题，预测连续值的属性。房子的价格</p>
-<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220112222943326.png" srcset="/img/loading.gif" lazyload alt="image-20220112222943326" /></p>
-</li>
-<li>
-<p>分类问题，预测离散值的属性。肿瘤是否为良性</p>
-</li>
+<li>基本<code>asm</code>语句，没有操作数</li>
+<li>扩展<code>asm</code>语句，有一个或多个操作数</li>
 </ul>
 </li>
 </ul>
-<h4 id="无监督学习"><a class="markdownIt-Anchor" href="#无监督学习"></a> 无监督学习</h4>
+<h4 id="基本asm语句"><a class="markdownIt-Anchor" href="#基本asm语句"></a> 基本ASM语句</h4>
+<h4 id="扩展asm语句"><a class="markdownIt-Anchor" href="#扩展asm语句"></a> 扩展ASM语句</h4>
+<p>是带有C表达式形式的操作数的汇编指令。使用扩展语句可以在汇编程序中读取和修改C程序中的变量，还可以实现从汇编程序到C程序的跳转操作。</p>
+<h5 id="语法格式"><a class="markdownIt-Anchor" href="#语法格式"></a> 语法格式</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs assembly">asm asm-qualifiers(AssemblerTemplate:OutputOperands[:InputOperands[:Clobbers]])<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">asm asm-qualifiers(AssemblerTemplate:OutputOperands:InputOperands:Clobbers:GotoLabels)<br></code></pre></td></tr></table></figure>
+<h5 id="限定符qualifiers"><a class="markdownIt-Anchor" href="#限定符qualifiers"></a> 限定符——qualifiers</h5>
 <ul>
-<li>只有一个数据集，没有特定的答案。算法的目的是进行归类</li>
-<li>分类
+<li><code>volatile</code>：</li>
+<li><code>inline</code>：</li>
+<li><code>goto</code>：</li>
+</ul>
+<h5 id="汇编器模板assemblertemplate"><a class="markdownIt-Anchor" href="#汇编器模板assemblertemplate"></a> 汇编器模板——AssemblerTemplate</h5>
+<p>由指向输入、输出和跳转参数的标记和固定文本组合成的包含着汇编指令的字符串。编译器进行处理时，将用输入、输出和跳转参数替换相应的标记，然后生成最终的汇编指令。在此过程中，编译器不会对汇编指令进行解析。</p>
+<p>可以在一个模板串中写入多条汇编指令，中间使用换行符分割<code>\n\t</code>，但是多个指令执行时可能会偏离预期，此时可将其分割为单个汇编指令。</p>
+<p>一些标记在此串中有特殊含义：</p>
 <ul>
-<li>聚类算法。将不同的个体归于不同的类。新闻分区</li>
-<li>鸡尾酒宴会问题。分离音频。</li>
+<li><code>%%</code>：由编译器转换为<code>%</code></li>
+<li><code>%=</code>：产生一个和已有</li>
+<li><code>%&#123;、%|、%&#125;</code>：由编译器转换为<code>&#123;、|、&#125;</code></li>
+</ul>
+<h5 id="输出参数output-operands"><a class="markdownIt-Anchor" href="#输出参数output-operands"></a> 输出参数——Output Operands</h5>
+<ul>
+<li>
+<p>指出汇编指令将要修改的C语言中的变量，并设置相应的属性</p>
+</li>
+<li>
+<p>语法格式</p>
+<ul>
+<li>
+<p>多个输出参数使用逗号<code>,</code>进行分隔</p>
+</li>
+<li>
+<p>单个参数的格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">[[asmSymbolicName]] constraint (cvarialblename)<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>参数说明</p>
+<ul>
+<li><code>asmSymbolicName</code>：用于指定C语言中的变量在汇编中的名称。指定之后在汇编中可以使用<code>%[Name]</code>来使用此变量的值。不指定时，在汇编中程序中可以使用<code>%x</code>来使用相应的变量，其中<code>x</code>是相应变量在参数列表中的相对位置，从<code>0</code>开始编号。</li>
+<li><code>constraint</code>：用于指定对应的C程序中的变量在汇编程序中的存储位置。格式为<code>前缀约束符 附加约束符</code>
+<ul>
+<li>前缀约束符：指出汇编指令对变量的操作
+<ul>
+<li><code>+</code>：表示此操作数对应的C变量会被汇编指令读和写。</li>
+<li><code>=</code>：表示此操作数对应的C变量会被汇编指令重写，只写。</li>
+</ul>
+</li>
+<li>附加约束符：指出相应的C变量在汇编程序中的存储位置。
+<ul>
+<li><code>m</code>：存在内存单元中</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -286,7 +321,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                     
                   </div>
                 
@@ -294,7 +329,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                      <a class="hover-with-bg" href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a>
                     
                   </div>
                 
@@ -311,18 +348,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/01/15/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%8C%E5%91%A8/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">吴恩达机器学习——回归问题</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/01/11/C++%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/">
-                        <span class="hidden-mobile">C++顺序容器</span>
+                      <a href="/2022/01/17/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%89/">
+                        <span class="hidden-mobile">吴恩达机器学习——分类问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
