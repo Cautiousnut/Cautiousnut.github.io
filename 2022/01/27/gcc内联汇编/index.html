@@ -24,7 +24,7 @@
 <meta property="og:description" content="gcc编译环境下，C语言内嵌汇编语言规则总结归纳">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-27T08:16:11.000Z">
-<meta property="article:modified_time" content="2022-01-27T15:28:50.477Z">
+<meta property="article:modified_time" content="2022-01-29T08:11:46.694Z">
 <meta property="article:author" content="StillWater">
 <meta property="article:tag" content="C语言">
 <meta property="article:tag" content="汇编语言">
@@ -202,7 +202,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      1.6k 字
     </span>
   
 
@@ -211,7 +211,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12 分钟
+      14 分钟
     </span>
   
 
@@ -261,7 +261,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">asm asm-qualifiers(AssemblerTemplate:OutputOperands:InputOperands:Clobbers:GotoLabels)<br></code></pre></td></tr></table></figure>
 <h5 id="限定符qualifiers"><a class="markdownIt-Anchor" href="#限定符qualifiers"></a> 限定符——qualifiers</h5>
 <ul>
-<li><code>volatile</code>：</li>
+<li><code>volatile</code>：禁止编译器对代码进行优化，以免产生意想不到的错误</li>
 <li><code>inline</code>：</li>
 <li><code>goto</code>：</li>
 </ul>
@@ -343,6 +343,20 @@
 <li><code>cexpression</code>：传递给汇编程序作为输入的C程序变量或者表达式</li>
 </ul>
 </li>
+</ul>
+<h5 id="机器相关限定符"><a class="markdownIt-Anchor" href="#机器相关限定符"></a> 机器相关限定符</h5>
+<p>不同的体系结构定义了不同的限定符，对于<code>x86</code>架构，有如下常用限定符</p>
+<ul>
+<li><code>a</code>：a寄存器</li>
+<li><code>b</code>：b寄存器</li>
+<li><code>c</code>：c寄存器</li>
+<li><code>d</code>：d寄存器</li>
+<li><code>S</code>：<code>SI</code>寄存器</li>
+<li><code>D</code>：<code>DI</code>寄存器</li>
+</ul>
+<h4 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h4>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/byeyear/p/4675049.html">gcc内嵌汇编详解 - 告别年代 - 博客园 (cnblogs.com)</a></li>
 </ul>
             </div>
             <hr>
