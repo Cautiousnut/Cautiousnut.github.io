@@ -16,21 +16,44 @@
   <meta name="author" content="StillWater">
   <meta name="keywords" content="">
   
-    <meta name="description" content="业精于勤荒于嬉，行成于思毁于随">
-<meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="https://cautiousnut.github.io/archives/2022/01/index.html">
+    <meta name="description" content="过拟合问题与正则化方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="吴恩达机器学习四">
+<meta property="og:url" content="https://cautiousnut.github.io/2022/02/21/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9B%9B/index.html">
 <meta property="og:site_name" content="静水流深">
-<meta property="og:description" content="业精于勤荒于嬉，行成于思毁于随">
+<meta property="og:description" content="过拟合问题与正则化方法">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220221224729453.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220221225144818.png">
+<meta property="og:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20220221224816308.png">
+<meta property="og:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220221225314920.png">
+<meta property="article:published_time" content="2022-02-21T14:42:00.000Z">
+<meta property="article:modified_time" content="2022-02-21T14:59:49.664Z">
 <meta property="article:author" content="StillWater">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220221224729453.png">
   
   
-  <title>归档 - 静水流深</title>
+  <title>吴恩达机器学习四 - 静水流深</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -61,7 +84,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -162,9 +185,43 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="吴恩达机器学习四">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-21 22:42" pubdate>
+        2022年2月21日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      152 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      2 分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -177,94 +234,111 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 15 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2022</p>
-    
-    <a href="/2022/01/27/gcc%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">gcc内联汇编</span>
-      <time style="float: right;">01-27</time>
-    </a>
-  
-    
-    <a href="/2022/01/17/%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%88%86%E6%B2%BB/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">算法——分治</span>
-      <time style="float: right;">01-17</time>
-    </a>
-  
-    
-    <a href="/2022/01/12/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">吴恩达机器学习一</span>
-      <time style="float: right;">01-12</time>
-    </a>
-  
-    
-    <a href="/2022/01/11/C++%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">C++顺序容器</span>
-      <time style="float: right;">01-11</time>
-    </a>
-  
-    
-    <a href="/2022/01/11/C++%E5%AE%B9%E5%99%A8%E5%92%8C%E8%BF%AD%E4%BB%A3%E5%99%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">C++容器和迭代器</span>
-      <time style="float: right;">01-11</time>
-    </a>
-  
-    
-    <a href="/2022/01/05/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">操作系统实现</span>
-      <time style="float: right;">01-05</time>
-    </a>
-  
-    
-    <a href="/2022/01/05/%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">关联容器</span>
-      <time style="float: right;">01-05</time>
-    </a>
-  
-    
-    <a href="/2022/01/04/C++%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E5%92%8C%E6%95%B0%E7%BB%84/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">C++字符串、向量和数组</span>
-      <time style="float: right;">01-04</time>
-    </a>
-  
-    
-    <a href="/2022/01/04/C++%E5%9F%BA%E7%A1%80/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">C++变量和基本类型</span>
-      <time style="float: right;">01-04</time>
-    </a>
-  
-    
-    <a href="/2022/01/01/Linux%E4%B8%8ABochs%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Linux上Bochs的安装和配置</span>
-      <time style="float: right;">01-01</time>
-    </a>
-  
-</div>
 
-
-
-
-
-              </div>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">吴恩达机器学习四</h1>
+            
+            <div class="markdown-body">
+              <h3 id="过拟合问题"><a class="markdownIt-Anchor" href="#过拟合问题"></a> 过拟合问题</h3>
+<ul>
+<li>
+<p>概念</p>
+<ul>
+<li>
+<p>欠拟合：不能很好的拟合所给数据</p>
+<p><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220221224729453.png" srcset="/img/loading.gif" lazyload alt="线性回归欠拟合" /><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220221225144818.png" srcset="/img/loading.gif" lazyload alt="逻辑回归欠拟合" /></p>
+</li>
+<li>
+<p>过拟合：可以很好的拟合所给数据，但是并不能真实反映变化趋势，在训练集之外的数据上表现欠佳，无法泛化到更多数据。</p>
+<p><img src="C:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20220221224816308.png" srcset="/img/loading.gif" lazyload alt="线性回归过拟合" /><img src="https://gitee.com/Cautiousnut/images/raw/master/img/image-20220221225314920.png" srcset="/img/loading.gif" lazyload alt="逻辑回归过拟合" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>过拟合解决方案</p>
+<ul>
+<li>减少选取的变量<code>x</code>的数量。人工或者算法选择</li>
+<li>正则化。保留所有变量，但是降低阶数或者减小<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>θ</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">\theta_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></li>
+</ul>
+</li>
+</ul>
+<h4 id="正则化"><a class="markdownIt-Anchor" href="#正则化"></a> 正则化</h4>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/21/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%89/">
+                        <span class="hidden-mobile">吴恩达机器学习——分类问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -348,6 +422,19 @@
 
 
 
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
 
 
 
@@ -368,9 +455,23 @@
 
 
 
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css" />
+  
 
 
 
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
 
 
 
