@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>C++泛型算法</title>
+    <link href="/2022/03/15/C++%E6%B3%9B%E5%9E%8B%E7%AE%97%E6%B3%95/"/>
+    <url>/2022/03/15/C++%E6%B3%9B%E5%9E%8B%E7%AE%97%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<h2 id="c泛型算法"><a class="markdownIt-Anchor" href="#c泛型算法"></a> C++泛型算法</h2><h3 id="定制操作"><a class="markdownIt-Anchor" href="#定制操作"></a> 定制操作</h3><h4 id="lambda表达式"><a class="markdownIt-Anchor" href="#lambda表达式"></a> lambda表达式</h4><h5 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h5><ul><li><p>特点</p><ul><li><p>lamdba表达式是一种可调用对象，类似函数和函数指针</p></li><li><p>一个lambda表达式表示一个可调用的代码单元</p></li><li><p>lambda表达式定义在函数内部</p></li></ul></li><li><p>格式</p><ul><li><code>[capture list](parameter list)-&gt; return type&#123;function body&#125;</code></li><li><code>capture list</code>：表示lambda表达式所在函数中定义的要在lambda中使用的局部变量的列表</li><li><code>parameter list</code>：表示参数列表</li><li><code>return type</code>：表示返回类型</li><li><code>function body</code>：表示函数体</li></ul></li><li><p>说明</p><ul><li><p>参数列表和返回类型可以没有，但是捕获列表和函数体必须有，即使为空。省略参数列表表示无参数，省略返回类型则会自动进行推断</p><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">auto</span> f = []&#123;<span class="hljs-keyword">return</span> <span class="hljs-number">42</span>&#125;;<br></code></pre></td></tr></table></figure></li><li><p>lambda的调用方式和普通函数相同</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++">cout &lt;&lt; <span class="hljs-built_in">f</span>() &lt;&lt; endl;<br></code></pre></td></tr></table></figure></li></ul></li></ul><h5 id="lambda的捕获"><a class="markdownIt-Anchor" href="#lambda的捕获"></a> lambda的捕获</h5><ul><li><p>值捕获</p></li><li><p>引用捕获</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">auto</span> f = [&amp;v]&#123;<span class="hljs-keyword">return</span> v1;&#125;;<br></code></pre></td></tr></table></figure><p>此时<code>v</code>即为引用捕获。</p><ul><li>引用捕获的变量在lambda中同其他类型的引用行为类似</li><li>引用捕获的变量在使用时必须保证所引用的对象是存在的</li></ul></li><li><p>隐式捕获</p><ul><li></li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>C++容器补充</title>
     <link href="/2022/03/02/C++%E5%AE%B9%E5%99%A8%E8%A1%A5%E5%85%85/"/>
     <url>/2022/03/02/C++%E5%AE%B9%E5%99%A8%E8%A1%A5%E5%85%85/</url>
