@@ -19,13 +19,13 @@
     <meta name="description" content="C函数知识点总结，主要参考Cprimer第6章内容">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++函数">
-<meta property="og:url" content="https://cautiousnut.github.io/2022/08/08/C++%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:url" content="https://cautiousnut.github.io/2022/08/28/C++%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="静水流深">
 <meta property="og:description" content="C函数知识点总结，主要参考Cprimer第6章内容">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://images.unsplash.com/photo-1523897056079-5553b57112d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60">
-<meta property="article:published_time" content="2022-08-08T10:04:57.000Z">
-<meta property="article:modified_time" content="2022-08-24T08:25:03.153Z">
+<meta property="article:published_time" content="2022-08-28T14:34:00.000Z">
+<meta property="article:modified_time" content="2022-08-28T14:53:21.193Z">
 <meta property="article:author" content="StillWater">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-08-08 18:04" pubdate>
-        2022年8月8日 晚上
+      <time datetime="2022-08-28 22:34" pubdate>
+        2022年8月28日 晚上
       </time>
     </span>
   
@@ -515,7 +515,7 @@
 <p>默认实参可以是符合类型要求的变量和表达式，且不能是局部变量。</p>
 <p>默认实参在<mark>函数声明所在的作用域内解析</mark>，但具体的<mark>求值过程发生在函数调用时</mark>。所以，绑定的变量无法被修改和覆盖，但是变量的值可以修改。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br><span class="hljs-type">int</span> b = <span class="hljs-number">20</span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Test</span><span class="hljs-params">(<span class="hljs-type">int</span> =a,<span class="hljs-type">int</span>=b)</span></span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Test</span><span class="hljs-params">(<span class="hljs-type">int</span> a,<span class="hljs-type">int</span> b)</span></span>&#123;<br>    cout &lt;&lt; a &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; b &lt;&lt; endl;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Call</span><span class="hljs-params">()</span></span>&#123;<br>    a = <span class="hljs-number">20</span>;							<span class="hljs-comment">//a对应的默认实参的值被修改</span><br>    <span class="hljs-type">int</span> b = <span class="hljs-number">30</span>;						<span class="hljs-comment">//内层作用域内声明的b无法覆盖原有的b，因为b已经绑定完毕</span><br>    <span class="hljs-built_in">Test</span>();							<span class="hljs-comment">//20，20</span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-built_in">Call</span>();<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h5 id="52-内联函数和cconstexpr函数"><a class="markdownIt-Anchor" href="#52-内联函数和cconstexpr函数"></a> 5.2 内联函数和cconstexpr函数</h5>
+<h5 id="52-内联函数和constexpr函数"><a class="markdownIt-Anchor" href="#52-内联函数和constexpr函数"></a> 5.2 内联函数和constexpr函数</h5>
 <h6 id="内联函数"><a class="markdownIt-Anchor" href="#内联函数"></a> <strong>内联函数</strong></h6>
 <p>调用函数一般比调用等价的表达式的开销要大，内联函数就是为了缓解这一问题。</p>
 <p>内联函数常用于优化规模较小、调用频繁的函数</p>
@@ -529,13 +529,13 @@
 <p><code>constexpr</code>函数是指可以作为常量表达式使用的函数。<code>constexpr</code>函数需要满足以下几点要求：</p>
 <ul>
 <li>函数的返回类型必须是字面值类型</li>
-<li>函数的所有形参类型必须是字面值类型</li>
-<li>函数体中只有一条<code>return</code>语句或者除<code>return</code>语句外其他的语句不执行任何实际操作</li>
+<li>函数的所有<strong>形参类型</strong>必须是字面值类型</li>
+<li>函数体中只有一条<code>return</code>语句（只有这一条语句）或者除<code>return</code>语句外其他的语句不执行任何实际操作</li>
 </ul>
 <p>constexpr函数会在<mark>编译时被替换</mark>为其结果值，并且被隐式的定义为<mark>内联函数</mark>，以便在编译时随时<mark>展开</mark></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">10</span>;<br>&#125;<br><span class="hljs-keyword">constexpr</span> a = <span class="hljs-built_in">test</span>();		<span class="hljs-comment">//正确</span><br></code></pre></td></tr></table></figure>
-<p><code>constexpr</code>函数不一定必须返回常量表达式，但是<mark>必须包含返回常量表达式的场景</mark>，并且当其在编译过程中展开并被检查到不返回常量时，编译器会报错</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">10</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> <span class="hljs-title">Test2</span><span class="hljs-params">(<span class="hljs-type">int</span> i)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Test</span>()*i;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> result = <span class="hljs-built_in">Test2</span>(<span class="hljs-number">2</span>);			<span class="hljs-comment">//正确</span><br>    <span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> result2 = <span class="hljs-built_in">Test2</span>(i);			<span class="hljs-comment">//错误</span><br>    cout &lt;&lt; result &lt;&lt; endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>constexpr</code>函数不一定必须返回常量表达式，但是<mark>必须包含返回常量表达式的场景</mark>，并且当其在编译过程中展开并被检查到不返回常量时，编译器会报错（只有使用常量表达式变量接收<code>constexpr</code>函数时，编译器才会验证此要求）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">10</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> <span class="hljs-title">Test2</span><span class="hljs-params">(<span class="hljs-type">int</span> i)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Test</span>()*i;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">2</span>;<br>    <span class="hljs-comment">//使用常量表达式变量接收</span><br>    <span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> result = <span class="hljs-built_in">Test2</span>(<span class="hljs-number">2</span>);			<span class="hljs-comment">//正确</span><br>    <span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> result2 = <span class="hljs-built_in">Test2</span>(i);			<span class="hljs-comment">//错误</span><br>    cout &lt;&lt; result &lt;&lt; endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>constexpr函数的定义必须出现在调用位置之前，单纯的前置声明没有作用</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span></span>;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> result = <span class="hljs-built_in">Test</span>();<span class="hljs-comment">//报错，&#x27;constexpr int Test()&#x27; used before its definition</span><br>    cout &lt;&lt; result &lt;&lt; endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">10</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h6 id="定义位置"><a class="markdownIt-Anchor" href="#定义位置"></a> <strong>定义位置</strong></h6>
@@ -682,18 +682,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/08/C++%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E5%92%8C%E6%95%B0%E7%BB%84/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">C++字符串、向量和数组</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/01/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%AD/">
-                        <span class="hidden-mobile">吴恩达机器学习六</span>
+                      <a href="/2022/08/27/C++%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/">
+                        <span class="hidden-mobile">C++变量和基本类型</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
