@@ -24,7 +24,7 @@
 <meta property="og:description" content="顺序容器总结">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-11T10:04:00.000Z">
-<meta property="article:modified_time" content="2022-02-19T09:16:17.814Z">
+<meta property="article:modified_time" content="2022-09-03T14:55:08.027Z">
 <meta property="article:author" content="StillWater">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -201,7 +201,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.5k 字
     </span>
   
 
@@ -210,7 +210,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11 分钟
+      13 分钟
     </span>
   
 
@@ -299,7 +299,54 @@
 <li>注意：向<code>vector、string、deque</code>插入元素会使原有的迭代器、引用和指针失效</li>
 </ul>
 <h5 id="22-访问元素"><a class="markdownIt-Anchor" href="#22-访问元素"></a> 2.2 访问元素</h5>
+<h6 id="基本操作"><a class="markdownIt-Anchor" href="#基本操作"></a> <strong>基本操作</strong></h6>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>c.back()</code></td>
+<td>返回<code>c</code>中尾元素（不是尾后）的引用。<code>c</code>为空，函数行为未定义</td>
+</tr>
+<tr>
+<td><code>c.front()</code></td>
+<td>返回<code>c</code>中首元素的引用。<code>c</code>为空，函数行为未定义</td>
+</tr>
+<tr>
+<td><code>c[n]</code></td>
+<td>返回<code>c</code>中下标为<code>n</code>的元素的引用，<code>n</code>为无符号整数。<code>n</code>越界，函数行为未定义</td>
+</tr>
+<tr>
+<td><code>c.at(n)</code></td>
+<td>返回<code>c</code>中下标为<code>n</code>的元素的引用。<code>n</code>越界，抛出<code>out_of_range</code>异常</td>
+</tr>
+</tbody>
+</table>
+<h6 id="注意事项"><a class="markdownIt-Anchor" href="#注意事项"></a> <strong>注意事项</strong></h6>
 <h5 id="23-删除元素"><a class="markdownIt-Anchor" href="#23-删除元素"></a> 2.3 删除元素</h5>
+<h6 id="基本操作-2"><a class="markdownIt-Anchor" href="#基本操作-2"></a> <strong>基本操作</strong></h6>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>c.pop_back()</code></td>
+<td>删除<code>c</code>中尾元素，返回<code>void</code>。<code>c</code>为空，函数行为未定义。</td>
+</tr>
+<tr>
+<td><code>c.pop_front()</code></td>
+<td>删除<code>c</code>中首元素，返回<code>void</code>。<code>c</code>为空，函数行为未定义。</td>
+</tr>
+</tbody>
+</table>
 <h5 id="24-其他操作"><a class="markdownIt-Anchor" href="#24-其他操作"></a> 2.4 其他操作</h5>
 <ul>
 <li><code>sort</code>函数排序
