@@ -2497,7 +2497,7 @@ D --Loader加载内核--&gt; E[操作系统]
     <title>C++类</title>
     <url>/2022/08/31/C++%E7%B1%BB/</url>
     <content><![CDATA[<h2 id="类"><a class="markdownIt-Anchor" href="#类"></a> 类</h2>
-<h2 id="1-类的特性"><a class="markdownIt-Anchor" href="#1-类的特性"></a> 1. 类的特性</h2>
+<h3 id="1-类的特性"><a class="markdownIt-Anchor" href="#1-类的特性"></a> 1. 类的特性</h3>
 <h4 id="11-类类型"><a class="markdownIt-Anchor" href="#11-类类型"></a> 1.1 类类型</h4>
 <h5 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h5>
 <p>每个类定义了唯一的类型，跟他们的内部成员没有关系。</p>
