@@ -19,13 +19,13 @@
     <meta name="description" content="C++基础相关知识点补充总结二">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++字符串、向量和数组">
-<meta property="og:url" content="https://cautiousnut.github.io/2022/08/08/C++%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E5%92%8C%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:url" content="https://cautiousnut.github.io/2022/09/20/C++%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E5%92%8C%E6%95%B0%E7%BB%84/index.html">
 <meta property="og:site_name" content="静水流深">
 <meta property="og:description" content="C++基础相关知识点补充总结二">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://images.unsplash.com/photo-1495757450029-09dbedacbc36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80">
-<meta property="article:published_time" content="2022-08-08T10:07:57.000Z">
-<meta property="article:modified_time" content="2022-08-08T10:10:48.984Z">
+<meta property="article:published_time" content="2022-09-20T14:47:57.000Z">
+<meta property="article:modified_time" content="2022-09-20T14:52:59.083Z">
 <meta property="article:author" content="StillWater">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -192,8 +192,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-08-08 18:07" pubdate>
-        2022年8月8日 晚上
+      <time datetime="2022-09-20 22:47" pubdate>
+        2022年9月20日 晚上
       </time>
     </span>
   
@@ -203,7 +203,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.9k 字
+      6k 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      50 分钟
+      51 分钟
     </span>
   
 
@@ -375,8 +375,8 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> a[] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">0</span>&#125;;<br><span class="hljs-comment">// 首元素指针</span><br><span class="hljs-type">int</span> *begin = a;<br><span class="hljs-type">int</span> *begin = &amp;a[<span class="hljs-number">0</span>];<br><span class="hljs-comment">// 尾后指针</span><br><span class="hljs-type">int</span> *end = &amp;a[<span class="hljs-number">10</span>];<br><span class="hljs-type">int</span> *last = a+<span class="hljs-number">10</span>;<br></code></pre></td></tr></table></figure>
 <p>类似容器迭代器，内置数组具有两个函数<code>begin</code>和<code>end</code>，将数组作为其参数即可得到首元素和尾后元素<mark>指针</mark>。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> a[] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>&#125;;<br><span class="hljs-type">int</span> *beg = <span class="hljs-built_in">begin</span>(a);<br><span class="hljs-type">int</span> *last = <span class="hljs-built_in">end</span>(a);<br></code></pre></td></tr></table></figure>
-<p>标准库中的<code>begin</code>和<code>end</code>只能用于<mark>数组类型</mark>，不能用于指针类型，二者不同</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> a[] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>&#125;;<br><span class="hljs-type">int</span> *b = a;<br><span class="hljs-type">int</span> *beg = <span class="hljs-built_in">begin</span>(b);			<span class="hljs-comment">// 错误</span><br><span class="hljs-type">int</span> *last = <span class="hljs-built_in">end</span>(b);				<span class="hljs-comment">// 错误</span><br></code></pre></td></tr></table></figure>
+<p>标准库中的<code>begin</code>和<code>end</code>只能用于<mark>数组类型</mark>，接收数组的引用，不能用于指针类型，包括指向数组的指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> a[] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>&#125;;<br><span class="hljs-type">int</span> *b = a;<br><span class="hljs-built_in">int</span> (*p)[<span class="hljs-number">6</span>] = &amp;a;<br><span class="hljs-type">int</span> *beg = <span class="hljs-built_in">begin</span>(b);			<span class="hljs-comment">// 错误</span><br><span class="hljs-type">int</span> *last = <span class="hljs-built_in">end</span>(b);				<span class="hljs-comment">// 错误</span><br><span class="hljs-type">int</span> *beg = <span class="hljs-built_in">begin</span>(p);			<span class="hljs-comment">// 错误</span><br><span class="hljs-type">int</span> *beg = <span class="hljs-built_in">begin</span>(*p);			<span class="hljs-comment">// 正确</span><br></code></pre></td></tr></table></figure>
 <p>指向数组元素的指针支持所有迭代器运算，特别的对于<code>-</code>运算，得到的结果为<code>ptrdoff_t</code>类型，是一种机器相关的带符号类型，定义于<code>cstddef</code>头文件中。</p>
 <h5 id="34-多维数组"><a class="markdownIt-Anchor" href="#34-多维数组"></a> 3.4 多维数组</h5>
 <p>C++语言中没有多维数组，此处所说多维数组实质上为<mark>数组的数组</mark></p>
@@ -441,18 +441,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/27/C++%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">C++变量和基本类型</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/01/%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%AD/">
-                        <span class="hidden-mobile">吴恩达机器学习六</span>
+                      <a href="/2022/08/31/C++%E7%B1%BB/">
+                        <span class="hidden-mobile">C++类</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
