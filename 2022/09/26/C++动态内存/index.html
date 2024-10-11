@@ -1,265 +1,173 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang=en>
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"cautiousnut.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
-
-  <meta name="description" content="C动态内存知识点总结，主要参考Cprimer第12章内容">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="C动态内存知识点总结，主要参考Cprimer第12章内容">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++动态内存">
 <meta property="og:url" content="https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/index.html">
-<meta property="og:site_name" content="静水流深">
+<meta property="og:site_name" content="Cautiousnut">
 <meta property="og:description" content="C动态内存知识点总结，主要参考Cprimer第12章内容">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-09-26T14:59:00.000Z">
 <meta property="article:modified_time" content="2022-09-26T15:05:23.059Z">
-<meta property="article:author" content="StillWater">
+<meta property="article:author" content="Cautiousnut">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>C++动态内存</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
-<link rel="canonical" href="https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/">
+
+    <!-- Umami Analytics -->
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
 
-  <title>C++动态内存 | 静水流深</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --></head>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/09/20/C++%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E5%92%8C%E6%95%B0%E7%BB%84/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&text=C++动态内存"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&title=C++动态内存"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&is_video=false&description=C++动态内存"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C++动态内存&body=Check out this article: https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&title=C++动态内存"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&title=C++动态内存"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&title=C++动态内存"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&title=C++动态内存"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&name=C++动态内存&description=&lt;p&gt;C&lt;ins&gt;动态内存知识点总结，主要参考C&lt;/ins&gt;primer第12章内容&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&t=C++动态内存"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
     </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">静水流深</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#c%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98"><span class="toc-number">1.</span> <span class="toc-text"> C++动态内存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%9B%B4%E6%8E%A5%E7%AE%A1%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text"> 1. 直接管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-new%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 1.1 new运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#new%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.1.1.1.</span> <span class="toc-text"> new动态分配和初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.1.1.1.</span> <span class="toc-text"> 普通对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#const%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.1.1.2.</span> <span class="toc-text"> const对象</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8Dnew"><span class="toc-number">1.1.1.2.</span> <span class="toc-text"> 定位new</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-delete%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 1.2 delete运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 1.3 相关问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%98%E8%AE%B0%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98"><span class="toc-number">1.1.3.1.</span> <span class="toc-text"> 忘记释放内存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%B7%B2%E7%BB%8F%E8%A2%AB%E9%87%8A%E6%94%BE%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.3.2.</span> <span class="toc-text"> 使用已经被释放的对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%B9%E5%90%8C%E4%B8%80%E5%86%85%E5%AD%98%E9%87%8A%E6%94%BE%E5%A4%9A%E6%AC%A1"><span class="toc-number">1.1.3.3.</span> <span class="toc-text"> 对同一内存释放多次</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="toc-number">1.2.</span> <span class="toc-text"> 2. 智能指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#21-%E5%85%B1%E5%90%8C%E7%89%B9%E6%80%A7"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 2.1 共同特性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> 定义和初始化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"> 相关操作</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#22-shared_ptr%E7%B1%BB"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 2.2 shared_ptr类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96-2"><span class="toc-number">1.2.2.1.</span> <span class="toc-text"> 定义和初始化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C-2"><span class="toc-number">1.2.2.2.</span> <span class="toc-text"> 相关操作</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.2.2.1.</span> <span class="toc-text"> 操作概述</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#make_shared%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.2.2.</span> <span class="toc-text"> make_shared函数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD%E5%88%A0%E9%99%A4%E5%99%A8"><span class="toc-number">1.2.2.2.3.</span> <span class="toc-text"> 重载删除器</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98"><span class="toc-number">1.2.2.3.</span> <span class="toc-text"> 管理动态内存</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="toc-number">1.2.2.3.1.</span> <span class="toc-text"> 引用计数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E9%94%80%E6%AF%81"><span class="toc-number">1.2.2.3.2.</span> <span class="toc-text"> 自动销毁</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.2.2.4.</span> <span class="toc-text"> 使用示例</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#23-unique_ptr%E7%B1%BB"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 2.3 unique_ptr类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C-3"><span class="toc-number">1.2.3.2.</span> <span class="toc-text"> 相关操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD%E5%88%A0%E9%99%A4%E5%99%A8-2"><span class="toc-number">1.2.3.3.</span> <span class="toc-text"> 重载删除器</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#24-weak_ptr%E7%B1%BB"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 2.4 weak_ptr类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96-3"><span class="toc-number">1.2.4.1.</span> <span class="toc-text"> 定义和初始化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.4.2.</span> <span class="toc-text"> 操作总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84"><span class="toc-number">1.3.</span> <span class="toc-text"> 3. 动态数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#31-new%E5%92%8C%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 3.1 new和智能指针</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%8A%E9%87%8A%E6%94%BE"><span class="toc-number">1.3.1.1.</span> <span class="toc-text"> 定义、初始化及释放</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E9%87%8A%E6%94%BE"><span class="toc-number">1.3.1.1.1.</span> <span class="toc-text"> 定义和释放</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.3.1.1.2.</span> <span class="toc-text"> 初始化</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E7%AE%A1%E7%90%86%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84"><span class="toc-number">1.3.1.2.</span> <span class="toc-text"> 智能指针管理动态数组</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#32-allocator%E7%B1%BB"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 3.2 allocator类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-number">1.3.2.1.</span> <span class="toc-text"> 定义和内存分配</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%94%80%E6%AF%81%E5%92%8C%E5%86%85%E5%AD%98%E9%87%8A%E6%94%BE"><span class="toc-number">1.3.2.2.</span> <span class="toc-text"> 销毁和内存释放</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%B4%E9%9A%8F%E7%AE%97%E6%B3%95"><span class="toc-number">1.3.2.3.</span> <span class="toc-text"> 伴随算法</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
 
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        C++动态内存
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Cautiousnut</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-09-26T14:59:00.000Z" class="dt-published" itemprop="datePublished">2022-09-26</time>
+        
+      
     </div>
-  </div>
 
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="StillWater">
-      <meta itemprop="description" content="业精于勤荒于嬉，行成于思毁于随">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="静水流深">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          C++动态内存
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-09-26 22:59:00 / 修改时间：23:05:23" itemprop="dateCreated datePublished" datetime="2022-09-26T22:59:00+08:00">2022-09-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>13k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>12 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="c动态内存"><a class="markdownIt-Anchor" href="#c动态内存"></a> C++动态内存</h2>
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/C/">C++</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="c动态内存"><a class="markdownIt-Anchor" href="#c动态内存"></a> C++动态内存</h2>
 <p><code>C++</code>编译器维护三种内存空间用于保存不同种类的数据。</p>
 <ul>
 <li>静态内存
@@ -465,7 +373,7 @@
 <p>每个<code>shared_ptr</code>内部都保存一个计数器，称为<mark>引用计数</mark>，用于保存指向指针当前所指对象的<code>shared_ptr</code>的个数</p>
 <p>当拷贝一个<code>shared_ptr</code>时，引用计数会<strong>增加</strong>。比如，用一个<code>shared_ptr</code>初始化另一个<code>shared_ptr</code>、将<code>shared_ptr</code>作为函数参数、将<code>shared_ptr</code>作为函数返回值。</p>
 <p>当给<code>shared_ptr</code>赋一个新值，或者销毁<code>shared_ptr</code>（如离开作用域）时，引用计数会<strong>减少</strong>。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">shared_ptr&lt;<span class="type">int</span>&gt; p1 = <span class="built_in">make_shared</span>&lt;<span class="type">int</span>&gt;(<span class="number">1</span>);</span><br><span class="line">shared_ptr&lt;<span class="type">int</span>&gt;<span class="built_in">p2</span>(p1);							<span class="comment">//引用计数+1</span></span><br><span class="line">cout &lt;&lt; p1.<span class="built_in">use_count</span>() &lt;&lt; endl;					<span class="comment">//引用计数为2</span></span><br><span class="line">cout &lt;&lt; p2.<span class="built_in">use_count</span>() &lt;&lt; endl;					<span class="comment">//引用计数为2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">shared_ptr&lt;<span class="type">int</span>&gt; p1 = <span class="built_in">make_shared</span>&lt;<span class="type">int</span>&gt;(<span class="number">1</span>);</span><br><span class="line">shared_ptr&lt;<span class="type">int</span>&gt;<span class="built_in">p2</span>(p1);							<span class="comment">//引用计数+1</span></span><br><span class="line">cout &lt;&lt; p<span class="number">1.</span><span class="built_in">use_count</span>() &lt;&lt; endl;					<span class="comment">//引用计数为2</span></span><br><span class="line">cout &lt;&lt; p<span class="number">2.</span><span class="built_in">use_count</span>() &lt;&lt; endl;					<span class="comment">//引用计数为2</span></span><br></pre></td></tr></table></figure>
 <h6 id="自动销毁"><a class="markdownIt-Anchor" href="#自动销毁"></a> <strong>自动销毁</strong></h6>
 <p>当一个对象的引用计数为0时，<code>shared_ptr</code>类会自动销毁此对象</p>
 <p>每次销毁<code>shared_ptr</code>时，调用<code>shared_ptr</code>的析构函数。此析构函数会将引用计数减<code>1</code>，如果引用计数为<code>0</code>，则调用对象的析构函数，销毁对象</p>
@@ -658,231 +566,143 @@
 </table>
 <p>上述伴随算法构造对象的类型根据迭代器的类型确定。此处的迭代器可以是容器的迭代器类型，也可以是指针</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">allocator&lt;<span class="type">int</span>&gt;alloc;</span><br><span class="line"><span class="type">int</span>*p = alloc.<span class="built_in">allocate</span>(<span class="number">10</span>);</span><br><span class="line"><span class="built_in">uninitialized_fill_n</span>(p,<span class="number">10</span>,<span class="number">1</span>);</span><br><span class="line"><span class="type">int</span> *q = alloc.<span class="built_in">allocate</span>(<span class="number">10</span>);</span><br><span class="line"><span class="built_in">uninitialized_copy_n</span>(p,<span class="number">10</span>,q);</span><br></pre></td></tr></table></figure>
-    </div>
-
-    
-    
-    
-        
-
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>StillWater
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/" title="C++动态内存">https://cautiousnut.github.io/2022/09/26/C++动态内存/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/09/20/C++%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E5%92%8C%E6%95%B0%E7%BB%84/" rel="prev" title="C++字符串、向量和数组">
-      <i class="fa fa-chevron-left"></i> C++字符串、向量和数组
-    </a></div>
-      <div class="post-nav-item"></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
   </div>
+</article>
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
       </ul>
+    </div>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#c%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98"><span class="nav-number">1.</span> <span class="nav-text"> C++动态内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%9B%B4%E6%8E%A5%E7%AE%A1%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text"> 1. 直接管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-new%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 1.1 new运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#new%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.1.1.1.</span> <span class="nav-text"> new动态分配和初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.1.1.1.1.</span> <span class="nav-text"> 普通对象</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#const%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.1.1.1.2.</span> <span class="nav-text"> const对象</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8Dnew"><span class="nav-number">1.1.1.2.</span> <span class="nav-text"> 定位new</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-delete%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.1.2.</span> <span class="nav-text"> 1.2 delete运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.3.</span> <span class="nav-text"> 1.3 相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BF%98%E8%AE%B0%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98"><span class="nav-number">1.1.3.1.</span> <span class="nav-text"> 忘记释放内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B7%B2%E7%BB%8F%E8%A2%AB%E9%87%8A%E6%94%BE%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.1.3.2.</span> <span class="nav-text"> 使用已经被释放的对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E5%90%8C%E4%B8%80%E5%86%85%E5%AD%98%E9%87%8A%E6%94%BE%E5%A4%9A%E6%AC%A1"><span class="nav-number">1.1.3.3.</span> <span class="nav-text"> 对同一内存释放多次</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">1.2.</span> <span class="nav-text"> 2. 智能指针</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#21-%E5%85%B1%E5%90%8C%E7%89%B9%E6%80%A7"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 2.1 共同特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.1.1.</span> <span class="nav-text"> 定义和初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.1.2.</span> <span class="nav-text"> 相关操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-shared_ptr%E7%B1%BB"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 2.2 shared_ptr类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96-2"><span class="nav-number">1.2.2.1.</span> <span class="nav-text"> 定义和初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C-2"><span class="nav-number">1.2.2.2.</span> <span class="nav-text"> 相关操作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.2.2.1.</span> <span class="nav-text"> 操作概述</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#make_shared%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.2.2.2.</span> <span class="nav-text"> make_shared函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E5%88%A0%E9%99%A4%E5%99%A8"><span class="nav-number">1.2.2.2.3.</span> <span class="nav-text"> 重载删除器</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98"><span class="nav-number">1.2.2.3.</span> <span class="nav-text"> 管理动态内存</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="nav-number">1.2.2.3.1.</span> <span class="nav-text"> 引用计数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E9%94%80%E6%AF%81"><span class="nav-number">1.2.2.3.2.</span> <span class="nav-text"> 自动销毁</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.2.4.</span> <span class="nav-text"> 使用示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-unique_ptr%E7%B1%BB"><span class="nav-number">1.2.3.</span> <span class="nav-text"> 2.3 unique_ptr类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.3.1.</span> <span class="nav-text"> 特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C-3"><span class="nav-number">1.2.3.2.</span> <span class="nav-text"> 相关操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E5%88%A0%E9%99%A4%E5%99%A8-2"><span class="nav-number">1.2.3.3.</span> <span class="nav-text"> 重载删除器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#24-weak_ptr%E7%B1%BB"><span class="nav-number">1.2.4.</span> <span class="nav-text"> 2.4 weak_ptr类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96-3"><span class="nav-number">1.2.4.1.</span> <span class="nav-text"> 定义和初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.4.2.</span> <span class="nav-text"> 操作总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84"><span class="nav-number">1.3.</span> <span class="nav-text"> 3. 动态数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#31-new%E5%92%8C%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">1.3.1.</span> <span class="nav-text"> 3.1 new和智能指针</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%8A%E9%87%8A%E6%94%BE"><span class="nav-number">1.3.1.1.</span> <span class="nav-text"> 定义、初始化及释放</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E9%87%8A%E6%94%BE"><span class="nav-number">1.3.1.1.1.</span> <span class="nav-text"> 定义和释放</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.3.1.1.2.</span> <span class="nav-text"> 初始化</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E7%AE%A1%E7%90%86%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84"><span class="nav-number">1.3.1.2.</span> <span class="nav-text"> 智能指针管理动态数组</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#32-allocator%E7%B1%BB"><span class="nav-number">1.3.2.</span> <span class="nav-text"> 3.2 allocator类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.3.2.1.</span> <span class="nav-text"> 定义和内存分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%94%80%E6%AF%81%E5%92%8C%E5%86%85%E5%AD%98%E9%87%8A%E6%94%BE"><span class="nav-number">1.3.2.2.</span> <span class="nav-text"> 销毁和内存释放</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%B4%E9%9A%8F%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.2.3.</span> <span class="nav-text"> 伴随算法</span></a></li></ol></li></ol></li></ol></li></ol></div>
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#c%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98"><span class="toc-number">1.</span> <span class="toc-text"> C++动态内存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%9B%B4%E6%8E%A5%E7%AE%A1%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text"> 1. 直接管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-new%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 1.1 new运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#new%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.1.1.1.</span> <span class="toc-text"> new动态分配和初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.1.1.1.</span> <span class="toc-text"> 普通对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#const%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.1.1.2.</span> <span class="toc-text"> const对象</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8Dnew"><span class="toc-number">1.1.1.2.</span> <span class="toc-text"> 定位new</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-delete%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 1.2 delete运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 1.3 相关问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%98%E8%AE%B0%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98"><span class="toc-number">1.1.3.1.</span> <span class="toc-text"> 忘记释放内存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%B7%B2%E7%BB%8F%E8%A2%AB%E9%87%8A%E6%94%BE%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.3.2.</span> <span class="toc-text"> 使用已经被释放的对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%B9%E5%90%8C%E4%B8%80%E5%86%85%E5%AD%98%E9%87%8A%E6%94%BE%E5%A4%9A%E6%AC%A1"><span class="toc-number">1.1.3.3.</span> <span class="toc-text"> 对同一内存释放多次</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="toc-number">1.2.</span> <span class="toc-text"> 2. 智能指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#21-%E5%85%B1%E5%90%8C%E7%89%B9%E6%80%A7"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 2.1 共同特性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> 定义和初始化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"> 相关操作</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#22-shared_ptr%E7%B1%BB"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 2.2 shared_ptr类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96-2"><span class="toc-number">1.2.2.1.</span> <span class="toc-text"> 定义和初始化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C-2"><span class="toc-number">1.2.2.2.</span> <span class="toc-text"> 相关操作</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.2.2.1.</span> <span class="toc-text"> 操作概述</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#make_shared%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.2.2.</span> <span class="toc-text"> make_shared函数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD%E5%88%A0%E9%99%A4%E5%99%A8"><span class="toc-number">1.2.2.2.3.</span> <span class="toc-text"> 重载删除器</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98"><span class="toc-number">1.2.2.3.</span> <span class="toc-text"> 管理动态内存</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="toc-number">1.2.2.3.1.</span> <span class="toc-text"> 引用计数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E9%94%80%E6%AF%81"><span class="toc-number">1.2.2.3.2.</span> <span class="toc-text"> 自动销毁</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.2.2.4.</span> <span class="toc-text"> 使用示例</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#23-unique_ptr%E7%B1%BB"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 2.3 unique_ptr类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C-3"><span class="toc-number">1.2.3.2.</span> <span class="toc-text"> 相关操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD%E5%88%A0%E9%99%A4%E5%99%A8-2"><span class="toc-number">1.2.3.3.</span> <span class="toc-text"> 重载删除器</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#24-weak_ptr%E7%B1%BB"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 2.4 weak_ptr类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96-3"><span class="toc-number">1.2.4.1.</span> <span class="toc-text"> 定义和初始化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.4.2.</span> <span class="toc-text"> 操作总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84"><span class="toc-number">1.3.</span> <span class="toc-text"> 3. 动态数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#31-new%E5%92%8C%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 3.1 new和智能指针</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%8A%E9%87%8A%E6%94%BE"><span class="toc-number">1.3.1.1.</span> <span class="toc-text"> 定义、初始化及释放</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E9%87%8A%E6%94%BE"><span class="toc-number">1.3.1.1.1.</span> <span class="toc-text"> 定义和释放</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.3.1.1.2.</span> <span class="toc-text"> 初始化</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E7%AE%A1%E7%90%86%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84"><span class="toc-number">1.3.1.2.</span> <span class="toc-text"> 智能指针管理动态数组</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#32-allocator%E7%B1%BB"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 3.2 allocator类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-number">1.3.2.1.</span> <span class="toc-text"> 定义和内存分配</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%94%80%E6%AF%81%E5%92%8C%E5%86%85%E5%AD%98%E9%87%8A%E6%94%BE"><span class="toc-number">1.3.2.2.</span> <span class="toc-text"> 销毁和内存释放</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%B4%E9%9A%8F%E7%AE%97%E6%B3%95"><span class="toc-number">1.3.2.3.</span> <span class="toc-text"> 伴随算法</span></a></li></ol></li></ol></li></ol></li></ol>
       </div>
-      <!--/noindex-->
+    
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="StillWater"
-      src="/images/avatar.jpg">
-  <p class="site-author-name" itemprop="name">StillWater</p>
-  <div class="site-description" itemprop="description">业精于勤荒于嬉，行成于思毁于随</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">22</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&text=C++动态内存"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&title=C++动态内存"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&is_video=false&description=C++动态内存"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C++动态内存&body=Check out this article: https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&title=C++动态内存"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&title=C++动态内存"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&title=C++动态内存"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&title=C++动态内存"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&name=C++动态内存&description=&lt;p&gt;C&lt;ins&gt;动态内存知识点总结，主要参考C&lt;/ins&gt;primer第12章内容&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cautiousnut.github.io/2022/09/26/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98/&t=C++动态内存"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
         
-
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
         
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
 
-<div class="copyright">
-  
-  &copy; 2021-7-16 – 
-  <span itemprop="copyrightYear">2022</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">StillWater</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-    <span title="站点总字数">101k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="站点阅读时长">1:32</span>
+  </div>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
 
         
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    Cautiousnut
   </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
   
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
 
 
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-  
-<script src="/js/local-search.js"></script>
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+<!-- utterances Comments -->
 
 </body>
 </html>
